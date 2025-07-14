@@ -1,8 +1,8 @@
 import { Geist_Mono, Poppins } from "next/font/google";
-import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Nav } from "./components/nav";
 import { Footer } from "./components/footer";
+import "./globals.css";
 
 const fontSans = Poppins({
   subsets: ["latin"],
