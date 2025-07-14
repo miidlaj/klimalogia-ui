@@ -1,6 +1,5 @@
 import { Geist_Mono, Poppins } from "next/font/google";
-import "@workspace/ui/globals.css";
-import "@/styles/app.css";
+import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Nav } from "./components/nav";
 import { Footer } from "./components/footer";
