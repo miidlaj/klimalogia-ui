@@ -1,0 +1,82 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
+import { Button } from "@workspace/ui/components/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@workspace/ui/components/sheet";
+import Logo from "@/components/logo";
+
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about-us" },
+  { name: "Mission & Vision", href: "/mission-vision" },
+  { name: "Services", href: "/services" },
+  { name: "Partner with us", href: "/partner-with-us" },
+  { name: "Contact Us", href: "/contact-us" },
+];
+
+export function Nav() {
+  const pathname = usePathname();
+
+  return (
+    <nav className="absolute top-0 z-50 w-full">
+      <div className="container mx-auto flex items-center justify-between p-6">
+        <Link href="/" className="flex items-center space-x-2">
+          <Logo height={150} width={150} />
+        </Link>
+
+        <div className="hidden md:flex md:gap-x-6">
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              href={item.href}
+              className={`text-sm font-light text-white hover:text-white/80 ${
+                pathname === item.href ? "border-b-2 border-white" : ""
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </div>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden text-white"
+            >
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetHeader>
+              <SheetTitle>Menu</SheetTitle>
+            </SheetHeader>
+            <nav className="mt-8 flex flex-col space-y-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`text-lg font-semibold transition-colors hover:text-primary ${
+                    pathname === item.href ? "border-b-2 border-primary" : ""
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </nav>
+  );
+}

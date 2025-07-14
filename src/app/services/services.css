@@ -1,0 +1,134 @@
+.stripes {
+  opacity: 0.6;
+  background: repeating-linear-gradient(
+    45deg,
+    #042a33,
+    #042a33 10px,
+    #0e5d6e 10px,
+    #0e5d6e 20px
+  );
+  z-index: 0;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #1a2456 0%, #079699 50%, #00843d 100%);
+}
+
+.card-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 36, 86, 0.1) 0%,
+    rgba(7, 150, 153, 0.1) 50%,
+    rgba(0, 132, 61, 0.1) 100%
+  );
+}
+
+.animated-gradient {
+  background: linear-gradient(270deg, #1a2456, #079699, #00843d, #1a2456);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(120deg, #1D976C, #2c3e50);
+  }
+  .circles {
+    position: absolute;
+    height: 270px;
+    width: 450px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+  .circle-1 {
+    height: 300px;
+    width: 300px;
+    top: 100px;
+    left: -50px;
+    opacity: 0.8;
+    animation-timing-function: cubic-bezier(0.54, 0.085, 0.5, 0.92);
+    animation-iteration-count: infinite;
+    animation-name: float;
+    -webkit-animation-name: float;
+    animation-duration: 6s;
+    -webkit-animation-duration: 6s;
+    -webkit-animation-delay: 3.5s;
+    animation-delay: 3.5s;
+    animation-direction: alternate;
+    
+  }
+  
+  .circle-2 {
+    height: 240px;
+    width: 240px;
+    bottom: 40px;
+    right: -100px;
+    opacity: 0.8;
+    animation-timing-function: cubic-bezier(0.54, 0.085, 0.5, 0.92);
+    animation-iteration-count: infinite;
+    animation-name: float;
+    -webkit-animation-name: float;
+    animation-duration: 6s;
+    -webkit-animation-duration: 6s;
+    -webkit-animation-delay: 2s;
+    animation-delay: 2s;
+    animation-direction: alternate;
+  }
+  /* Background circles end */
+  
