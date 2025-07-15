@@ -37,11 +37,12 @@ export default function ContactPage() {
     },
     {
       city: "Mumbai",
-      address: "XXXX",
+      address: "XXXX (Need to change/update)",
       flag: "https://img.icons8.com/color/50/india.png",
       alt: "external-india-flags-others-iconmarket",
     },
   ];
+
   return (
     <main className="min-h-screen">
       <section className="relative min-h-[100vh] flex items-center justify-center">
@@ -114,21 +115,31 @@ export default function ContactPage() {
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
                         <Mail className="h-5 w-5 text-primary" />
-                        <a
-                          href="mailto:klimalogia@gmail.com"
-                          className="text-gray-300 hover:text-white transition-colors"
-                        >
-                          klimalogia@gmail.com
-                        </a>
+                        <div>
+                          <a
+                            href="mailto:klimalogia@gmail.com"
+                            className="text-gray-300 hover:text-white transition-colors"
+                          >
+                            klimalogia@gmail.com
+                          </a>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
+                        </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <Phone className="h-5 w-5 text-primary" />
-                        <a
-                          href="tel:+971XXXX"
-                          className="text-gray-300 hover:text-white transition-colors"
-                        >
-                          +971 XXXX
-                        </a>
+                        <div>
+                          <a
+                            href="tel:+971XXXX"
+                            className="text-gray-300 hover:text-white transition-colors"
+                          >
+                            +971 XXXX
+                          </a>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
+                        </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <svg
@@ -138,12 +149,17 @@ export default function ContactPage() {
                         >
                           <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 15.32C16.02 16.92 12.87 18.07 12 18.07C11.13 18.07 7.98 16.92 7.36 15.32C6.93 14.23 7.08 12.63 7.36 11.54C7.64 10.45 9.03 9.07 10.12 8.79C11.21 8.51 12.8 8.66 13.89 9.07C14.98 9.49 16.36 10.88 16.64 11.97C16.92 13.06 17.07 14.23 16.64 15.32Z" />
                         </svg>
-                        <a
-                          href="https://wa.me/971XXXX"
-                          className="text-gray-300 hover:text-white transition-colors"
-                        >
-                          +971 XXXX
-                        </a>
+                        <div>
+                          <a
+                            href="https://wa.me/971XXXX"
+                            className="text-gray-300 hover:text-white transition-colors"
+                          >
+                            +971 XXXX
+                          </a>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -152,6 +168,9 @@ export default function ContactPage() {
                     <h2 className="text-2xl font-semibold text-white mb-4">
                       Social Media
                     </h2>
+                    <p className="text-gray-400 text-sm mb-4">
+                      (Need to change/update)
+                    </p>
                     <div className="flex gap-4">
                       <a
                         href="#"

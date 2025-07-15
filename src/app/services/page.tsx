@@ -7,64 +7,86 @@ import HeroBg from "@/components/hero-bg";
 export const metadata: Metadata = {
   title: "Services | Sustainability Solutions",
   description:
-    "Explore our comprehensive sustainability and environmental services including Strategy & Advisory, Assurance & Certification, Energy Efficiency & Transition, and more.",
+    "Explore our comprehensive sustainability and environmental services including Strategy & Advisory, Assurance & Compliance, Action & Transformation, and Digital Solutions.",
 };
 
-const datas = [
+const services = [
   {
     title: "Strategy & Advisory",
-    p1: "Our comprehensive strategy and advisory services encompass corporate sustainability strategy, net-zero roadmaps, and policy development. We provide expert guidance on climate action, sustainability targets, and innovative technology solutions.",
-    p2: "We develop customized policies and guidelines for sustainable events, materials procurement, supply chain management, waste management, and sustainable operations.",
-    p3: "Our advisory services cover climate action strategies, sustainability target setting, nature-based solutions, and innovative technology implementation to help organizations achieve their sustainability goals.",
+    description:
+      "Comprehensive sustainability strategy, ESG reporting, GHG accounting, decarbonization pathways, net-zero target setting, climate risk assessment, climate transition planning, carbon markets, sustainable finance, and sustainability benchmarking solutions.",
+    features: [
+      "Sustainability Strategy Design",
+      "ESG Reporting & Advisory",
+      "GHG Accounting",
+      "Decarbonization Pathways",
+      "Net-Zero Target Setting",
+      "Climate Risk Assessment",
+      "Climate Transition Planning",
+      "Carbon Markets",
+      "Sustainable Finance",
+      "Sustainability Benchmarking",
+    ],
     image: "/service/stratergy.jpg",
     link: "/services/strategy-advisory",
   },
   {
-    title: "Assurance & Certification",
-    p1: "We offer comprehensive certification services for green buildings including LEED, BREEAM, WELL, and other international standards. Our expertise extends to sustainability certifications and assurance services for ESG and GHG emissions.",
-    p2: "Our certification portfolio includes Energy Star, TRUE Certification, ISO Certifications, Green Globe, and the FIA Environmental Accreditation Programme.",
-    p3: "We provide thorough assurance services for ESG reporting, GHG emissions verification, and sustainability initiatives validation to ensure compliance and credibility.",
+    title: "Assurance & Compliance",
+    description:
+      "Third-party verification and certification across green buildings, carbon neutrality, ISO standards, sector-specific certifications, environmental product declarations, ESG assurance, GHG verification, and regulatory compliance.",
+    features: [
+      "Green Building Certifications",
+      "Net-Zero & Carbon-Neutrality",
+      "Carbon Registry",
+      "ISO Certifications",
+      "Sector-specific Certifications",
+      "Environmental Product Declaration",
+      "ESG Assurance",
+      "GHG Assurance",
+      "Regulatory Compliance",
+    ],
     image: "/service/assurance.jpg",
-    link: "/services/assurance-certification",
+    link: "/services/assurance-compliance",
   },
   {
-    title: "Energy Efficiency & Transition",
-    p1: "Our energy services encompass comprehensive ASHRAE level audits, renewable energy solutions, and strategic energy transition planning to help organizations optimize their energy usage and transition to sustainable sources.",
-    p2: "We specialize in solar PV implementation, renewable energy design, and optimization strategies to maximize energy efficiency and reduce environmental impact.",
-    p3: "Our team develops customized energy transition roadmaps and strategies to help organizations achieve their sustainability goals while maintaining operational excellence.",
+    title: "Action & Transformation",
+    description:
+      "Implementation services including energy and utility audits, waste management and circular economy, environmental impact assessments, nature and biodiversity programs, renewable energy solutions, environmental testing, emission quantification, and sustainability workshops.",
+    features: [
+      "Energy and Utility Audits",
+      "Waste Audits & Circular Economy",
+      "Environmental Impact Assessment",
+      "Nature and Biodiversity",
+      "Renewable Energy",
+      "Environmental Testing",
+      "Emission Quantification",
+      "Sustainability Workshops",
+    ],
     image: "/service/efficiency.jpg",
-    link: "/services/energy-efficiency",
+    link: "/services/action-transformation",
   },
   {
-    title: "Climate Change & Decarbonization",
-    p1: "We provide comprehensive GHG accounting and reporting services following international standards like GHG Protocol and ISO 14064. Our expertise includes lifecycle assessments and net-zero strategy development.",
-    p2: "Our decarbonization strategies incorporate both nature-based and technology-based solutions, supported by detailed carbon planning and offset programs.",
-    p3: "We assess climate risks, develop resilience strategies, and create comprehensive climate action plans to help organizations adapt to and mitigate climate change impacts.",
+    title: "Digital Solutions",
+    description:
+      "Advanced modeling and simulation tools including energy modeling, solar PV design, lifecycle assessment, climate modeling and scenario analysis, lighting simulation, emission quantification, and customized digital sustainability solutions.",
+    features: [
+      "Energy Modeling",
+      "Solar PV Design & Simulation",
+      "Life Cycle Assessment (LCA)",
+      "Climate Modeling",
+      "Climate Scenario Analysis",
+      "Lighting Simulation",
+      "Emission Quantification",
+      "Customized Digital Solutions",
+    ],
     image: "/service/climate.jpg",
-    link: "/services/climate-change",
-  },
-  {
-    title: "Sustainability & ESG Reporting",
-    p1: "Our ESG services cover strategy development, metrics definition, and comprehensive reporting aligned with major frameworks including GRI, CDP, TCFD, and UNGC.",
-    p2: "We provide expertise in ESG debt advisory, ESG-linked financing assurance, and double materiality assessments to support sustainable financial decisions.",
-    p3: "Our team ensures compliance with evolving reporting standards including CSRD and IFRS S1 and S2, while providing thorough ESG assurance services.",
-    image: "/service/sustainability.jpg",
-    link: "/services/sustainability-esg",
-  },
-  {
-    title: "Advanced Climate Analytics",
-    p1: "We leverage cutting-edge technology for lifecycle assessments, energy modeling, and environmental simulations. Our services include thermal modeling, computational fluid dynamics, and façade optimization.",
-    p2: "Our in-house software platforms integrate AI for comprehensive data collection and analysis of energy, water, waste, and carbon metrics.",
-    p3: "We provide detailed analysis and recommendations through advanced modeling techniques, helping organizations optimize their environmental performance and achieve sustainability goals.",
-    image: "/service/climate.jpg",
-    link: "/services/climate-analytics",
+    link: "/services/digital-solutions",
   },
 ];
 
 const Page = () => {
   return (
     <HeroBg video="/service.mp4" image="/service.jpg">
-      {/* gradient-bg */}
       <div className="min-h-screen pb-20">
         <section className="pb-[88px] pt-20">
           <div className="mx-auto">
@@ -74,13 +96,16 @@ const Page = () => {
                   <h2 className="mb-3 text-4xl font-extrabold leading-[1.2] text-white sm:text-5xl md:text-[60px]">
                     Our Services
                   </h2>
-                  <p className="text-base font-medium text-[14px] text-gray-200">
-                    At Klimalogia, we offer a full spectrum of sustainability
-                    and climate solutions tailored to help your business achieve
-                    its goals. Whether you&apos;re a startup or an industry
-                    leader, we combine cutting-edge technology, industry
-                    expertise, and innovative strategies to provide practical,
-                    actionable, and transformative solutions.
+                  <p className="text-base font-medium text-[14px] text-gray-200 max-w-4xl mx-auto">
+                    At Klimalogia, we deliver end-to-end climate and
+                    sustainability solutions designed to help your business meet
+                    its goals. With deep domain expertise and a hands-on
+                    approach, we support clients across industries and
+                    geographies by integrating innovative technology,
+                    sector-specific expertise, and forward-thinking strategies
+                    to deliver practical, high-impact results. Our services add
+                    value by aligning business performance with climate goals,
+                    regulatory demands, and stakeholder expectations.
                   </p>
                   <div className="flex justify-center mt-6">
                     <AnimatedButton
@@ -94,7 +119,7 @@ const Page = () => {
             </div>
 
             <div className="md:px-52 flex flex-col justify-center items-center gap-24">
-              {datas.map((data, index) => (
+              {services.map((service, index) => (
                 <div key={index} className="gradient-border w-full">
                   <div
                     className={`service-card rounded-xl p-8 flex-col md:flex-row flex justify-center md:gap-20 items-center w-full h-full ${
@@ -103,8 +128,8 @@ const Page = () => {
                   >
                     <div className="relative w-full md:w-1/2 px-10 md:px-5 py-52">
                       <Image
-                        src={data.image || "/placeholder.svg"}
-                        alt={data.title}
+                        src={service.image || "/placeholder.svg"}
+                        alt={service.title}
                         layout="fill"
                         objectFit="cover"
                         className="z-20 rounded-xl shadow-[5px_5px_rgba(0,_98,_90,_0.4),_10px_10px_rgba(0,_98,_90,_0.3),_15px_15px_rgba(0,_98,_90,_0.2),_20px_20px_rgba(0,_98,_90,_0.1),_25px_25px_rgba(0,_98,_90,_0.05)]"
@@ -116,24 +141,31 @@ const Page = () => {
                         className="mb-3 text-center md:text-left text-white text-2xl font-extrabold leading-[1.2] sm:text-3xl md:text-[40px]"
                         style={{ lineHeight: "46px" }}
                       >
-                        {data.title}
+                        {service.title}
                       </h1>
 
-                      <p className="text-base font-medium text-[14px] text-gray-200">
-                        {data.p1}
-                        <br />
-                        <br />
-                        {data.p2}
-                        <br />
-                        <br />
-                        {data.p3}
+                      <p className="text-base font-medium text-[14px] text-gray-200 mb-4">
+                        {service.description}
                       </p>
+
+                      <div className="mb-4">
+                        <h3 className="text-lg font-semibold text-white mb-2">
+                          Key Services:
+                        </h3>
+                        <div className="grid grid-cols-1 gap-1">
+                          {service.features.map((feature, idx) => (
+                            <div key={idx} className="text-sm text-gray-300">
+                              • {feature}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
                       <div className="flex justify-end mt-6">
                         <AnimatedButton
-                          link={"/contact-us"}
+                          link={service.link}
                           l="32"
-                          text="More Details"
+                          text="Learn More"
                         />
                       </div>
                     </div>
