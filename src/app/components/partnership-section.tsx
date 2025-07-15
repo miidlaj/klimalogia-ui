@@ -61,7 +61,7 @@ export function PartnershipSection() {
         <div className="bg-primary/5 rounded-lg p-8 text-center">
           <h3 className="text-2xl font-bold mb-4">Ready to Partner with Us?</h3>
           <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">
-            Whether you're looking to advance sustainability goals, strengthen ESG leadership, or create shared impact, we're ready to collaborate and build something meaningful together.
+            Whether you&apos;re looking to advance sustainability goals, strengthen ESG leadership, or create shared impact, we&apos;re ready to collaborate and build something meaningful together.
           </p>
           <Button asChild size="lg">
             <Link href="/partner-with-us">Explore Partnership Opportunities</Link>

@@ -140,7 +140,7 @@ export default function CareersPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Why Choose Klimalogia?</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Be part of a globally trusted team that's making a real difference in climate action and sustainability. We offer more than just a job – we offer the opportunity to shape the future.
+              Be part of a globally trusted team that&apos;s making a real difference in climate action and sustainability. We offer more than just a job – we offer the opportunity to shape the future.
             </p>
           </div>
 
@@ -164,7 +164,7 @@ export default function CareersPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Our Values (RISE)</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our core values guide everything we do and shape the culture we've built at Klimalogia.
+              Our core values guide everything we do and shape the culture we&apos;ve built at Klimalogia.
             </p>
           </div>
 
@@ -217,7 +217,7 @@ export default function CareersPage() {
 
           <div className="text-center">
             <p className="text-gray-600 mb-6">
-              Don't see a position that fits? We're always looking for talented individuals to join our team.
+              Don&apos;t see a position that fits? We&apos;re always looking for talented individuals to join our team.
             </p>
             <Button asChild size="lg">
               <Link href="/contact-us">Send Us Your Resume</Link>
