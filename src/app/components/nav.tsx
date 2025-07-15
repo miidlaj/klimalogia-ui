@@ -13,7 +13,10 @@ const navigation = [
   { name: "About Us", href: "/about-us" },
   { name: "Mission & Vision", href: "/mission-vision" },
   { name: "Services", href: "/services" },
+  { name: "Projects", href: "/projects" },
+  { name: "Clients", href: "/clients" },
   { name: "Partner with us", href: "/partner-with-us" },
+  { name: "Careers", href: "/careers" },
   { name: "Contact Us", href: "/contact-us" },
 ];
 
@@ -27,12 +30,12 @@ export function Nav() {
           <Logo height={150} width={150} />
         </Link>
 
-        <div className="hidden md:flex md:gap-x-6">
+        <div className="hidden lg:flex lg:gap-x-6">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className={`text-sm font-light text-white hover:text-white/80 ${
+              className={`text-sm font-light text-white hover:text-white/80 transition-colors ${
                 pathname === item.href ? "border-b-2 border-white" : ""
               }`}
             >
@@ -46,7 +49,7 @@ export function Nav() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden text-white"
+              className="lg:hidden text-white"
             >
               <Menu className="h-6 w-6" />
               <span className="sr-only">Toggle menu</span>

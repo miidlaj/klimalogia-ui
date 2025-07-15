@@ -2,9 +2,11 @@
 
 import { SketchyUnderline } from "@/components/sketchy-underline";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { Globe, Users, Target, Award, Lightbulb, TrendingUp } from "lucide-react";
 
 export default function AboutPage() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -44,102 +46,93 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative z-10 text-center space-y-6 max-w-4xl mx-auto px-4">
           <h1 className="text-white text-5xl md:text-7xl font-bold">
-            About Klimalogia<span className="text-primary">.</span>
+            Welcome to Klimalogia<span className="text-primary">.</span>
           </h1>
           <p className="text-gray-200 text-xl md:text-2xl">
-            Your partner in driving climate action and sustainability
+            Your Global Partner in Climate Action and Sustainable Transformation
           </p>
         </div>
       </section>
 
-      <div className="bg-cover bg-[url('/about-2.jpg')] bg-blend-multiply bg-center text-white py-16">
-        <div className="max-w-7xl mx-auto px-6 space-y-16">
-          <div className="border border-primary/20 rounded-lg p-8 bg-primary/5 backdrop-blur">
-            <h2 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-              <span className="text-primary">Etymology</span>
-              <span className="h-px flex-1 bg-primary/20"></span>
-            </h2>
-            <p className="text-lg text-white ">
-              <span className="text-primary font-semibold">Klimalogia</span>{" "}
-              derives from the{" "}
-              <Button variant="link" className="m-0 p-0 px-0 py-0 text-lg">
-                <Link
-                  href="https://en.wikipedia.org/wiki/Ancient_Greek"
-                  target="_blank"
-                >
-                  Greek
-                </Link>
-              </Button>{" "}
-              word for climatology (<em>κλίμα</em>, klima, &quot;slope&quot;;
-              and <em>-λογία</em>,{" "}
-              <Button variant="link" className="m-0 p-0 px-0 py-0 text-lg">
-                <Link
-                  href="https://en.wiktionary.org/wiki/-logia"
-                  target="_blank"
-                >
-                  -logia
-                </Link>
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
+            <p>
+              Klimalogia is an international climate change and sustainability firm, dedicated to helping organizations navigate the transition to a low-carbon, climate-resilient future. Inspired by the Greek term klimatologia, the study of climate, our name reflects our mission to translate climate science into practical, actionable solutions for organizations worldwide.
+            </p>
+            
+            <p>
+              We are a multidisciplinary team with global insight, delivering end-to-end sustainability and climate change solutions, through technical depth and strategic insight to help you integrate climate action into business decisions and future-proof their operations. Trusted by corporations, governments, and institutions, we are known for quality, impact, and partnerships that drive sustainable solutions, climate-smart strategies, and credible ESG leadership.
+            </p>
+            
+            <p>
+              We bring deep expertise across sectors and regions to help businesses integrate sustainability into their core strategy, operations, and investment decisions. Whether you aim to accelerate decarbonization, meet regulatory requirements, enhance ESG performance, or access sustainable finance, we deliver custom, data-driven solutions that transform ambition into measurable results.
+            </p>
+            
+            <p>
+              At Klimalogia, we view sustainability as a driver of innovation, resilience, and long-term value, far beyond compliance. Our approach is built on strategic alignment with global frameworks, meaningful stakeholder engagement, and data-driven decision making, helping organizations lead with purpose and impact in a rapidly evolving landscape.
+            </p>
+          </div>
+
+          <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Global Reach</h3>
+                <p className="text-gray-600">International presence with local expertise across multiple regions</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <Users className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Expert Team</h3>
+                <p className="text-gray-600">Multidisciplinary professionals with deep technical expertise</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <Target className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Results-Driven</h3>
+                <p className="text-gray-600">Measurable outcomes and tangible impact for every client</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <Award className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-semibold mb-2">Trusted Partner</h3>
+                <p className="text-gray-600">Quality, integrity, and long-term partnerships with clients</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-16 text-center">
+            <div className="bg-primary/5 rounded-lg p-8 max-w-2xl mx-auto mb-12">
+              <h3 className="text-2xl font-semibold mb-4 flex items-center justify-center gap-2">
+                <span className="text-primary">Etymology</span>
+              </h3>
+              <p className="text-lg text-gray-700">
+                <span className="text-primary font-semibold">Klimalogia</span>{" "}
+                derives from the Greek word for climatology (<em>κλίμα</em>, klima, "slope"; and <em>-λογία</em>, -logia)
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <p className="text-xl font-semibold text-primary">
+                Ready to lead with purpose and drive real climate impact?
+              </p>
+              <p className="text-lg text-gray-700">
+                Let's shape a sustainable future, together.
+              </p>
+              <Button size="lg" className="rounded-full">
+                <Link href="/contact-us">Get Started</Link>
               </Button>
-              )
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-12 items-start border border-primary/20 rounded-lg p-8 bg-primary/10 backdrop-blur ">
-            <div className="space-y-6">
-              {" "}
-              <SketchyUnderline color="hsla(var(--primary))">
-                <h2 className="text-3xl font-bold">Our Expertise</h2>
-              </SketchyUnderline>
-              <p className="text-white leading-relaxed">
-                With nearly a decade of experience in the sustainability sector,
-                we offer a deep understanding of the climate landscape and
-                provide personalized, innovative solutions tailored to meet your
-                specific sustainability needs. At Klimalogia, we cut through the
-                jargon and complexities of sustainability, delivering practical,
-                actionable strategies that make a real difference.
-              </p>
             </div>
-            <div className="space-y-6">
-              {" "}
-              <SketchyUnderline color="hsla(var(--primary))">
-                <h2 className="text-3xl font-bold">Our Approach</h2>
-              </SketchyUnderline>
-              <p className="M leading-relaxed">
-                We work with clients across industries—large or small—helping
-                them take meaningful steps toward achieving their climate goals.
-                From climate strategy and decarbonization to energy
-                optimization, ESG reporting, and sustainable finance, we bring
-                expert insights and customized solutions that drive results.
-              </p>
-            </div>
-          </div>
-
-          <div className="text-center space-y-6 max-w-3xl mx-auto border border-primary/20 rounded-lg p-8 bg-primary/5 backdrop-blur">
-            <SketchyUnderline color="hsla(var(--primary))">
-              <h2 className="text-3xl font-bold">Our Vision</h2>
-            </SketchyUnderline>
-
-            <p className="text-white leading-relaxed">
-              We believe that sustainability is not just a goal—it&apos;s a
-              journey that requires informed decisions, innovative approaches,
-              and measurable outcomes. Together, we can create a resilient,
-              low-carbon future for your business and the planet.
-            </p>
-          </div>
-
-          <div className="text-center pt-8">
-            <h3 className="text-2xl font-bold mb-6 mix-blend-plus-darker">
-              Ready to take the next step in your sustainability journey?
-            </h3>
-
-            <Button className="rounded-full font-bold">
-              <Link href="/contact-us">
-                Let&apos;s create a sustainable future, together
-              </Link>
-            </Button>
           </div>
         </div>
-      </div>
+      </section>
     </main>
   );
 }
