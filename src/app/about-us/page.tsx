@@ -1,12 +1,11 @@
 "use client";
 
-import { SketchyUnderline } from "@/components/sketchy-underline";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Globe, Users, Target, Award, Lightbulb, TrendingUp } from "lucide-react";
+import { Globe, Users, Target, Award } from "lucide-react";
 
 export default function AboutPage() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -115,7 +114,7 @@ export default function AboutPage() {
               </h3>
               <p className="text-lg text-gray-700">
                 <span className="text-primary font-semibold">Klimalogia</span>{" "}
-                derives from the Greek word for climatology (<em>κλίμα</em>, klima, "slope"; and <em>-λογία</em>, -logia)
+                derives from the Greek word for climatology (<em>κλίμα</em>, klima, &quot;slope&quot;; and <em>-λογία</em>, -logia)
               </p>
             </div>
 
@@ -124,7 +123,7 @@ export default function AboutPage() {
                 Ready to lead with purpose and drive real climate impact?
               </p>
               <p className="text-lg text-gray-700">
-                Let's shape a sustainable future, together.
+                Let&apos;s shape a sustainable future, together.
               </p>
               <Button size="lg" className="rounded-full">
                 <Link href="/contact-us">Get Started</Link>

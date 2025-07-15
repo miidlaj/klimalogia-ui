@@ -12,11 +12,8 @@ import {
   Home, 
   Banknote,
   Plane,
-  Ship,
   Truck,
   Zap,
-  Droplets,
-  Recycle,
   Globe,
   Award,
   Target,
@@ -254,7 +251,7 @@ export default function ClientsPage() {
             {testimonialPlaceholder.map((testimonial, index) => (
               <Card key={index} className="hover:shadow-lg transition-shadow">
                 <CardContent className="pt-6">
-                  <div className="text-4xl text-primary mb-4">"</div>
+                  <div className="text-4xl text-primary mb-4">&quot;</div>
                   <p className="text-gray-700 mb-4 italic">{testimonial.quote}</p>
                   <div className="border-t pt-4">
                     <p className="font-semibold">{testimonial.company}</p>
@@ -274,7 +271,7 @@ export default function ClientsPage() {
             <Building2 className="h-16 w-16 text-primary mx-auto mb-6" />
             <h2 className="text-4xl font-bold mb-6">Detailed Client Portfolio Coming Soon</h2>
             <p className="text-xl text-gray-600 mb-8">
-              We're preparing a comprehensive showcase of our client partnerships and success stories. This will include detailed case studies, impact metrics, and testimonials from our valued clients.
+              We&apos;re preparing a comprehensive showcase of our client partnerships and success stories. This will include detailed case studies, impact metrics, and testimonials from our valued clients.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg">

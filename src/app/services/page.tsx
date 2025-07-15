@@ -13,10 +13,11 @@ export const metadata: Metadata = {
 const services = [
   {
     title: "Strategy & Advisory",
-    description: "Comprehensive sustainability strategy, ESG reporting, GHG accounting, decarbonization pathways, net-zero target setting, climate risk assessment, climate transition planning, carbon markets, sustainable finance, and sustainability benchmarking solutions.",
+    description:
+      "Comprehensive sustainability strategy, ESG reporting, GHG accounting, decarbonization pathways, net-zero target setting, climate risk assessment, climate transition planning, carbon markets, sustainable finance, and sustainability benchmarking solutions.",
     features: [
       "Sustainability Strategy Design",
-      "ESG Reporting & Advisory", 
+      "ESG Reporting & Advisory",
       "GHG Accounting",
       "Decarbonization Pathways",
       "Net-Zero Target Setting",
@@ -24,14 +25,15 @@ const services = [
       "Climate Transition Planning",
       "Carbon Markets",
       "Sustainable Finance",
-      "Sustainability Benchmarking"
+      "Sustainability Benchmarking",
     ],
     image: "/service/stratergy.jpg",
     link: "/services/strategy-advisory",
   },
   {
     title: "Assurance & Compliance",
-    description: "Third-party verification and certification across green buildings, carbon neutrality, ISO standards, sector-specific certifications, environmental product declarations, ESG assurance, GHG verification, and regulatory compliance.",
+    description:
+      "Third-party verification and certification across green buildings, carbon neutrality, ISO standards, sector-specific certifications, environmental product declarations, ESG assurance, GHG verification, and regulatory compliance.",
     features: [
       "Green Building Certifications",
       "Net-Zero & Carbon-Neutrality",
@@ -41,14 +43,15 @@ const services = [
       "Environmental Product Declaration",
       "ESG Assurance",
       "GHG Assurance",
-      "Regulatory Compliance"
+      "Regulatory Compliance",
     ],
     image: "/service/assurance.jpg",
     link: "/services/assurance-compliance",
   },
   {
     title: "Action & Transformation",
-    description: "Implementation services including energy and utility audits, waste management and circular economy, environmental impact assessments, nature and biodiversity programs, renewable energy solutions, environmental testing, emission quantification, and sustainability workshops.",
+    description:
+      "Implementation services including energy and utility audits, waste management and circular economy, environmental impact assessments, nature and biodiversity programs, renewable energy solutions, environmental testing, emission quantification, and sustainability workshops.",
     features: [
       "Energy and Utility Audits",
       "Waste Audits & Circular Economy",
@@ -57,14 +60,15 @@ const services = [
       "Renewable Energy",
       "Environmental Testing",
       "Emission Quantification",
-      "Sustainability Workshops"
+      "Sustainability Workshops",
     ],
     image: "/service/efficiency.jpg",
     link: "/services/action-transformation",
   },
   {
     title: "Digital Solutions",
-    description: "Advanced modeling and simulation tools including energy modeling, solar PV design, lifecycle assessment, climate modeling and scenario analysis, lighting simulation, emission quantification, and customized digital sustainability solutions.",
+    description:
+      "Advanced modeling and simulation tools including energy modeling, solar PV design, lifecycle assessment, climate modeling and scenario analysis, lighting simulation, emission quantification, and customized digital sustainability solutions.",
     features: [
       "Energy Modeling",
       "Solar PV Design & Simulation",
@@ -73,7 +77,7 @@ const services = [
       "Climate Scenario Analysis",
       "Lighting Simulation",
       "Emission Quantification",
-      "Customized Digital Solutions"
+      "Customized Digital Solutions",
     ],
     image: "/service/climate.jpg",
     link: "/services/digital-solutions",
@@ -93,7 +97,15 @@ const Page = () => {
                     Our Services
                   </h2>
                   <p className="text-base font-medium text-[14px] text-gray-200 max-w-4xl mx-auto">
-                    At Klimalogia, we deliver end-to-end climate and sustainability solutions designed to help your business meet its goals. With deep domain expertise and a hands-on approach, we support clients across industries and geographies by integrating innovative technology, sector-specific expertise, and forward-thinking strategies to deliver practical, high-impact results. Our services add value by aligning business performance with climate goals, regulatory demands, and stakeholder expectations.
+                    At Klimalogia, we deliver end-to-end climate and
+                    sustainability solutions designed to help your business meet
+                    its goals. With deep domain expertise and a hands-on
+                    approach, we support clients across industries and
+                    geographies by integrating innovative technology,
+                    sector-specific expertise, and forward-thinking strategies
+                    to deliver practical, high-impact results. Our services add
+                    value by aligning business performance with climate goals,
+                    regulatory demands, and stakeholder expectations.
                   </p>
                   <div className="flex justify-center mt-6">
                     <AnimatedButton
@@ -137,7 +149,9 @@ const Page = () => {
                       </p>
 
                       <div className="mb-4">
-                        <h3 className="text-lg font-semibold text-white mb-2">Key Services:</h3>
+                        <h3 className="text-lg font-semibold text-white mb-2">
+                          Key Services:
+                        </h3>
                         <div className="grid grid-cols-1 gap-1">
                           {service.features.map((feature, idx) => (
                             <div key={idx} className="text-sm text-gray-300">

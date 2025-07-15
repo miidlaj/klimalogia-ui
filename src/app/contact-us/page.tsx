@@ -122,7 +122,9 @@ export default function ContactPage() {
                           >
                             klimalogia@gmail.com
                           </a>
-                          <p className="text-xs text-gray-400">(Need to change/update)</p>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -134,7 +136,9 @@ export default function ContactPage() {
                           >
                             +971 XXXX
                           </a>
-                          <p className="text-xs text-gray-400">(Need to change/update)</p>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -152,7 +156,9 @@ export default function ContactPage() {
                           >
                             +971 XXXX
                           </a>
-                          <p className="text-xs text-gray-400">(Need to change/update)</p>
+                          <p className="text-xs text-gray-400">
+                            (Need to change/update)
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -162,7 +168,9 @@ export default function ContactPage() {
                     <h2 className="text-2xl font-semibold text-white mb-4">
                       Social Media
                     </h2>
-                    <p className="text-gray-400 text-sm mb-4">(Need to change/update)</p>
+                    <p className="text-gray-400 text-sm mb-4">
+                      (Need to change/update)
+                    </p>
                     <div className="flex gap-4">
                       <a
                         href="#"

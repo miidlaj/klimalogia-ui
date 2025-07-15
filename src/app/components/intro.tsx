@@ -37,7 +37,7 @@ export function Intro() {
           
           <div className="mt-12">
             <p className="text-xl font-semibold text-primary mb-6">
-              Ready to lead with purpose and drive real climate impact? Let's shape a sustainable future, together.
+              Ready to lead with purpose and drive real climate impact? Let&apos;s shape a sustainable future, together.
             </p>
             <Button asChild size="lg" className="rounded-full">
               <Link href="/contact-us">Get Started</Link>
@@ -84,7 +84,7 @@ export function Intro() {
             <h4 className="text-2xl font-bold mb-4">Etymology</h4>
             <p className="text-lg text-gray-700">
               <strong className="text-primary">Klimalogia</strong> derives from the Greek word for climatology 
-              (<em>κλίμα</em>, klima, "slope"; and <em>-λογία</em>, -logia)
+              (<em>κλίμα</em>, klima, &quot;slope&quot;; and <em>-λογία</em>, -logia)
             </p>
           </div>
         </div>

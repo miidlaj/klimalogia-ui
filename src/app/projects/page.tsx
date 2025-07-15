@@ -14,11 +14,8 @@ import {
   Factory,
   Home,
   Banknote,
-  Globe,
   Users,
-  Target,
-  TrendingUp
-} from "lucide-react";
+  Target} from "lucide-react";
 
 const projectCategories = [
   {
@@ -233,7 +230,7 @@ export default function ProjectsPage() {
             <Target className="h-16 w-16 text-primary mx-auto mb-6" />
             <h2 className="text-4xl font-bold mb-6">Detailed Case Studies Coming Soon</h2>
             <p className="text-xl text-gray-600 mb-8">
-              We're preparing comprehensive case studies showcasing our most impactful projects. These will include detailed methodologies, results, and lessons learned from our sustainability transformations.
+              We&apos;re preparing comprehensive case studies showcasing our most impactful projects. These will include detailed methodologies, results, and lessons learned from our sustainability transformations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg">
@@ -253,10 +250,10 @@ export default function ProjectsPage() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold mb-6">Ready to Start Your Sustainability Journey?</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Join the growing number of organizations achieving measurable sustainability impact with Klimalogia's expertise and proven methodologies.
+              Join the growing number of organizations achieving measurable sustainability impact with Klimalogia&apos;s expertise and proven methodologies.
             </p>
             <Button asChild size="lg">
-              <Link href="/contact-us">Let's Create Impact Together</Link>
+              <Link href="/contact-us">Let&apos;s Create Impact Together</Link>
             </Button>
           </div>
         </div>
