@@ -30,27 +30,20 @@ export default function MissionPage() {
             <div className="max-w-3xl mx-auto">
               <Card className="text-white bg-transparent bg-gradient-to-br from-[#FCB20E]/10 via-primary/10 to-[#FCB20E]/10 backdrop-blur-md border border-white/10 shadow-lg hover:shadow-primary/20 transition-all duration-300">
                 <CardContent className="p-4 md:p-6 text-center text-base md:text-lg leading-relaxed">
-                  To create transformative climate solutions that empower
-                  businesses to achieve measurable sustainability goals, foster
-                  resilient communities, and contribute to a thriving,
-                  sustainable future for our planet.
+                  To help organizations take meaningful climate action by delivering practical, impactful, and result-oriented sustainability solutions that enhance competitiveness, reduce risk, and create long-term value for people, business, and the planet.
                 </CardContent>
               </Card>
             </div>
           </section>
 
-          <section className="space-y-6">
+          <section className="space-y-6 mb-12 md:mb-24">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-center text-white">
               Our Vision
             </h2>
             <div className="max-w-3xl mx-auto">
               <Card className="bg-transparent bg-gradient-to-br from-[#FCB20E]/10 via-primary/10 to-[#FCB20E]/10 backdrop-blur-md border border-white/10 shadow-lg hover:shadow-primary/20 transition-all duration-300">
                 <CardContent className="p-4 md:p-6 text-center text-base md:text-lg leading-relaxed text-white">
-                  To inspire and lead a global shift toward sustainable and
-                  resilient businesses, envisioning a future where innovation,
-                  collaboration, and bold action create a net-zero world that
-                  thrives in harmony with the planet and ensures prosperity for
-                  generations to come.
+                  To create an inclusive, resilient and regenerative future by enabling businesses, communities, and institutions to drive positive change, integrate sustainability into core strategy, respond effectively to climate challenges, and generate long-term environmental, social, and economic value.
                 </CardContent>
               </Card>
             </div>
@@ -61,7 +54,7 @@ export default function MissionPage() {
         <Spotlight />
         <div className="mx-auto px-4 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-center text-white mb-12 md:mb-16">
-            Core Values
+            Core Values (RISE)
           </h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
@@ -69,25 +62,25 @@ export default function MissionPage() {
                 icon: Shield,
                 title: "Respect",
                 description:
-                  "We honor the environment, our clients, and all stakeholders by fostering inclusivity, collaboration, and mutual understanding in every step toward sustainability.",
+                  "Championing inclusivity, collaboration, and care for people and the planet. Valuing diverse perspectives and honoring all stakeholders in the sustainability journey.",
               },
               {
                 icon: Scale,
                 title: "Integrity",
                 description:
-                  "We uphold the highest ethical standards, ensuring transparency, accountability, and trust in all our actions and solutions.",
+                  "Upholding the highest ethical standards with transparency, honesty, and accountability at the heart of every solution and relationship.",
               },
               {
                 icon: Heart,
-                title: "Trust",
+                title: "Sustainability",
                 description:
-                  "We build lasting relationships by delivering reliable, tailored solutions that clients can depend on to meet their sustainability goals.",
+                  "Embedding long-term thinking into every action, balancing environmental, social, and economic priorities to create resilient systems and future-ready businesses.",
               },
               {
                 icon: Lightbulb,
-                title: "Innovation",
+                title: "Excellence",
                 description:
-                  "We drive progress with forward-thinking strategies and creative solutions, leveraging cutting-edge technology to address complex climate challenges effectively.",
+                  "Striving for the highest quality in everything we do, delivering impactful, data-driven solutions with precision, innovation, and professionalism.",
               },
             ].map((value, index) => (
               <Card
