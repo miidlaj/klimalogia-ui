@@ -1,12 +1,17 @@
-"use client"
+"use client";
 
-import { Lightbulb, Shield, Zap, Monitor, CheckCircle } from "lucide-react";
+import {
+  Lightbulb,
+  Shield,
+  Zap,
+  Monitor,
+  CheckCircle,
+  ArrowRight,
+} from "lucide-react";
 import { BoxReveal } from "./box-reveal";
-import { BentoGrid, BentoCard } from "./bento-grid";
-
+import { motion } from "framer-motion";
 import { ShinyButton } from "./shiny-button";
-import { MagicCard } from "./magic-card";
-import { RippleButton } from "./ripple-button";
+import { ShimmerButton } from "./shimmer-button";
 
 const services = [
   {
@@ -76,128 +81,155 @@ const services = [
   },
 ];
 
-const colorClasses = {
-  blue: "text-blue-500",
-  green: "text-green-500",
-  purple: "text-purple-500",
-  orange: "text-orange-500",
+const colorConfig = {
+  blue: {
+    text: "text-blue-500",
+    bg: "from-blue-100/20 to-blue-200/20",
+    border: "border-blue-500/20",
+    button:
+      "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800",
+    iconBg: "bg-blue-500/10",
+  },
+  green: {
+    text: "text-green-500",
+    bg: "from-green-100/20 to-green-200/20",
+    border: "border-green-500/20",
+    button:
+      "bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800",
+    iconBg: "bg-green-500/10",
+  },
+  purple: {
+    text: "text-purple-500",
+    bg: "from-purple-100/20 to-purple-200/20",
+    border: "border-purple-500/20",
+    button:
+      "bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800",
+    iconBg: "bg-purple-500/10",
+  },
+  orange: {
+    text: "text-orange-500",
+    bg: "from-orange-100/20 to-orange-200/20",
+    border: "border-orange-500/20",
+    button:
+      "bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800",
+    iconBg: "bg-orange-500/10",
+  },
 };
 
 export function ServicesOverview() {
   return (
-    <section className="py-20 bg-transparent">
-      <div className="container mx-auto px-4">
+    <section className="py-16 md:py-24 bg-transparent relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+      <div className="absolute top-1/4 right-20 w-72 h-72 bg-green-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+      <div className="absolute bottom-20 left-40 w-72 h-72 bg-purple-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <BoxReveal width="100%" boxColor="#3b82f6" duration={0.8}>
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Our Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              At Klimalogia, we deliver end-to-end climate and sustainability
-              solutions designed to help your business meet its goals. With deep
-              domain expertise and a hands-on approach, we support clients
-              across industries and geographies.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-500">
+                Our Services
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                At Klimalogia, we deliver end-to-end climate and sustainability
+                solutions designed to help your business meet its goals.
+              </p>
+              <div className="mt-6 max-w-2xl mx-auto">
+                <p className="text-gray-600">
+                  With deep domain expertise and a hands-on approach, we support
+                  clients across industries and geographies.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </BoxReveal>
 
-        <BentoGrid className="mb-16">
-          {services.map((service, index) => (
-            <BoxReveal key={index} width="100%" boxColor={service.color === "blue" ? "#3b82f6" : service.color === "green" ? "#10b981" : service.color === "purple" ? "#8b5cf6" : "#f97316"} duration={0.8}>
-              <MagicCard
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {services.map((service, index) => {
+            const color =
+              colorConfig[service.color as keyof typeof colorConfig];
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -10 }}
                 className="h-full"
-                gradientColor={
-                  service.color === "blue"
-                    ? "#3b82f6"
-                    : service.color === "green"
-                      ? "#10b981"
-                      : service.color === "purple"
-                        ? "#8b5cf6"
-                        : "#f97316"
-                }
-                gradientOpacity={0.1}
               >
-                <BentoCard
-                  name={service.title}
-                  className="h-full border-0 bg-transparent"
-                  background={<div />}
-                  Icon={service.icon}
-                  description={service.description}
-                  href={service.link}
-                  cta="Learn More"
+                <div
+                  className={`h-full bg-gradient-to-br ${color.bg} backdrop-blur-xl rounded-2xl overflow-hidden border ${color.border} shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col`}
                 >
-                  <div className="flex items-center mb-4">
-                    <div
-                      className={`p-3 rounded-full bg-gradient-to-br ${service.color === "blue"
-                        ? "from-blue-100 to-blue-200"
-                        : service.color === "green"
-                          ? "from-green-100 to-green-200"
-                          : service.color === "purple"
-                            ? "from-purple-100 to-purple-200"
-                            : "from-orange-100 to-orange-200"
-                        } mr-4`}
+                  <div className="p-6 flex-grow">
+                    <div className="flex items-start mb-5">
+                      <div className={`p-3 rounded-xl ${color.iconBg} mr-4`}>
+                        <service.icon className={`h-8 w-8 ${color.text}`} />
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-800 mt-1">
+                        {service.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-gray-600 mb-6 leading-relaxed">
+                      {service.description}
+                    </p>
+
+                    <div className="mb-6">
+                      <h4 className="font-semibold mb-3 text-gray-800">
+                        Key Services
+                      </h4>
+                      <div className="space-y-2">
+                        {service.features.map((feature, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-start text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200 group"
+                          >
+                            <CheckCircle
+                              className={`h-4 w-4 ${color.text} mr-2 mt-0.5 flex-shrink-0`}
+                            />
+                            <span>{feature}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="px-6 pb-6 flex justify-center">
+                    <ShimmerButton
+                      background={service.color}
+                      onClick={() => (window.location.href = service.link)}
                     >
-                      <service.icon
-                        className={`h-8 w-8 ${colorClasses[service.color as keyof typeof colorClasses]
-                          }`}
-                      />
-                    </div>
-                    <h3 className="text-2xl font-bold">{service.title}</h3>
+                      <span className="text-white">Learn More</span>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </ShimmerButton>
                   </div>
-
-                  <p className="text-gray-700 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  <div className="flex-grow">
-                    <h4 className="font-semibold mb-3 text-gray-800">
-                      Key Services:
-                    </h4>
-                    <div className="grid grid-cols-1 gap-2 mb-6">
-                      {service.features.map((feature, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
-                        >
-                          <CheckCircle
-                            className={`h-4 w-4 ${colorClasses[
-                              service.color as keyof typeof colorClasses
-                            ]
-                              } mr-2 flex-shrink-0`}
-                          />
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <RippleButton
-                    onClick={() => (window.location.href = service.link)}
-                    className={`w-full bg-gradient-to-r ${service.color === "blue"
-                      ? "from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
-                      : service.color === "green"
-                        ? "from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
-                        : service.color === "purple"
-                          ? "from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800"
-                          : "from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800"
-                      }`}
-                  >
-                    Learn More
-                  </RippleButton>
-                </BentoCard>
-              </MagicCard>
-            </BoxReveal>
-          ))}
-        </BentoGrid>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
 
         <BoxReveal width="100%" boxColor="#6b7280" duration={0.8}>
-          <div className="text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-center"
+          >
             <ShinyButton
               onClick={() => (window.location.href = "/services")}
+              className="group"
             >
-              View All Services
+              <span className="text-black ">Explore All Services</span>
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </ShinyButton>
-          </div>
+          </motion.div>
         </BoxReveal>
       </div>
     </section>

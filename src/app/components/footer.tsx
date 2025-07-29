@@ -1,13 +1,28 @@
-import Link from "next/link"
-import { Mail, Instagram, Linkedin, Twitter, Youtube, Facebook, MapPin, Phone, Globe } from "lucide-react"
+import Logo from "@/components/logo";
+import Link from "next/link";
+import {
+  Mail,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Youtube,
+  Facebook,
+} from "lucide-react";
 
+// Data arrays (footerSections, socialLinks) remain unchanged...
 const footerSections = [
   {
     title: "SERVICES",
     links: [
       { href: "/services/strategy-advisory", label: "Strategy & Advisory" },
-      { href: "/services/assurance-compliance", label: "Assurance & Compliance" },
-      { href: "/services/action-transformation", label: "Action & Transformation" },
+      {
+        href: "/services/assurance-compliance",
+        label: "Assurance & Compliance",
+      },
+      {
+        href: "/services/action-transformation",
+        label: "Action & Transformation",
+      },
       { href: "/services/digital-solutions", label: "Digital Solutions" },
     ],
   },
@@ -40,26 +55,201 @@ const footerSections = [
       { href: "/sustainability-guide", label: "Sustainability Guide" },
     ],
   },
-]
+  {
+    title: "CONNECT",
+    links: [
+      { href: "/contact", label: "Contact Us" },
+      { href: "/partner-with-us", label: "Partnership" },
+      { href: "/support", label: "Support" },
+      { href: "/newsletter", label: "Newsletter" },
+    ],
+  },
+];
 
 const socialLinks = [
   { href: "mailto:info@klimalogia.com", icon: Mail, label: "Email" },
-  { href: "https://instagram.com/klimalogia", icon: Instagram, label: "Instagram" },
-  { href: "https://linkedin.com/company/klimalogia", icon: Linkedin, label: "LinkedIn" },
+  {
+    href: "https://instagram.com/klimalogia",
+    icon: Instagram,
+    label: "Instagram",
+  },
+  {
+    href: "https://linkedin.com/company/klimalogia",
+    icon: Linkedin,
+    label: "LinkedIn",
+  },
   { href: "https://twitter.com/klimalogia", icon: Twitter, label: "Twitter" },
   { href: "https://youtube.com/@klimalogia", icon: Youtube, label: "YouTube" },
-  { href: "https://facebook.com/klimalogia", icon: Facebook, label: "Facebook" },
-]
+  {
+    href: "https://facebook.com/klimalogia",
+    icon: Facebook,
+    label: "Facebook",
+  },
+];
 
 export function Footer() {
   return (
-    <footer className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(59,130,246,0.1)_50%,transparent_75%)]" />
+    <footer className="relative overflow-hidden bg-slate-900">
+      <div className="absolute inset-0 opacity-50">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 2527 867"
+          fill="none"
+          // 3. Made SVG responsive: fills container without distortion
+          preserveAspectRatio="xMidYMid slice"
+          className="w-full h-full"
+        >
+          {/* SVG paths and definitions remain unchanged */}
+          <g clipPath="url(#clip0_27343_2783)">
+            <path
+              d="M3359.05 -449.001C2904.14 -153.567 2359.39 272.531 1961.09 831.967C1169.58 1941.54 1417.64 2929.22 1604.64 3406.64L1721.18 3406.64C1471.91 2929.14 1141.27 1941.14 2195.61 831.345C2726.75 272.25 3453.45 -153.628 4060.1 -448.981L3359.05 -448.981L3359.05 -449.001Z"
+              fill="url(#paint0_linear_27343_2783)"
+            />
+            <path
+              d="M3359.04 -449.001C2904.14 -153.567 2359.39 272.531 1961.09 831.967C1169.57 1941.54 1417.64 2929.22 1604.64 3406.64L1488.11 3406.64C1363.43 2929.3 1197.93 1941.96 1726.62 832.61C1992.09 272.833 2354.87 -153.487 2657.99 -449.001L3359.04 -449.001Z"
+              fill="url(#paint1_linear_27343_2783)"
+            />
+            <path
+              d="M2657.98 -449.001C2354.81 -153.487 1992.08 272.833 1726.62 832.61C1197.92 1941.96 1363.42 2929.3 1488.1 3406.64L1371.57 3406.64C1309.15 2929.4 1226.22 1942.36 1492.1 833.252C1624.73 273.134 1805.55 -153.407 1956.92 -449.001L2657.98 -449.001Z"
+              fill="url(#paint2_linear_27343_2783)"
+            />
+            <path
+              d="M1956.93 -449.001C1956.93 -448.994 1956.93 -448.987 1956.92 -448.98L1255.93 -448.98L1255.92 3406.64L1371.58 3406.64C1309.16 2929.4 1226.23 1942.36 1492.11 833.253C1624.74 273.147 1805.5 -153.387 1956.92 -448.98L1956.99 -448.98L1956.93 -449.001Z"
+              fill="url(#paint3_linear_27343_2783)"
+            />
+            <path
+              d="M-846.946 -449.001C-392.039 -153.567 152.706 272.531 551.009 831.967C1342.52 1941.54 1094.46 2929.22 907.456 3406.64L790.925 3406.64C1040.19 2929.14 1370.83 1941.14 316.493 831.345C-214.647 272.25 -941.354 -153.628 -1548 -448.981L-846.946 -448.981L-846.946 -449.001Z"
+              fill="url(#paint4_linear_27343_2783)"
+            />
+            <path
+              d="M-846.941 -449.001C-392.035 -153.567 152.71 272.531 551.013 831.967C1342.53 1941.54 1094.46 2929.22 907.46 3406.64L1023.99 3406.64C1148.67 2929.3 1314.17 1941.96 785.476 832.61C520.01 272.833 157.228 -153.487 -145.887 -449.001L-846.941 -449.001Z"
+              fill="url(#paint5_linear_27343_2783)"
+            />
+            <path
+              d="M-145.879 -449.001C157.288 -153.487 520.019 272.833 785.485 832.61C1314.18 1941.96 1148.68 2929.3 1024 3406.64L1140.53 3406.64C1202.95 2929.4 1285.88 1942.36 1020 833.252C887.372 273.134 706.551 -153.407 555.175 -449.001L-145.879 -449.001Z"
+              fill="url(#paint6_linear_27343_2783)"
+            />
+            <path
+              d="M555.166 -449.001C555.169 -448.994 555.172 -448.987 555.176 -448.98L1256.17 -448.98L1256.18 3406.64L1140.52 3406.64C1202.94 2929.4 1285.87 1942.36 1019.99 833.253C887.365 273.147 706.602 -153.387 555.176 -448.98L555.114 -448.98L555.166 -449.001Z"
+              fill="url(#paint7_linear_27343_2783)"
+            />
+          </g>
+          <defs>
+            {/* Defs content remains unchanged */}
+            <linearGradient
+              id="paint0_linear_27343_2783"
+              x1="1893.38"
+              y1="4713.43"
+              x2="3862.16"
+              y2="618.619"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint1_linear_27343_2783"
+              x1="1722.96"
+              y1="4713.43"
+              x2="4006.98"
+              y2="1126.36"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint2_linear_27343_2783"
+              x1="1552.5"
+              y1="4713.43"
+              x2="4068.76"
+              y2="2043.24"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint3_linear_27343_2783"
+              x1="1382.76"
+              y1="4713.43"
+              x2="3514.07"
+              y2="3538.62"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint4_linear_27343_2783"
+              x1="618.719"
+              y1="4713.43"
+              x2="-1350.06"
+              y2="618.619"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint5_linear_27343_2783"
+              x1="789.139"
+              y1="4713.43"
+              x2="-1494.88"
+              y2="1126.36"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint6_linear_27343_2783"
+              x1="959.601"
+              y1="4713.43"
+              x2="-1556.66"
+              y2="2043.24"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <linearGradient
+              id="paint7_linear_27343_2783"
+              x1="1129.34"
+              y1="4713.43"
+              x2="-1001.97"
+              y2="3538.62"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset=".659" stopColor="#FFE88E" />
+              <stop offset=".71" stopColor="#FB9CE5" />
+              <stop offset=".794" stopColor="#096FFF" />
+              <stop offset=".888" stopColor="#096FFF" stopOpacity="0" />
+            </linearGradient>
+            <clipPath id="clip0_27343_2783">
+              <rect width={2527} height={867} fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
       </div>
 
+      {/* 4. Removed the redundant dark overlay div */}
+
+      {/* Content - sits above the background SVG */}
       <div className="relative z-10 pt-16 pb-8">
         <div className="container mx-auto px-4">
           {/* Main Footer Content */}
@@ -67,37 +257,21 @@ export function Footer() {
             {/* Logo and Description */}
             <div className="lg:col-span-2">
               <Link href="/" className="inline-block mb-6">
-                <div className="text-3xl font-bold text-white">Klimalogia</div>
+                <Logo height={120} width={120} />
               </Link>
-
               <p className="text-blue-100 text-sm leading-relaxed mb-6 max-w-sm">
-                Your global partner in climate action and sustainable transformation. Driving meaningful impact through
-                innovative solutions.
+                Your global partner in climate action and sustainable
+                transformation. Driving meaningful impact through innovative
+                solutions.
               </p>
 
-              {/* Contact Info */}
-              <div className="space-y-2 mb-6 text-sm text-blue-200">
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  <span>Global Offices Worldwide</span>
-                </div>
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  <span>+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center">
-                  <Globe className="w-4 h-4 mr-2" />
-                  <span>www.klimalogia.com</span>
-                </div>
-              </div>
-
               {/* Social Links */}
-              <div className="flex space-x-3">
+              <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <Link
                     key={social.href}
                     href={social.href}
-                    className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center text-blue-100 hover:bg-white/20 hover:text-white transition-all duration-300 hover:scale-110"
+                    className="w-10 h-10/10 backdrop-blur-sm rounded-full flex items-center justify-center text-blue-100 hover:bg-white/20 hover:text-white transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />
@@ -109,7 +283,9 @@ export function Footer() {
             {/* Footer Sections */}
             {footerSections.map((section) => (
               <div key={section.title} className="lg:col-span-1">
-                <h3 className="text-white font-semibold text-sm mb-4 tracking-wider">{section.title}</h3>
+                <h3 className="text-white font-semibold text-sm mb-4 tracking-wider">
+                  {section.title}
+                </h3>
                 <ul className="space-y-3">
                   {section.links.map((link) => (
                     <li key={link.href}>
@@ -126,31 +302,18 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Newsletter Signup */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 mb-8">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-2">Stay Updated</h3>
-              <p className="text-blue-200 mb-4">Get the latest insights on climate action and sustainability</p>
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                />
-                <button className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors">
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-
           {/* Bottom Section */}
           <div className="border-t border-white/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="text-blue-200 text-sm">© {new Date().getFullYear()} Klimalogia. All rights reserved.</div>
+              <div className="text-blue-200 text-sm">
+                © {new Date().getFullYear()} Klimalogia. All rights reserved.
+              </div>
 
               <div className="flex flex-wrap gap-6 text-sm">
-                <Link href="/privacy-policy" className="text-blue-200 hover:text-white transition-colors duration-300">
+                <Link
+                  href="/privacy-policy"
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
+                >
                   Privacy Policy
                 </Link>
                 <Link
@@ -159,10 +322,16 @@ export function Footer() {
                 >
                   Terms of Service
                 </Link>
-                <Link href="/cookie-policy" className="text-blue-200 hover:text-white transition-colors duration-300">
+                <Link
+                  href="/cookie-policy"
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
+                >
                   Cookie Policy
                 </Link>
-                <Link href="/security" className="text-blue-200 hover:text-white transition-colors duration-300">
+                <Link
+                  href="/security"
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
+                >
                   Security
                 </Link>
               </div>
@@ -171,5 +340,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

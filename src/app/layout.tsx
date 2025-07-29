@@ -1,7 +1,8 @@
-import type React from "react"
-import type { Metadata } from "next"
-import ClientLayout from "./ClientLayout"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import ClientLayout from "./ClientLayout";
+import "./globals.css";
+import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
   title: {
@@ -74,12 +75,17 @@ export const metadata: Metadata = {
     google: "your-google-verification-code",
     yandex: "your-yandex-verification-code",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  return <ClientLayout>{children}</ClientLayout>
+  return (
+    <Providers
+    >
+      <ClientLayout>{children}</ClientLayout>
+    </Providers>
+  );
 }

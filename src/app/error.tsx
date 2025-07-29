@@ -30,8 +30,8 @@ export default function Error({
             Oops! Something went wrong
           </h1>
           <p className="text-gray-600 mb-8">
-            We encountered an unexpected error. Don&apos;t worry, our team has been
-            notified.
+            We encountered an unexpected error. Don&apos;t worry, our team has
+            been notified.
           </p>
         </motion.div>
 
@@ -41,10 +41,7 @@ export default function Error({
             Try Again
           </ShinyButton>
 
-          <ShinyButton
-            variant="secondary"
-            onClick={() => (window.location.href = "/")}
-          >
+          <ShinyButton onClick={() => (window.location.href = "/")}>
             <Home className="w-4 h-4 mr-2" />
             Go Home
           </ShinyButton>
