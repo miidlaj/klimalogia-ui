@@ -194,7 +194,7 @@ export default function AssuranceCompliancePage() {
       </HeroBg>
 
       {/* What We Offer Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">What We Offer</h2>
@@ -272,7 +272,7 @@ export default function AssuranceCompliancePage() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Why Choose Us</h2>

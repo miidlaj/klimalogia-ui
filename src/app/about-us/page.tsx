@@ -53,7 +53,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6">
             <p>

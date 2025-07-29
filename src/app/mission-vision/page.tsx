@@ -85,7 +85,7 @@ export default function MissionPage() {
             ].map((value, index) => (
               <Card
                 key={index}
-                className="relative overflow-hidden backdrop-blur-md bg-white/5 border border-white/10 shadow-lg group hover:shadow-primary/20 transition-all duration-300"
+                className="relative overflow-hidden backdrop-blur-md/5 border border-white/10 shadow-lg group hover:shadow-primary/20 transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-56 h-56 bg-primary/30 rounded-full blur-3xl group-hover:h-72 transition-all duration-500" />

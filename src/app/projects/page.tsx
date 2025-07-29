@@ -122,7 +122,7 @@ export default function ProjectsPage() {
       </HeroBg>
 
       {/* Impact Statistics Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Our Impact</h2>
@@ -172,7 +172,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Focus Areas Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Project Focus Areas</h2>
@@ -224,7 +224,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Coming Soon Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <Target className="h-16 w-16 text-primary mx-auto mb-6" />

@@ -135,7 +135,7 @@ export default function CareersPage() {
       </HeroBg>
 
       {/* Why Choose Klimalogia Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Why Choose Klimalogia?</h2>
@@ -183,7 +183,7 @@ export default function CareersPage() {
       </section>
 
       {/* Open Positions Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Open Positions</h2>
@@ -270,7 +270,7 @@ export default function CareersPage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl font-bold mb-6">Ready to Make an Impact?</h2>

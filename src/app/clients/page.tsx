@@ -148,7 +148,7 @@ export default function ClientsPage() {
       </HeroBg>
 
       {/* Client Types Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Who We Serve</h2>
@@ -214,7 +214,7 @@ export default function ClientsPage() {
       </section>
 
       {/* Client Benefits Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Why Clients Choose Us</h2>
@@ -265,7 +265,7 @@ export default function ClientsPage() {
       </section>
 
       {/* Client Portfolio Coming Soon */}
-      <section className="py-20 bg-white">
+      <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <Building2 className="h-16 w-16 text-primary mx-auto mb-6" />
