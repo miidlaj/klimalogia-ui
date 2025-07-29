@@ -59,7 +59,7 @@ function TestimonialCard({ testimonial }: { testimonial: typeof testimonials[0] 
       </div>
       
       <p className="text-gray-700 mb-6 leading-relaxed">
-        "{testimonial.content}"
+        &quot;{testimonial.content}&quot;
       </p>
       
       <div className="border-t pt-4">
