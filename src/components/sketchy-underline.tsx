@@ -16,11 +16,9 @@ export function SketchyUnderline({
   className = "",
 }: SketchyUnderlineProps) {
   return (
-    <span
-      className={`relative inline-block ${className}`}
-    >
+    <span className={`relative inline-block ${className}`}>
       {children}
-   
+
       <svg
         className="absolute left-0 -bottom-1 w-full"
         viewBox={`0 0 ${width} ${height}`}

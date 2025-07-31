@@ -20,7 +20,6 @@ export default function Page() {
         <Nav />
         <Hero />
 
-        {/* Interactive Grid Pattern Background for content sections */}
         <div className="relative">
           <InteractiveGridPattern />
           <div className="relative z-10 bg-white">
