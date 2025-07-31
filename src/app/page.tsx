@@ -8,8 +8,6 @@ import { ClientsSection } from "./components/clients-section";
 import { ProjectsSection } from "./components/projects-section";
 import { TestimonialsSection } from "./components/testimonials-section";
 import { PartnershipSection } from "./components/partnership-section";
-import { Footer } from "./components/footer";
-import { Nav } from "./components/nav";
 import { PageLoader } from "./components/page-loader";
 import { InteractiveGridPattern } from "./components/interactive-grid-pattern";
 
@@ -17,7 +15,6 @@ export default function Page() {
   return (
     <Suspense fallback={<PageLoader />}>
       <main className="relative min-h-screen bg-white">
-        <Nav />
         <Hero />
 
         <div className="relative">
@@ -33,8 +30,6 @@ export default function Page() {
             <PartnershipSection />
           </div>
         </div>
-
-        <Footer />
       </main>
     </Suspense>
   );

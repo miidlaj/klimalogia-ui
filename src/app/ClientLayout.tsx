@@ -3,6 +3,8 @@
 import { GeistSans } from "geist/font/sans";
 import type React from "react";
 import "./globals.css";
+import { Footer } from "./components/footer";
+import { Nav } from "./components/nav";
 
 export default function ClientLayout({
   children,
@@ -97,7 +99,9 @@ export default function ClientLayout({
 
         {/* Main content wrapper */}
         <div id="main-content" className="min-h-screen">
+          <Nav />
           {children}
+          <Footer />
         </div>
 
         {/* Analytics Scripts */}
