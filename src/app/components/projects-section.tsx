@@ -1,114 +1,88 @@
-"use client"
+"use client";
 
-import { FileText, BarChart3, Award, Leaf, Zap, Building } from "lucide-react"
-import { BoxReveal } from "./box-reveal"
-import { BentoGrid, BentoCard } from "./bento-grid"
-import { ShinyButton } from "./shiny-button"
+import { FileText, BarChart3, Leaf, Building } from "lucide-react";
+import { BentoGrid, BentoCard } from "./bento-grid";
+import { ShinyButton } from "./shiny-button";
 
-const projectCards = [
+const allProjectCards = [
   {
     name: "Case Studies",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-50" />,
+    className: "col-span-3 lg:col-span-2", // Made wider
     Icon: FileText,
-    description: "In-depth analysis of successful sustainability transformations and climate action implementations.",
+    description:
+      "In-depth analysis of successful sustainability transformations.",
     href: "/projects",
     cta: "View Studies",
+    background: (
+      <div className="absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-blue-100/30 to-transparent" />
+    ),
   },
   {
     name: "Impact Metrics",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 opacity-50" />,
+    className: "col-span-3 lg:col-span-1", // Narrower
     Icon: BarChart3,
-    description:
-      "Quantified results demonstrating emissions reductions, cost savings, and sustainability improvements.",
+    description: "Quantified results in emissions reductions and cost savings.",
     href: "/projects",
-    cta: "View Metrics",
+    cta: "See Data",
+    background: (
+      // A simple visual representation of a bar chart
+      <div className="absolute bottom-0 left-0 right-0 top-10 flex h-full items-end gap-1 p-2 transition-all duration-300 group-hover:p-1">
+        <div className="h-1/2 w-full rounded-sm bg-blue-200/50 transition-all duration-300 group-hover:h-3/4" />
+        <div className="h-full w-full rounded-sm bg-blue-200/60 transition-all duration-300 group-hover:h-1/2" />
+        <div className="h-1/3 w-full rounded-sm bg-blue-200/50 transition-all duration-300 group-hover:h-2/3" />
+      </div>
+    ),
   },
-  {
-    name: "Recognition",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-purple-100 opacity-50" />,
-    Icon: Award,
-    description: "Awards and certifications achieved through our collaborative sustainability initiatives.",
-    href: "/projects",
-    cta: "View Awards",
-  },
-]
-
-const focusAreaCards = [
   {
     name: "Green Buildings & Infrastructure",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-blue-100 opacity-50" />,
+    className: "col-span-3 lg:col-span-1", // Narrower
     Icon: Building,
-    description: "Sustainable building design and green infrastructure solutions.",
+    description: "Sustainable design and green infrastructure solutions.",
     href: "/projects",
     cta: "Learn More",
+    background: (
+      <div className="absolute inset-0 bg-gradient-to-br from-green-50/70 to-green-100/70" />
+    ),
   },
   {
     name: "Carbon Neutrality & Net-Zero",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100 opacity-50" />,
+    className: "col-span-3 lg:col-span-2", // Wider
     Icon: Leaf,
     description: "Comprehensive carbon reduction and neutrality strategies.",
     href: "/projects",
     cta: "Learn More",
+    background: (
+      <Leaf className="absolute -right-10 -bottom-10 h-40 w-40 text-green-300/40 transition-all duration-300 group-hover:rotate-12 group-hover:scale-110" />
+    ),
   },
-  {
-    name: "Renewable Energy Solutions",
-    className: "col-span-3 lg:col-span-1",
-    background: <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-orange-100 opacity-50" />,
-    Icon: Zap,
-    description: "Clean energy implementation and optimization projects.",
-    href: "/projects",
-    cta: "Learn More",
-  },
-]
+];
 
 export function ProjectsSection() {
   return (
     <section className="py-20 bg-transparent">
-      <div className="container mx-auto px-4">
-        <BoxReveal width="100%" boxColor="#3b82f6" duration={0.8}>
+      <div className="container mx-auto max-w-7xl px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Projects</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-500">
+              Our Projects
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Delivering measurable impact through innovative sustainability solutions across diverse industries and
-              regions.
+              Delivering measurable impact through innovative sustainability
+              solutions across diverse industries.
             </p>
           </div>
-        </BoxReveal>
 
-        <BoxReveal width="100%" boxColor="#10b981" duration={0.8}>
-          <div className="mb-12">
-            <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {projectCards.map((card) => (
-                <BentoCard key={card.name} {...card} />
-              ))}
-            </BentoGrid>
-          </div>
-        </BoxReveal>
+          <BentoGrid className="lg:grid-cols-3">
+            {allProjectCards.map((card) => (
+              <BentoCard key={card.name} {...card} />
+            ))}
+          </BentoGrid>
 
-        <BoxReveal width="100%" boxColor="#8b5cf6" duration={0.8}>
-          <div className="mb-12">
-            <h3 className="text-2xl font-bold text-center mb-8">Project Focus Areas</h3>
-            <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              {focusAreaCards.map((card) => (
-                <BentoCard key={card.name} {...card} />
-              ))}
-            </BentoGrid>
-          </div>
-        </BoxReveal>
-
-        <BoxReveal width="100%" boxColor="#f59e0b" duration={0.8}>
-          <div className="text-center">
-            <ShinyButton onClick={() => (window.location.href = "/projects")}>
-              View Our Projects
+          <div className="text-center mt-16">
+            <ShinyButton >
+              Explore All Projects
             </ShinyButton>
           </div>
-        </BoxReveal>
       </div>
     </section>
-  )
+  );
 }

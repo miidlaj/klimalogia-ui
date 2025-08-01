@@ -53,16 +53,16 @@ export function Hero() {
             </SketchyUnderline>
           </h1>
           <p className="mb-4 text-lg sm:text-xl">
-            your partner in driving climate action and sustainability.
+            Your Global Partner in Climate Action and Sustainable Transformation
           </p>
 
-          <Link href={"/partner-with-us"}>
+          <Link href={"/contact-us"}>
             <ShimmerButton
               background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
               className="cursor-pointer"
             >
               {" "}
-              Partner with us
+              Contact Us
             </ShimmerButton>
           </Link>
         </div>

@@ -92,7 +92,6 @@ const valueCards = [
 export function MissionVisionPreview() {
   return (
     <section className="py-16 md:py-24 bg-transparent relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-blue-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
       <div className="absolute top-1/4 right-20 w-72 h-72 bg-green-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-20 left-40 w-72 h-72 bg-teal-100/20 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
