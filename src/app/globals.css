@@ -167,7 +167,6 @@
       opacity: 0;
     }
   }
-  
 
   @keyframes shimmer-slide {
     to {
@@ -279,7 +278,13 @@
     background: linear-gradient(
       135deg,
       var(--brand-navy) 0%,
-      var(--brand-primary) 100%
+      var(--brand-blue) 14.28%,
+      var(--brand-teal) 28.57%,
+      var(--brand-light-teal) 42.86%,
+      var(--brand-primary) 57.14%,
+      var(--brand-green) 71.43%,
+      var(--brand-dark-green) 85.71%,
+      var(--brand-forest) 100%
     );
   }
 
@@ -287,19 +292,136 @@
     background: linear-gradient(
       90deg,
       var(--brand-navy) 0%,
-      var(--brand-teal) 50%,
-      var(--brand-primary) 100%
+      var(--brand-blue) 14.28%,
+      var(--brand-teal) 28.57%,
+      var(--brand-light-teal) 42.86%,
+      var(--brand-primary) 57.14%,
+      var(--brand-green) 71.43%,
+      var(--brand-dark-green) 85.71%,
+      var(--brand-forest) 100%
+    );
+  }
+
+  .bg-brand-gradient-vertical {
+    background: linear-gradient(
+      180deg,
+      var(--brand-navy) 0%,
+      var(--brand-blue) 14.28%,
+      var(--brand-teal) 28.57%,
+      var(--brand-light-teal) 42.86%,
+      var(--brand-primary) 57.14%,
+      var(--brand-green) 71.43%,
+      var(--brand-dark-green) 85.71%,
+      var(--brand-forest) 100%
+    );
+  }
+
+  .bg-brand-gradient-radial {
+    background: radial-gradient(
+      circle at center,
+      var(--brand-forest) 0%,
+      var(--brand-dark-green) 16.66%,
+      var(--brand-green) 33.33%,
+      var(--brand-primary) 50%,
+      var(--brand-light-teal) 66.66%,
+      var(--brand-teal) 83.33%,
+      var(--brand-navy) 100%
     );
   }
 
   .text-brand-gradient {
     background: linear-gradient(
       135deg,
-      var(--brand-teal) 0%,
-      var(--brand-primary) 100%
+      var(--brand-navy) 0%,
+      var(--brand-teal) 25%,
+      var(--brand-primary) 50%,
+      var(--brand-green) 75%,
+      var(--brand-forest) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .bg-brand-gradient-subtle {
+    background: linear-gradient(
+      135deg,
+      var(--brand-navy) 0%,
+      var(--brand-blue) 16.66%,
+      var(--brand-teal) 33.33%,
+      var(--brand-primary) 50%,
+      var(--brand-green) 66.66%,
+      var(--brand-dark-green) 83.33%,
+      var(--brand-forest) 100%
+    );
+    opacity: 0.9;
+  }
+
+  .bg-brand-gradient-mobile {
+    background: linear-gradient(
+      180deg,
+      var(--brand-navy) 0%,
+      var(--brand-teal) 33.33%,
+      var(--brand-primary) 66.66%,
+      var(--brand-forest) 100%
+    );
+  }
+
+  /* Additional gradient variations */
+  .bg-brand-gradient-reverse {
+    background: linear-gradient(
+      315deg,
+      var(--brand-forest) 0%,
+      var(--brand-dark-green) 14.28%,
+      var(--brand-green) 28.57%,
+      var(--brand-primary) 42.86%,
+      var(--brand-light-teal) 57.14%,
+      var(--brand-teal) 71.43%,
+      var(--brand-blue) 85.71%,
+      var(--brand-navy) 100%
+    );
+  }
+
+  .bg-brand-gradient-mesh {
+    background: radial-gradient(
+        at 40% 20%,
+        var(--brand-navy) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 80% 0%, var(--brand-blue) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, var(--brand-teal) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, var(--brand-primary) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, var(--brand-green) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, var(--brand-forest) 0px, transparent 50%);
+  }
+
+  /* New gradient variations with all 8 colors */
+  .bg-brand-gradient-smooth {
+    background: linear-gradient(
+      120deg,
+      var(--brand-navy) 0%,
+      var(--brand-blue) 12.5%,
+      var(--brand-teal) 25%,
+      var(--brand-light-teal) 37.5%,
+      var(--brand-primary) 50%,
+      var(--brand-green) 62.5%,
+      var(--brand-dark-green) 75%,
+      var(--brand-forest) 100%
+    );
+  }
+
+  .bg-brand-gradient-conic {
+    background: conic-gradient(
+      from 0deg,
+      var(--brand-navy) 0deg,
+      var(--brand-blue) 45deg,
+      var(--brand-teal) 90deg,
+      var(--brand-light-teal) 135deg,
+      var(--brand-primary) 180deg,
+      var(--brand-green) 225deg,
+      var(--brand-dark-green) 270deg,
+      var(--brand-forest) 315deg,
+      var(--brand-navy) 360deg
+    );
   }
 }
