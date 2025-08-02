@@ -1,11 +1,18 @@
 "use client";
 
-import { GeistSans } from "geist/font/sans";
+import { Montserrat } from "next/font/google";
 import type React from "react";
 import "./globals.css";
 import { Footer } from "./components/footer";
 import { Nav } from "./components/nav";
 
+const montserrat = Montserrat({
+  weight: ["300", "400", "500", "700", "100", "200", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
+  variable: "--font-montserrat",
+});
 export default function ClientLayout({
   children,
 }: {
@@ -14,7 +21,7 @@ export default function ClientLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.className}`}
+      className={`${montserrat.className}`}
       suppressHydrationWarning
     >
       <head>

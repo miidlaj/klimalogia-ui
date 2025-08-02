@@ -57,7 +57,7 @@ export function ServicesOverview() {
     <section className="py-16 md:py-24 bg-transparent relative">
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-teal-500">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-light-teal">
             Our Services
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
