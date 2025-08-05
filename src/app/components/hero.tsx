@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { SketchyUnderline } from "@/components/sketchy-underline";
+import Logo from "@/components/logo";
 import { TypingAnimation } from "@/components/magic-ui/typing-animation";
 import Link from "next/link";
 import { ShimmerButton } from "./shimmer-button";
@@ -44,13 +44,11 @@ export function Hero() {
       <div className="absolute inset-0 bg-black/40" />
       <div className="relative flex h-full items-center justify-center">
         <div className="container flex justify-center flex-col items-center mx-auto px-4 text-center text-white">
-          <h1 className="mb-6 text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
+          <h1 className="mb-6 text-4xl font-bold flex justify-center items-center flex-col leading-tight sm:text-5xl md:text-6xl">
             <TypingAnimation className="text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
               Welcome to,
             </TypingAnimation>
-            <SketchyUnderline color="var(--primary)">
-              Klimalogia.
-            </SketchyUnderline>
+            <Logo variant="white" height={85} width={280}/>
           </h1>
           <p className="mb-4 text-lg sm:text-xl">
             Your Global Partner in Climate Action and Sustainable Transformation

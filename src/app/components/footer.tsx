@@ -1,101 +1,64 @@
-import Logo from "@/components/logo";
-import Link from "next/link";
-import {
-  Mail,
-  Instagram,
-  Linkedin,
-  Twitter,
-  Youtube,
-  Facebook,
-} from "lucide-react";
+"use client";
 
-// Data arrays (footerSections, socialLinks) remain unchanged...
+import Link from "next/link";
+import Logo from "@/components/logo";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaWhatsapp,
+} from "react-icons/fa";
+
+// Data arrays with your updated links and social icons
 const footerSections = [
-  {
-    title: "SERVICES",
-    links: [
-      { href: "/services/strategy-advisory", label: "Strategy & Advisory" },
-      {
-        href: "/services/assurance-compliance",
-        label: "Assurance & Compliance",
-      },
-      {
-        href: "/services/action-transformation",
-        label: "Action & Transformation",
-      },
-      { href: "/services/digital-solutions", label: "Digital Solutions" },
-    ],
-  },
   {
     title: "COMPANY",
     links: [
       { href: "/about-us", label: "About Us" },
-      { href: "/mission-vision", label: "Mission & Vision" },
-      { href: "/team", label: "Our Team" },
+      { href: "/services", label: "Services" },
       { href: "/careers", label: "Careers" },
-      { href: "/news", label: "News & Updates" },
-    ],
-  },
-  {
-    title: "CLIENTS",
-    links: [
-      { href: "/clients", label: "Our Clients" },
-      { href: "/case-studies", label: "Case Studies" },
-      { href: "/projects", label: "Projects" },
-      { href: "/testimonials", label: "Testimonials" },
-    ],
-  },
-  {
-    title: "RESOURCES",
-    links: [
-      { href: "/resources", label: "Resources" },
-      { href: "/blog", label: "Blog" },
-      { href: "/whitepapers", label: "Whitepapers" },
-      { href: "/webinars", label: "Webinars" },
-      { href: "/sustainability-guide", label: "Sustainability Guide" },
     ],
   },
   {
     title: "CONNECT",
     links: [
-      { href: "/contact", label: "Contact Us" },
-      { href: "/partner-with-us", label: "Partnership" },
-      { href: "/support", label: "Support" },
-      { href: "/newsletter", label: "Newsletter" },
+      { href: "/contact-us", label: "Contact Us" },
+      { href: "/partner-with-us", label: "Partner with Us" },
     ],
+  },
+  {
+    title: "MEDIA",
+    links: [{ href: "/media", label: "News & Updates" }],
   },
 ];
 
 const socialLinks = [
-  { href: "mailto:info@klimalogia.com", icon: Mail, label: "Email" },
+  {
+    href: "https://linkedin.com/company/klimalogia",
+    icon: FaLinkedinIn,
+    label: "LinkedIn",
+  },
   {
     href: "https://instagram.com/klimalogia",
-    icon: Instagram,
+    icon: FaInstagram,
     label: "Instagram",
   },
   {
-    href: "https://linkedin.com/company/klimalogia",
-    icon: Linkedin,
-    label: "LinkedIn",
-  },
-  { href: "https://twitter.com/klimalogia", icon: Twitter, label: "Twitter" },
-  { href: "https://youtube.com/@klimalogia", icon: Youtube, label: "YouTube" },
-  {
     href: "https://facebook.com/klimalogia",
-    icon: Facebook,
+    icon: FaFacebookF,
     label: "Facebook",
   },
+  { href: "https://wa.me/your-number", icon: FaWhatsapp, label: "WhatsApp" },
 ];
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-slate-950">
+    <footer className="relative overflow-hidden bg-slate-950 text-white">
       <div className="absolute inset-0 opacity-100">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 2527 867"
           fill="none"
-          // 3. Made SVG responsive: fills container without distortion
           preserveAspectRatio="xMidYMid slice"
           className="w-full h-full"
         >
@@ -258,31 +221,25 @@ export function Footer() {
         </svg>
       </div>
 
-      {/* 4. Removed the redundant dark overlay div */}
-
-      {/* Content - sits above the background SVG */}
       <div className="relative z-10 pt-16 pb-8">
         <div className="container mx-auto px-4">
-          {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
-            {/* Logo and Description */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
             <div className="lg:col-span-2">
               <Link href="/" className="inline-block mb-6">
-                <Logo height={120} width={120} />
+                <Logo height={40} width={170} variant="white" />
               </Link>
-              <p className="text-blue-100 text-sm leading-relaxed mb-6 max-w-sm">
+              <p className="text-slate-400 text-sm leading-relaxed mb-8 max-w-sm">
                 Your global partner in climate action and sustainable
                 transformation. Driving meaningful impact through innovative
                 solutions.
               </p>
-
-              {/* Social Links */}
-              <div className="flex space-x-4">
+              <div className="flex space-x-3">
                 {socialLinks.map((social) => (
                   <Link
-                    key={social.href}
+                    key={social.label}
                     href={social.href}
-                    className="w-10 h-10/10 backdrop-blur-sm rounded-full flex items-center justify-center text-blue-100 hover:bg-white/20 hover:text-white transition-all duration-300 hover:scale-110"
+                    target="_blank"
+                    className="w-10 h-10 rounded-full flex items-center justify-center border border-slate-700/50 text-slate-400 hover:bg-[var(--brand-primary)] hover:border-[var(--brand-primary)] hover:text-white transition-all duration-300 hover:scale-110"
                     aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />
@@ -291,10 +248,9 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Footer Sections */}
             {footerSections.map((section) => (
               <div key={section.title} className="lg:col-span-1">
-                <h3 className="text-white font-semibold text-sm mb-4 tracking-wider">
+                <h3 className="text-slate-200 font-semibold text-sm mb-4 tracking-wider uppercase">
                   {section.title}
                 </h3>
                 <ul className="space-y-3">
@@ -302,7 +258,7 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-blue-200 hover:text-white text-sm transition-colors duration-300 hover:translate-x-1 inline-block"
+                        className="text-slate-400 hover:text-[var(--brand-primary)] hover:underline underline-offset-4 text-sm transition-colors duration-300"
                       >
                         {link.label}
                       </Link>
@@ -313,37 +269,23 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Bottom Section */}
-          <div className="border-t border-white/20 pt-8">
+          <div className="border-t border-slate-800/50 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="text-blue-200 text-sm">
+              <div className="text-slate-500 text-sm">
                 © {new Date().getFullYear()} Klimalogia. All rights reserved.
               </div>
-
-              <div className="flex flex-wrap gap-6 text-sm">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                 <Link
                   href="/privacy-policy"
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
+                  className="text-slate-500 hover:text-white transition-colors duration-300"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/terms-of-service"
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
+                  className="text-slate-500 hover:text-white transition-colors duration-300"
                 >
                   Terms of Service
-                </Link>
-                <Link
-                  href="/cookie-policy"
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
-                >
-                  Cookie Policy
-                </Link>
-                <Link
-                  href="/security"
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
-                >
-                  Security
                 </Link>
               </div>
             </div>

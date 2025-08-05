@@ -23,7 +23,7 @@ export function Nav() {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about-us" },
-    { name: "Services", href: "/services" },
+    { name: "Our Solutions", href: "/services" },
     { name: "Partner with us", href: "/partner-with-us" },
     { name: "Media", href: "/media" },
 

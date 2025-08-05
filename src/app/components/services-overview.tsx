@@ -11,46 +11,52 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BentoGrid } from "./bento-grid"; // Keep BentoGrid for the layout
-import { ShimmerButton } from "./shimmer-button"; // Use the ShimmerButton for consistency
+import { BentoGrid } from "./bento-grid";
+import { ShimmerButton } from "./shimmer-button";
 
-// 1. A color configuration to manage theming for each card
 const colorConfig = {
   blue: {
-    text: "text-blue-600",
-    border: "border-blue-200/50",
-    glow: "shadow-blue-500/25",
-    button: "bg-gradient-to-r from-blue-600 to-blue-700",
-    gradient: "from-blue-500/20 via-blue-400/10 to-transparent",
-    iconGradient: "from-blue-500 to-blue-600",
+    text: "text-[var(--brand-blue)]",
+    border: "border-[var(--brand-blue)]/20",
+    glow: "shadow-[var(--brand-blue)]/25",
+    button:
+      "linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)",
+    gradient:
+      "from-[var(--brand-blue)]/20 via-[var(--brand-blue)]/10 to-transparent",
+    iconGradient: "from-[var(--brand-blue)] to-[var(--brand-navy)]",
   },
   green: {
-    text: "text-green-600",
-    border: "border-green-200/50",
-    glow: "shadow-green-500/25",
-    button: "bg-gradient-to-r from-green-600 to-green-700",
-    gradient: "from-green-500/20 via-green-400/10 to-transparent",
-    iconGradient: "from-green-500 to-green-600",
+    text: "text-[var(--brand-green)]",
+    border: "border-[var(--brand-green)]/20",
+    glow: "shadow-[var(--brand-green)]/25",
+    button:
+      "linear-gradient(135deg, var(--brand-green) 0%, var(--brand-dark-green) 50%, var(--brand-forest) 100%)",
+    gradient:
+      "from-[var(--brand-green)]/20 via-[var(--brand-green)]/10 to-transparent",
+    iconGradient: "from-[var(--brand-green)] to-[var(--brand-dark-green)]",
   },
-  purple: {
-    text: "text-purple-600",
-    border: "border-purple-200/50",
-    glow: "shadow-purple-500/25",
-    button: "bg-gradient-to-r from-purple-600 to-purple-700",
-    gradient: "from-purple-500/20 via-purple-400/10 to-transparent",
-    iconGradient: "from-purple-500 to-purple-600",
+  teal: {
+    text: "text-[var(--brand-teal)]",
+    border: "border-[var(--brand-teal)]/20",
+    glow: "shadow-[var(--brand-teal)]/25",
+    button:
+      "linear-gradient(135deg, var(--brand-light-teal) 0%, var(--brand-teal) 50%, var(--brand-blue) 100%)",
+    gradient:
+      "from-[var(--brand-teal)]/20 via-[var(--brand-teal)]/10 to-transparent",
+    iconGradient: "from-[var(--brand-teal)] to-[var(--brand-blue)]",
   },
-  orange: {
-    text: "text-orange-600",
-    border: "border-orange-200/50",
-    glow: "shadow-orange-500/25",
-    button: "bg-gradient-to-r from-orange-600 to-orange-700",
-    gradient: "from-orange-500/20 via-orange-400/10 to-transparent",
-    iconGradient: "from-orange-500 to-orange-600",
+  primary: {
+    text: "text-[var(--brand-primary)]",
+    border: "border-[var(--brand-primary)]/20",
+    glow: "shadow-[var(--brand-primary)]/25",
+    button:
+      "linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-light-teal) 50%, var(--brand-teal) 100%)",
+    gradient:
+      "from-[var(--brand-primary)]/20 via-[var(--brand-primary)]/10 to-transparent",
+    iconGradient: "from-[var(--brand-primary)] to-[var(--brand-light-teal)]",
   },
 };
 
-// 2. Updated features array with new properties for advanced styling
 const features = [
   {
     Icon: Lightbulb,
@@ -81,9 +87,9 @@ const features = [
     href: "/services/action-transformation",
     cta: "Take Action",
     className: "col-span-3 lg:col-span-1",
-    color: "purple",
+    color: "teal",
     stats: "500+ Projects",
-    ...colorConfig.purple,
+    ...colorConfig.teal,
   },
   {
     Icon: Monitor,
@@ -92,21 +98,25 @@ const features = [
     href: "/services/digital-solutions",
     cta: "Discover Digital",
     className: "col-span-3 lg:col-span-2",
-    color: "orange",
+    color: "primary",
     stats: "20+ Tools",
-    ...colorConfig.orange,
+    ...colorConfig.primary,
   },
 ];
-
 export function ServicesOverview() {
   return (
     <section className="py-16 md:py-24 bg-transparent relative overflow-hidden">
-      {/* Decorative background blobs */}
       <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute top-1/2 -right-10 w-96 h-96 bg-gradient-to-r from-green-400/10 to-orange-400/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <div className="text-center mb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-20"
+        >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-light-teal">
             Our Services
           </h2>
@@ -114,9 +124,8 @@ export function ServicesOverview() {
             At Klimalogia, we deliver end-to-end climate and sustainability
             solutions designed to help your business meet its goals.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Using BentoGrid for layout but custom JSX for the cards */}
         <BentoGrid className="lg:grid-cols-3">
           {features.map((card, index) => (
             <motion.div
@@ -173,8 +182,8 @@ export function ServicesOverview() {
                   </div>
                   <Link href={card.href} className="mt-auto">
                     <ShimmerButton
-                      background={card.color}
-                      className={cn("w-full group/btn", card.button)}
+                      background={card.button}
+                      className="w-full group/btn"
                     >
                       <span className="text-white flex items-center justify-center gap-2 font-medium">
                         {card.cta}
@@ -188,11 +197,17 @@ export function ServicesOverview() {
           ))}
         </BentoGrid>
 
-        <div className="text-center flex justify-center items-center mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-center flex justify-center items-center mt-20"
+        >
           <Link href={"/services"}>
             <ShimmerButton
               background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
-              className="group shadow-2xl bg-gradient-to-r from-gray-800 to-black px-8 py-3"
+              className="group shadow-2xl px-8 py-3"
             >
               <span className="text-white flex items-center gap-2">
                 View All Services
@@ -200,7 +215,7 @@ export function ServicesOverview() {
               </span>
             </ShimmerButton>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
