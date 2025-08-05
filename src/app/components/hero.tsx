@@ -48,7 +48,7 @@ export function Hero() {
             <TypingAnimation className="text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
               Welcome to,
             </TypingAnimation>
-            <Logo variant="white" height={85} width={280}/>
+            <Logo variant="white" height={85} width={280} />
           </h1>
           <p className="mb-4 text-lg sm:text-xl">
             Your Global Partner in Climate Action and Sustainable Transformation
@@ -59,7 +59,7 @@ export function Hero() {
               background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
               className="cursor-pointer"
             >
-              Our Solutions
+              Explore Now
             </ShimmerButton>
           </Link>
         </div>
