@@ -56,13 +56,12 @@ export function Hero() {
             Your Global Partner in Climate Action and Sustainable Transformation
           </p>
 
-          <Link href={"/contact-us"}>
+          <Link href={"/our-solutions"}>
             <ShimmerButton
               background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
               className="cursor-pointer"
             >
-              {" "}
-              Contact Us
+              Our Solutions
             </ShimmerButton>
           </Link>
         </div>
