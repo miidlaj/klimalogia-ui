@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ShinyButton } from "./shiny-button";
-import { Marquee } from "./marquee"; // Make sure path is correct
+import { Marquee } from "./marquee";
+import { ShimmerButton } from "./shimmer-button";
 
 // 1. Data for the client logos
 const clientLogos = [
@@ -65,9 +65,14 @@ export function ClientsSection() {
             <LogoCard key={logo.name} {...logo} />
           ))}
         </Marquee>
-        <div className="text-center mt-16">
+        <div className="text-center flex justify-center items-center mt-16">
           <Link href={"/clients"}>
-            <ShinyButton>View Our Client Stories</ShinyButton>
+            <ShimmerButton
+              background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+              className="cursor-pointer"
+            >
+              View Our Client Stories
+            </ShimmerButton>
           </Link>
         </div>
       </div>

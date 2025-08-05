@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShinyButton } from "./shiny-button";
+import { ShimmerButton } from "./shimmer-button";
 
 export function Intro() {
   return (
@@ -26,9 +26,12 @@ export function Intro() {
           </div>
           <div className="mt-12 flex justify-center">
             <Link href={"/about-us"}>
-              <ShinyButton>
-                <span className="text-black">Learn More</span>
-              </ShinyButton>
+              <ShimmerButton
+                background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+                className="cursor-pointer"
+              >
+                Learn More
+              </ShimmerButton>
             </Link>
           </div>
         </div>

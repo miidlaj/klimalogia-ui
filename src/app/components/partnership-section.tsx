@@ -252,15 +252,17 @@ export function PartnershipSection() {
               </p>
 
               <div className="flex flex-col items-center gap-6">
-                <ShimmerButton
-                  onClick={() => (window.location.href = "/partner-with-us")}
-                  className="group shadow-2xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 px-8 py-4"
-                >
-                  <span className="text-white font-semibold flex items-center gap-2">
-                    Explore Partnership Opportunities
-                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </ShimmerButton>
+                <Link href={"/partner-with-us"}>
+                  <ShimmerButton
+                    onClick={() => (window.location.href = "/partner-with-us")}
+                    background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+                  >
+                    <span className="text-white font-semibold flex items-center gap-2">
+                      Explore Partnership Opportunities
+                      <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </ShimmerButton>
+                </Link>
 
                 <div className="flex items-center gap-8 text-sm text-gray-600">
                   <div className="flex items-center gap-2">
