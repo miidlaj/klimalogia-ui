@@ -15,8 +15,6 @@ import {
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "./shimmer-button";
 
-// --- TYPE DEFINITIONS START ---
-
 const colorConfig = {
   blue: {
     text: "text-[var(--brand-blue)]",
@@ -60,10 +58,8 @@ const colorConfig = {
   },
 };
 
-// 1. Create a type for the color keys to ensure type safety
 type ColorTheme = keyof typeof colorConfig;
 
-// 2. Define the shape of a single solution category object
 type SolutionCategory = {
   id: string;
   name: string;
@@ -75,7 +71,6 @@ type SolutionCategory = {
   solutions: string[];
 };
 
-// 3. Define the props for the SolutionCard component
 type SolutionCardProps = {
   card: SolutionCategory;
   index: number;
@@ -84,10 +79,7 @@ type SolutionCardProps = {
   onClick: () => void;
 };
 
-// --- TYPE DEFINITIONS END ---
-
 const solutionCategories: SolutionCategory[] = [
-  // Typed the array
   {
     id: "strategy-advisory",
     name: "Strategy & Advisory",
@@ -97,14 +89,28 @@ const solutionCategories: SolutionCategory[] = [
     icon: Lightbulb,
     color: "blue",
     solutions: [
-      "Sustainability Strategy",
-      "Climate Risk Assessment",
-      "Net-Zero Planning",
-      "Circular Economy",
-      "ESG Integration",
-      "Stakeholder Engagement",
-      "Policy Analysis",
-      "Carbon Accounting",
+      "Sustainability initiatives",
+      "Strategy development",
+      "Policy design",
+      "Roadmap creation",
+      "Strategic communication",
+      "ESG strategy",
+      "ESG reporting",
+      "ESG ratings",
+      "GHG accounting",
+      "Scope 1 quantification",
+      "Scope 2 quantification",
+      "Scope 3 quantification",
+      "Financed emissions quantification",
+      "Net-zero target setting",
+      "Decarbonization roadmaps",
+      "Carbon markets",
+      "Carbon registry",
+      "Climate risk assessment",
+      "Transition planning",
+      "Sustainable finance",
+      "Responsible investment",
+      "Sustainability benchmarking",
     ],
   },
   {
@@ -116,25 +122,48 @@ const solutionCategories: SolutionCategory[] = [
     icon: Shield,
     color: "green",
     solutions: [
-      "GHG Verification",
-      "ISO Certification",
-      "Green Building Audits",
-      "Regulatory Reporting",
+      "ESG Assurance (ISSA 5000)",
+      "ESG Assurance (ISAE 3000)",
+      "ESG Assurance (AA1000)",
+      "GHG Assurance (ISAE 3410)",
+      "LEED certification",
+      "BREEAM certification",
+      "WELL certification",
+      "TRUE certification",
+      "ESTIDAMA",
+      "GSAS",
+      "Mostadam",
+      "ISO 9001",
+      "ISO 14001",
+      "ISO 50001",
+      "ISO 14064",
+      "FIA",
+      "ILFI",
+      "Green Globe",
+      "EPD",
     ],
   },
   {
-    id: "action-transformation",
-    name: "Action & Transformation",
+    id: "action-integration",
+    name: "Action & Integration",
     description: "Implementing tangible changes for real-world impact.",
-    href: "/services/action-transformation",
+    href: "/services/action-integration",
     cta: "Learn More",
     icon: Zap,
     color: "teal",
     solutions: [
-      "Renewable Energy Strategy",
-      "Energy Efficiency",
-      "Sustainable Supply Chain",
-      "Waste Management",
+      "Energy audits",
+      "Water audits",
+      "Waste audits",
+      "Environmental Impact Assessments (EIA)",
+      "Zero-waste programs",
+      "Circular-economy strategies",
+      "Nature & biodiversity initiatives",
+      "Sustainability workshops",
+      "Cultural transformation",
+      "Environmental testing",
+      "Environmental monitoring",
+      "Renewable energy projects",
     ],
   },
   {
@@ -146,9 +175,23 @@ const solutionCategories: SolutionCategory[] = [
     icon: Monitor,
     color: "primary",
     solutions: [
-      "AI-Powered Analytics",
-      "Digital Carbon Tracking",
-      "Lifecycle Assessment",
+      "EnergyPlus modeling",
+      "IES VE modeling",
+      "eQUEST modeling",
+      "SimaPro LCA",
+      "GaBi LCA",
+      "OpenLCA",
+      "Watershed scenario analysis",
+      "CoolPlanet scenario analysis",
+      "PACTA scenario analysis",
+      "ClimateMAPS scenario analysis",
+      "En-ROADS modeling",
+      "Ecoinvent EPD",
+      "One Click LCA EPD",
+      "EPD International",
+      "Umberto carbon footprinting",
+      "GHG Protocol tools",
+      "Carbon Minds tools",
     ],
   },
 ];
@@ -181,7 +224,7 @@ function SolutionCard({
       onClick={onClick}
       className={cn(
         "cursor-pointer will-change-transform",
-        isExpanded ? "col-span-full" : "col-span-1"
+        isExpanded ? "w-full" : "w-full"
       )}
       style={{
         transform: "translateZ(0)",
@@ -344,11 +387,25 @@ function SolutionCard({
 }
 
 export function SolutionsOverview() {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [expandedIndex, setExpandedIndex] = useState<number>(0);
 
   const handleCardClick = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    setExpandedIndex(index);
   };
+
+  const organizeCards = () => {
+    const expandedCard = {
+      card: solutionCategories[expandedIndex],
+      index: expandedIndex,
+    };
+    const remainingCards = solutionCategories
+      .map((card, index) => ({ card, index }))
+      .filter((_, index) => index !== expandedIndex);
+
+    return { expandedCard, remainingCards };
+  };
+
+  const { expandedCard, remainingCards } = organizeCards();
 
   return (
     <section className="py-16 md:py-24 relative overflow-hidden ">
@@ -372,28 +429,46 @@ export function SolutionsOverview() {
           </p>
         </motion.div>
 
-        <motion.div
-          layout
-          transition={layoutTransition}
-          className={cn(
-            "grid gap-6 will-change-transform",
-            expandedIndex !== null
-              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-          )}
-          style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
-        >
-          {solutionCategories.map((card, index) => (
+        <div className="space-y-6">
+          <motion.div
+            layout
+            transition={layoutTransition}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 will-change-transform"
+            style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
+          >
+            {remainingCards.map(({ card, index }) => (
+              <motion.div
+                key={`card-${index}`}
+                layout
+                transition={layoutTransition}
+              >
+                <SolutionCard
+                  card={card}
+                  index={index}
+                  isExpanded={false}
+                  isOpen={false}
+                  onClick={() => handleCardClick(index)}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <motion.div
+            key={`expanded-${expandedCard.index}`}
+            layout
+            transition={layoutTransition}
+            className="w-full will-change-transform"
+            style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
+          >
             <SolutionCard
-              key={card.id}
-              card={card}
-              index={index}
-              isExpanded={expandedIndex === index}
-              isOpen={expandedIndex === index}
-              onClick={() => handleCardClick(index)}
+              card={expandedCard.card}
+              index={expandedCard.index}
+              isExpanded={true}
+              isOpen={true}
+              onClick={() => handleCardClick(expandedCard.index)}
             />
-          ))}
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
