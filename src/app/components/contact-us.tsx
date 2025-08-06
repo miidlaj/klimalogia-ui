@@ -31,7 +31,6 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 
-// Countries data
 const countries = [
   { code: "AF", name: "Afghanistan" },
   { code: "AL", name: "Albania" },
@@ -279,14 +278,17 @@ const hearAboutOptions = [
   "LinkedIn",
 ];
 
-// Gradient Blend Component
 function GradientBlend() {
   return (
     <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
   );
 }
 
-export default function ContactUs() {
+export default function ContactUs({
+  gradientOnTop,
+}: {
+  gradientOnTop?: boolean;
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -304,11 +306,13 @@ export default function ContactUs() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Form submitted:", values);
-    // Handle form submission here
   }
 
   return (
-    <div className="relative">
+    <div className="relative z-50">
+      {gradientOnTop && (
+        <div className="z-90 absolute top-0 left-0 right-0 h-10 bg-gradient-to-t from-transparent from-[1%] to-brand-teal/75 pointer-events-none" />
+      )}
       <div
         className="min-h-screen bg-cover bg-center bg-no-repeat relative"
         style={{

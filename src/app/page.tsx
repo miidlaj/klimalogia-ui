@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Hero } from "./components/hero";
 import { Intro } from "./components/intro";
-import { ServicesOverview } from "./components/services-overview";
 import { ClientsSection } from "./components/clients-section";
 import { PartnershipSection } from "./components/partnership-section";
 import { PageLoader } from "./components/page-loader";
@@ -14,8 +13,32 @@ export default function Page() {
       <main className="relative min-h-screen bg-white">
         <Hero />
         <div id="nav-trigger" />
-        <div className="relative">
-          <div className="relative z-10 bg-white">
+
+        <div className="relative bg-white">
+          <Intro />
+          {/* <ServicesOverview /> */}
+          <SolutionsOverview />
+          <ClientsSection />
+          <PartnershipSection />
+
+          <ContactUs gradientOnTop />
+        </div>
+        {/* <div className="min-h-screen w-full relative">
+          <div
+            className="absolute inset-0 z-0"
+            style={{
+              background:
+                "radial-gradient(125% 125% at 50% 10%, #fff 40%, var(--brand-teal) 100%)",
+            }}
+          />
+          <Intro />
+          <ServicesOverview />
+          <SolutionsOverview />
+          <ClientsSection />
+          <PartnershipSection />
+        </div>
+
+         <div className="relative z-10 bg-white">
             <div className="min-h-screen w-full bg-white relative text-gray-800">
               <div
                 className="absolute inset-0 z-0 pointer-events-none"
@@ -36,9 +59,7 @@ export default function Page() {
               <PartnershipSection />
             </div>
 
-            <ContactUs />
-          </div>
-        </div>
+          </div> */}
       </main>
     </Suspense>
   );
