@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "./shimmer-button";
+import { GradientUnderline } from "@/components/custom/gradient-underline";
 
 const colorConfig = {
   blue: {
@@ -420,9 +421,11 @@ export function SolutionsOverview() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-[var(--brand-blue)] to-[var(--brand-light-teal)]">
-            Our Solutions
-          </h2>
+          <GradientUnderline underlineWidth={80} spacing={0} className="mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-2">
+              Our Solutions
+            </h2>
+          </GradientUnderline>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             We provide a comprehensive suite of solutions to guide your
             organization through every stage of its sustainability journey.

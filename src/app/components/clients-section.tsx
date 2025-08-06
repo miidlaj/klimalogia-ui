@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ShimmerButton } from "./shimmer-button";
 import { ClientCarousel } from "@/components/custom/client-carousel";
+import { GradientUnderline } from "@/components/custom/gradient-underline";
 
 const clientLogos = [
   {
@@ -44,9 +45,11 @@ export function ClientsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-24"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-blue to-brand-light-teal">
-            Who We Serve
-          </h2>
+          <GradientUnderline underlineWidth={80} spacing={0} className="mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold mb-2">
+              Who We Serve
+            </h2>
+          </GradientUnderline>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Trusted by corporations, governments, and institutions worldwide to
             deliver impactful and credible ESG leadership.

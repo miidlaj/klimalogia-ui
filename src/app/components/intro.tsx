@@ -4,6 +4,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShimmerButton } from "./shimmer-button";
+import { GradientUnderline } from "@/components/custom/gradient-underline";
 
 export function Intro() {
   return (
@@ -32,9 +33,15 @@ export function Intro() {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <div className="mb-6">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-navy to-brand-teal tracking-tight">
-                About Us
-              </h1>
+              <GradientUnderline
+                underlineWidth={80}
+                spacing={0}
+                className="mb-4"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-2">
+                  About Us
+                </h2>
+              </GradientUnderline>
             </div>
 
             <p className="text-lg text-gray-600 leading-relaxed mb-10">

@@ -9,7 +9,7 @@ import { GradientUnderline } from "@/components/custom/gradient-underline";
 
 export function PartnershipSection() {
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative z-50 min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="/partnership.jpg"
@@ -28,7 +28,11 @@ export function PartnershipSection() {
             transition={{ duration: 0.8 }}
             className="space-y-8"
           >
-            <GradientUnderline underlineWidth={80} underlineHeight={7} spacing={10}>
+            <GradientUnderline
+              underlineWidth={80}
+              underlineHeight={7}
+              spacing={10}
+            >
               <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight">
                 Ready to Partner with Us?
               </h1>
@@ -53,7 +57,15 @@ export function PartnershipSection() {
           </motion.div>
         </div>
       </div>
-      <div className="z-90 absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-brand-teal/75 from-[1%] to-transparent pointer-events-none" />
+      <GradientBlend />
+
+      {/* <div className="z-90 absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-brand-teal/75 from-[1%] to-transparent pointer-events-none" /> */}
     </section>
+  );
+}
+
+function GradientBlend() {
+  return (
+    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
   );
 }
