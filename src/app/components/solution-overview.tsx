@@ -171,8 +171,7 @@ function SolutionCard({
   isOpen,
   onClick,
 }: SolutionCardProps) {
-  // Used the new props type
-  const theme = colorConfig[card.color]; // No 'as' cast needed, it's now type-safe
+  const theme = colorConfig[card.color];
 
   return (
     <motion.div
@@ -352,7 +351,7 @@ export function SolutionsOverview() {
   };
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden bg-gray-50">
+    <section className="py-16 md:py-24 relative overflow-hidden ">
       <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
 
