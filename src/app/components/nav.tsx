@@ -146,7 +146,11 @@ export function Nav() {
           className="flex items-center space-x-2 transition-transform duration-300 hover:scale-105"
           aria-label="Go to homepage"
         >
-          <Logo height={35} width={150} variant="gradient" />
+          <Logo
+            height={35}
+            width={150}
+            variant={!isFrosted ? "white" : "gradient"}
+          />
         </Link>
 
         {/* Desktop Navigation */}
