@@ -28,6 +28,8 @@ const clientLogos = [
   },
 ];
 
+const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+
 export function ClientsSection() {
   return (
     <section className="py-20 md:py-24 relative overflow-hidden">
@@ -57,7 +59,7 @@ export function ClientsSection() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <ClientCarousel logos={clientLogos} />
+          <ClientCarousel logos={infiniteLogos} />
         </motion.div>
 
         <motion.div

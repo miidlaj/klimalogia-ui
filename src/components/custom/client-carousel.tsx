@@ -10,17 +10,15 @@ interface Logo {
   src: string;
   name: string;
 }
-
 interface CarouselSlideProps extends Logo {
   id?: string;
 }
-
 interface ClientCarouselProps {
   logos: Logo[];
 }
 
 const CarouselSlide: React.FC<CarouselSlideProps> = ({ src, name }) => (
-  <div className="relative flex-[0_0_80%] sm:flex-[0_0_50%] md:flex-[0_0_40%] lg:flex-[0_0_30%] mx-4">
+  <div className="relative flex-[0_0_80%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] xl:flex-[0_0_20%] mx-4">
     <div className="relative flex h-40 items-center justify-center rounded-2xl bg-white/70 backdrop-blur-lg p-6 shadow-lg border border-gray-200/50">
       <img src={src} alt={name} className="h-full max-w-full object-contain" />
     </div>
