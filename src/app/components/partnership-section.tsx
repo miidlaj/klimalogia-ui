@@ -12,7 +12,7 @@ export function PartnershipSection() {
     <section className="relative z-50 min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          src="/partnership.jpg"
+          src="/partner.png"
           alt="Partnership background"
           className="w-full h-full object-cover"
         />
