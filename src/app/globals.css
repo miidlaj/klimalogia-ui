@@ -260,7 +260,6 @@
       background-position: var(--bg-size) 0;
     }
   }
-  
 }
 
 @layer base {
@@ -425,4 +424,17 @@
       var(--brand-navy) 360deg
     );
   }
+}
+
+@keyframes fill-progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: fill-progress 5s linear forwards;
 }
