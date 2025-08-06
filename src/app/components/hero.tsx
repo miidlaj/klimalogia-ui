@@ -46,7 +46,7 @@ export function Hero() {
         <div className="container flex justify-center flex-col items-center mx-auto px-4 text-center text-white">
           <h1 className="mb-6 text-4xl font-bold flex justify-center items-center flex-col leading-tight sm:text-5xl md:text-6xl">
             <TypingAnimation className="text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-              Welcome to,
+              Welcome to
             </TypingAnimation>
             <Logo variant="white" height={85} width={280} />
           </h1>
