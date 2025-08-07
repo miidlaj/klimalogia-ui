@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -225,7 +225,7 @@ function SolutionCard({
       onClick={onClick}
       className={cn(
         "cursor-pointer will-change-transform",
-        isExpanded ? "w-full" : "w-full"
+        isExpanded ? "col-span-full" : "col-span-1"
       )}
       style={{
         transform: "translateZ(0)",
@@ -310,16 +310,6 @@ function SolutionCard({
             >
               {card.name}
             </motion.h3>
-            {/* <motion.p
-              layout
-              transition={layoutTransition}
-              className={cn(
-                "text-gray-600 leading-relaxed",
-                isExpanded ? "text-lg mb-8" : "text-base mb-6"
-              )}
-            >
-              {card.description}
-            </motion.p> */}
           </motion.div>
           <AnimatePresence mode="wait">
             {isOpen && (
@@ -355,11 +345,13 @@ function SolutionCard({
                         animate={{
                           opacity: 1,
                           x: 0,
-                          transition: { delay: 0.3 + idx * 0.05 },
+                          transition: { delay: 0.3 + idx * 0.03 },
                         }}
-                        className="text-sm text-gray-700 flex items-center gap-3 p-2 rounded-lg bg-white/30 backdrop-blur-sm"
+                        className="text-sm text-gray-800 flex items-center gap-3 p-3 rounded-lg bg-white/50 backdrop-blur-sm border border-white/30 shadow-sm transition-all duration-300 hover:bg-white/70 hover:shadow-md"
                       >
-                        <ChevronRight className="w-4 h-4 text-[var(--brand-primary)] flex-shrink-0" />
+                        <ChevronRight
+                          className={cn("w-4 h-4 flex-shrink-0", theme.text)}
+                        />
                         <span className="font-medium">{solution}</span>
                       </motion.div>
                     ))}
@@ -388,28 +380,21 @@ function SolutionCard({
 }
 
 export function SolutionsOverview() {
-  const [expandedIndex, setExpandedIndex] = useState<number>(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   const handleCardClick = (index: number) => {
-    setExpandedIndex(index);
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
-  const organizeCards = () => {
-    const expandedCard = {
-      card: solutionCategories[expandedIndex],
-      index: expandedIndex,
-    };
-    const remainingCards = solutionCategories
-      .map((card, index) => ({ card, index }))
-      .filter((_, index) => index !== expandedIndex);
-
-    return { expandedCard, remainingCards };
-  };
-
-  const { expandedCard, remainingCards } = organizeCards();
+  // Logic to separate the expanded card from the rest
+  const remainingCards = solutionCategories.filter(
+    (_, index) => index !== expandedIndex
+  );
+  const expandedCard =
+    expandedIndex !== null ? solutionCategories[expandedIndex] : null;
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden ">
+    <section className="py-16 md:py-24 relative overflow-hidden bg-gray-50">
       <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
 
@@ -436,41 +421,43 @@ export function SolutionsOverview() {
           <motion.div
             layout
             transition={layoutTransition}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 will-change-transform"
-            style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {remainingCards.map(({ card, index }) => (
-              <motion.div
-                key={`card-${index}`}
-                layout
-                transition={layoutTransition}
-              >
+            {remainingCards.map((card) => {
+              const originalIndex = solutionCategories.findIndex(
+                (c) => c.id === card.id
+              );
+              return (
                 <SolutionCard
+                  key={card.id}
                   card={card}
-                  index={index}
+                  index={originalIndex}
                   isExpanded={false}
                   isOpen={false}
-                  onClick={() => handleCardClick(index)}
+                  onClick={() => handleCardClick(originalIndex)}
                 />
-              </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
 
-          <motion.div
-            key={`expanded-${expandedCard.index}`}
-            layout
-            transition={layoutTransition}
-            className="w-full will-change-transform"
-            style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
-          >
-            <SolutionCard
-              card={expandedCard.card}
-              index={expandedCard.index}
-              isExpanded={true}
-              isOpen={true}
-              onClick={() => handleCardClick(expandedCard.index)}
-            />
-          </motion.div>
+          <AnimatePresence>
+            {expandedCard && (
+              <motion.div
+                layout
+                transition={layoutTransition}
+                className="w-full"
+              >
+                <SolutionCard
+                  key={expandedCard.id}
+                  card={expandedCard}
+                  index={expandedIndex!}
+                  isExpanded={true}
+                  isOpen={true}
+                  onClick={() => handleCardClick(expandedIndex!)}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
