@@ -310,7 +310,7 @@ function SolutionCard({
             >
               {card.name}
             </motion.h3>
-            <motion.p
+            {/* <motion.p
               layout
               transition={layoutTransition}
               className={cn(
@@ -319,7 +319,7 @@ function SolutionCard({
               )}
             >
               {card.description}
-            </motion.p>
+            </motion.p> */}
           </motion.div>
           <AnimatePresence mode="wait">
             {isOpen && (
