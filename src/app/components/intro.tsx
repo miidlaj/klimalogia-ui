@@ -4,33 +4,34 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
-import { ShinyButton } from "./shiny-button";
+import { ShimmerButton } from "./shimmer-button";
 
 export function Intro() {
   return (
-    <section className="relative bg-white min-h-screen flex overflow-hidden">
+    <section className="relative flex overflow-hidden min-h-screen">
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-2/5 relative"
+        className="w-2/5 flex-shrink-0"
       >
         <motion.div
-          whileInView={{ scale: 1.05 }}
+          initial={{ scale: 0.95 }}
+          whileInView={{ scale: 1.0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-          className="absolute inset-0"
+          className="h-full"
         >
           <img
             src="/masked-about.png"
             alt="About Us"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
         </motion.div>
       </motion.div>
 
-      <div className="w-3/5 flex items-center justify-start">
+      <div className="w-3/5 flex items-center justify-start py-16">
         <div className="max-w-full px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -75,7 +76,12 @@ export function Intro() {
 
             <div className="flex justify-end">
               <Link href={"/mission-vision"}>
-                <ShinyButton className="cursor-pointer">Learn More</ShinyButton>
+                <ShimmerButton
+                  background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+                  className="cursor-pointer"
+                >
+                  Learn More
+                </ShimmerButton>
               </Link>
             </div>
           </motion.div>
