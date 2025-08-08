@@ -124,10 +124,10 @@ const solutionCategories: SolutionCategory[] = [
     ],
   },
   {
-    id: "action-integration",
-    name: "Action & Integration",
+    id: "action-trasformation",
+    name: "Action & Transformation",
     description: "Implementing tangible changes for real-world impact.",
-    href: "/services/action-integration",
+    href: "/services/action-transformation",
     cta: "Learn More",
     icon: Zap,
     color: "teal",
