@@ -5,6 +5,7 @@ import { ClientsSection } from "./components/clients-section";
 import { PartnershipSection } from "./components/partnership-section";
 import { PageLoader } from "./components/page-loader";
 import { SolutionsOverview } from "./components/solution-overview";
+import ContactUs from "./components/contact-us";
 
 export default function Page() {
   return (
@@ -20,7 +21,7 @@ export default function Page() {
           <ClientsSection />
           <PartnershipSection />
 
-          {/* <ContactUs gradientOnTop /> */}
+          <ContactUs />
         </div>
         {/* <div className="min-h-screen w-full relative">
           <div

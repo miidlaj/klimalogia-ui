@@ -57,15 +57,15 @@ export function PartnershipSection() {
           </motion.div>
         </div>
       </div>
-      <GradientBlend />
+      {/* <GradientBlend /> */}
 
       {/* <div className="z-90 absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-brand-teal/75 from-[1%] to-transparent pointer-events-none" /> */}
     </section>
   );
 }
 
-function GradientBlend() {
-  return (
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
-  );
-}
+// function GradientBlend() {
+//   return (
+//     <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+//   );
+// }
