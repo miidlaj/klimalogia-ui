@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShimmerButton } from "./shimmer-button";
 import { ClientCarousel } from "@/components/custom/client-carousel";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
 
-const clientLogos = [
+type Logo = { name: string; src: string };
+
+const clientLogos: Logo[] = [
   {
     name: "IKEA",
     src: "https://cdn.aldar.com/-/media/Project/Pactive/Pactive/Images/Home/IKEA.svg",
@@ -29,13 +29,20 @@ const clientLogos = [
   },
 ];
 
-const infiniteLogos = [...clientLogos, ...clientLogos, ...clientLogos];
+// repeat to feel "infinite" without using a library
+const infiniteLogos = [
+  ...clientLogos,
+  ...clientLogos,
+  ...clientLogos,
+  ...clientLogos,
+];
 
-export function ClientsSection() {
+export default function ClientsSection() {
   return (
     <section className="py-20 md:py-24 relative overflow-hidden">
-      <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
-      <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
+      {/* brand blobs */}
+      <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-pulse"></div>
+      <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-pulse [animation-delay:1200ms]"></div>
 
       <div className="container mx-auto max-w-7xl px-4 relative z-10">
         <motion.div
@@ -65,22 +72,19 @@ export function ClientsSection() {
           <ClientCarousel logos={infiniteLogos} />
         </motion.div>
 
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-center flex justify-center items-center mt-24"
         >
-          <Link href={"/clients"}>
-            <ShimmerButton
-              background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
-              className="cursor-pointer"
-            >
+          <Link href="/clients">
+            <ShimmerButton className="cursor-pointer">
               View Our Client Stories
             </ShimmerButton>
           </Link>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );

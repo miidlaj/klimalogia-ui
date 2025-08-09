@@ -461,3 +461,35 @@
 .animate-progress {
   animation: fill-progress 5s linear forwards;
 }
+
+/* Custom Themed Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #e2e8f0; /* A light gray track */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* Applying your brand gradient to the scrollbar thumb */
+  background-image: linear-gradient(
+    to right,
+    var(--brand-navy),
+    var(--brand-blue),
+    var(--brand-teal),
+    var(--brand-primary)
+  );
+}
+
+/* Custom Cursor Base Styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}

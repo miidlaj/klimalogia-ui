@@ -1,209 +1,225 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-} from "react";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
+import type React from "react";
+
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
-interface Logo {
-  src: string;
-  name: string;
-}
-
-interface CarouselSlideProps extends Logo {
-  isActive: boolean;
-  autoplayDelay: number;
-}
-
-interface ClientCarouselProps {
-  logos: Logo[];
-  autoplayDelay?: number;
-  slidesToShow?: {
-    mobile: number;
-    tablet: number;
-    desktop: number;
-    large: number;
-  };
-}
-
-const CarouselSlide: React.FC<CarouselSlideProps> = React.memo(
-  ({ src, name, isActive, autoplayDelay }) => (
-    <div className="relative flex-[0_0_80%] sm:flex-[0_0_50%] md:flex-[0_0_33.33%] lg:flex-[0_0_25%] xl:flex-[0_0_20%] pl-4">
-      <div className="group relative flex h-32 sm:h-36 md:h-40 items-center justify-center rounded-2xl bg-white/80 backdrop-blur-xl p-4 sm:p-6 shadow-lg border border-white/40 overflow-hidden transition-all duration-300 hover:shadow-xl hover:bg-white/90 hover:-translate-y-1">
-        <img
-          src={src}
-          alt={`${name} logo`}
-          className="h-full max-w-full object-contain transition-all duration-300 group-hover:scale-105"
-          loading="lazy"
-        />
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200/60 overflow-hidden">
-          {isActive && (
-            <div
-              className="h-full bg-gradient-to-r from-brand-navy via-brand-blue to-brand-teal origin-left"
-              style={{
-                animation: `progress ${autoplayDelay}ms linear forwards`,
-              }}
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  )
-);
-
-CarouselSlide.displayName = "CarouselSlide";
+type Logo = { name: string; src: string };
+type Props = {
+  logos?: Logo[];
+  itemMinWidth?: number;
+  gap?: number;
+};
 
 export function ClientCarousel({
-  logos,
-  autoplayDelay = 3000,
-}: ClientCarouselProps) {
-  const autoplayRef = useRef(
-    Autoplay({
-      delay: autoplayDelay,
-      stopOnInteraction: false,
-      stopOnMouseEnter: true,
-      stopOnFocusIn: false,
-    })
-  );
+  logos = [],
+  itemMinWidth = 220,
+  gap = 24,
+}: Props) {
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [hovering, setHovering] = useState(false);
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [progress, setProgress] = useState(0);
+  const [thumbW, setThumbW] = useState(0);
+  const [snapSize, setSnapSize] = useState(itemMinWidth + gap);
+  const lastSnapAtRef = useRef(0);
+  const throttleMs = 260;
 
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    {
-      loop: true,
-      align: "center",
-      dragFree: true,
-      containScroll: "trimSnaps",
-      skipSnaps: false,
-    },
-    [autoplayRef.current]
-  );
-
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
-
-  // Create multiple copies for true infinite scrolling
-  const logoChunks = useMemo(() => {
-    if (logos.length === 0) return [];
-    // Create enough copies to ensure smooth infinite scrolling
-    const copies = Math.max(3, Math.ceil(20 / logos.length));
-    return Array(copies).fill(logos).flat();
-  }, [logos]);
-
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) {
-      emblaApi.scrollPrev();
-    }
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) {
-      emblaApi.scrollNext();
-    }
-  }, [emblaApi]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setActiveIndex(emblaApi.selectedScrollSnap());
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
-
-  // Initialize carousel
-  useEffect(() => {
-    if (!emblaApi) return;
-
-    onSelect();
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-
-    return () => {
-      emblaApi.off("select", onSelect);
-      emblaApi.off("reInit", onSelect);
-    };
-  }, [emblaApi, onSelect]);
-
-  if (!logos.length) {
-    return (
-      <div className="flex items-center justify-center h-40 text-gray-500">
-        No client logos available
-      </div>
+  // compute snap size based on first item width at runtime
+  const recomputeMeasures = useCallback(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const firstItem = rail.querySelector<HTMLElement>(
+      "[data-item='client-card']"
     );
-  }
+    if (firstItem) {
+      const rect = firstItem.getBoundingClientRect();
+      const style = window.getComputedStyle(rail);
+      const gapPx = Number.parseFloat(style.columnGap || style.gap || `${gap}`);
+      setSnapSize(Math.round(rect.width + (isNaN(gapPx) ? gap : gapPx)));
+    }
+    // progress thumb width
+    const wrapper = wrapperRef.current;
+    if (wrapper) {
+      const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+      const ratio =
+        maxScroll > 0 ? wrapper.clientWidth / wrapper.scrollWidth : 1;
+      const trackInner = Math.max(0, wrapper.clientWidth - 64); // 32px margins on both sides
+      setThumbW(Math.max(40, trackInner * ratio));
+    }
+  }, [gap]);
+
+  // progress tracking - don't interfere with cursor
+  const onScroll = useCallback(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const max = wrapper.scrollWidth - wrapper.clientWidth;
+    const p = max > 0 ? wrapper.scrollLeft / max : 0;
+    setProgress(p);
+    // Don't reset hover state during scroll
+  }, []);
+
+  useEffect(() => {
+    recomputeMeasures();
+    const onResize = () => recomputeMeasures();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [recomputeMeasures]);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    wrapper.addEventListener("scroll", onScroll, { passive: true });
+    return () => wrapper.removeEventListener("scroll", onScroll);
+  }, [onScroll]);
+
+  // convert vertical wheel to horizontal step when hovering
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const handleWheel = (e: WheelEvent) => {
+      if (!hovering) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      const now = performance.now();
+      if (now - lastSnapAtRef.current < throttleMs) return;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const currentIndex = Math.round(wrapper.scrollLeft / snapSize);
+      const maxIndex = Math.round(
+        (wrapper.scrollWidth - wrapper.clientWidth) / snapSize
+      );
+      const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + dir));
+      wrapper.scrollTo({ left: nextIndex * snapSize, behavior: "smooth" });
+      lastSnapAtRef.current = now;
+      // Keep cursor visible during scroll
+    };
+    wrapper.addEventListener("wheel", handleWheel, { passive: false });
+    return () => wrapper.removeEventListener("wheel", handleWheel);
+  }, [hovering, snapSize]);
+
+  // keyboard accessibility
+  const onKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLDivElement>) => {
+      const wrapper = wrapperRef.current;
+      if (!wrapper) return;
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        const dir = e.key === "ArrowRight" ? 1 : -1;
+        const currentIndex = Math.round(wrapper.scrollLeft / snapSize);
+        const maxIndex = Math.round(
+          (wrapper.scrollWidth - wrapper.clientWidth) / snapSize
+        );
+        const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + dir));
+        wrapper.scrollTo({ left: nextIndex * snapSize, behavior: "smooth" });
+      }
+    },
+    [snapSize]
+  );
+
+  // Persistent mouse tracking - don't let scroll interfere
+  const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  }, []);
+
+  // Stable hover handlers
+  const handleMouseEnter = useCallback(() => {
+    setHovering(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setHovering(false);
+  }, []);
+
+  const trackStyle = useMemo(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return { transform: "translateX(0px)" };
+    const trackInner = Math.max(0, wrapper.clientWidth - 64);
+    const maxTranslate = Math.max(0, trackInner - thumbW);
+    const translate = maxTranslate * progress;
+    return { transform: `translateX(${translate}px)` };
+  }, [progress, thumbW]);
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto group">
-      {/* Main carousel */}
+    <div className="relative">
       <div
-        className="overflow-hidden py-4 cursor-grab active:cursor-grabbing"
-        ref={emblaRef}
+        ref={wrapperRef}
+        role="region"
+        aria-label="Client Logos"
+        tabIndex={0}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onMouseMove={onMouseMove}
+        onKeyDown={onKeyDown}
+        className="group relative overflow-x-auto overflow-y-hidden pl-6 md:pl-8 pr-0 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        style={{
+          scrollSnapType: "x mandatory",
+          cursor: hovering ? "none" : "default",
+        }}
       >
-        <div className="flex -ml-4">
-          {logoChunks.map((logo, index) => (
-            <CarouselSlide
-              key={`${logo.name}-${index}`}
-              {...logo}
-              isActive={index === activeIndex}
-              autoplayDelay={autoplayDelay}
-            />
+        <div ref={railRef} className="flex gap-6 md:gap-8 items-stretch">
+          {logos.map((logo, i) => (
+            <Card
+              key={`${logo.name}-${i}`}
+              data-item="client-card"
+              className="min-w-[220px] sm:min-w-[240px] md:min-w-[260px] lg:min-w-[280px] h-[120px] sm:h-[140px] md:h-[160px] flex items-center justify-center scroll-ml-6 md:scroll-ml-8 transition-shadow hover:shadow-lg bg-white select-none"
+              style={{
+                scrollSnapAlign: "start",
+                scrollSnapStop: "always",
+              }}
+            >
+              <div className="relative w-full h-full p-6 flex items-center justify-center">
+                <Image
+                  src={logo.src || "/placeholder.svg"}
+                  alt={logo.name}
+                  width={220}
+                  height={80}
+                  className="max-h-16 w-auto object-contain opacity-90"
+                />
+              </div>
+            </Card>
           ))}
         </div>
       </div>
 
-      {/* Navigation buttons */}
-      <button
-        onClick={scrollPrev}
-        disabled={!canScrollPrev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full w-12 h-12 flex items-center justify-center bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg border border-white/40 transition-all duration-300 hover:scale-110 hover:bg-gradient-to-r hover:from-brand-navy hover:via-brand-blue hover:to-brand-teal hover:text-white hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-white/90 disabled:hover:text-gray-800 opacity-0 group-hover:opacity-100 z-10"
-        aria-label="Previous client"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
+      {/* Custom cursor overlay - positioned relative to viewport, not scroll container */}
+      {hovering && (
+        <div
+          className="pointer-events-none fixed z-50"
+          style={{
+            left:
+              cursor.x +
+              (wrapperRef.current?.getBoundingClientRect().left || 0) -
+              40,
+            top:
+              cursor.y +
+              (wrapperRef.current?.getBoundingClientRect().top || 0) -
+              40,
+          }}
+        >
+          <div className="w-20 h-20 rounded-full border-2 border-white/60 shadow-2xl backdrop-blur-sm bg-gradient-to-r from-[var(--brand-teal)] to-[var(--brand-blue)] flex items-center justify-between text-white px-3">
+            <ChevronLeft className="size-6 opacity-90" />
+            <ChevronRight className="size-6 opacity-90" />
+          </div>
+        </div>
+      )}
 
-      <button
-        onClick={scrollNext}
-        disabled={!canScrollNext}
-        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full w-12 h-12 flex items-center justify-center bg-white/90 backdrop-blur-sm text-gray-800 shadow-lg border border-white/40 transition-all duration-300 hover:scale-110 hover:bg-gradient-to-r hover:from-brand-navy hover:via-brand-blue hover:to-brand-teal hover:text-white hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:bg-white/90 disabled:hover:text-gray-800 opacity-0 group-hover:opacity-100 z-10"
-        aria-label="Next client"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      {/* Progress dots */}
-      <div className="flex justify-center mt-6 gap-2">
-        {logos.slice(0, Math.min(logos.length, 8)).map((_, index) => (
-          <button
-            key={index}
-            onClick={() => emblaApi?.scrollTo(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === activeIndex % logos.length
-                ? "bg-gradient-to-r from-brand-navy to-brand-blue w-6"
-                : "bg-gray-300 hover:bg-gray-400"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
+      {/* Simple scrollbar: navy background line with teal thumb */}
+      <div className="mt-6 px-8">
+        <div className="relative h-1 rounded-full bg-[var(--brand-navy)] overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 h-2 -top-0.5 rounded-full bg-[var(--brand-teal)]"
+            style={{
+              width: `${thumbW}px`,
+              ...trackStyle,
+            }}
           />
-        ))}
+        </div>
       </div>
-
-      {/* Add CSS keyframe for progress animation */}
-      <style jsx>{`
-        @keyframes progress {
-          0% {
-            transform: scaleX(0);
-          }
-          100% {
-            transform: scaleX(1);
-          }
-        }
-      `}</style>
     </div>
   );
 }

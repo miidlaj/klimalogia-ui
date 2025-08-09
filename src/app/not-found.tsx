@@ -1,61 +1,67 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Search, Home, ArrowLeft } from "lucide-react";
-import { ShinyButton } from "./components/shiny-button";
+import Link from "next/link";
+import { Home, ArrowLeft } from "lucide-react";
+import { GradientUnderline } from "@/components/custom/gradient-underline";
+import { ShimmerButton } from "./components/shimmer-button";
 
 export default function NotFound() {
+  const goBack = () => {
+    window.history.back();
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-green-50">
-      <div className="text-center p-8">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4 relative overflow-hidden">
+      {/* Decorative background blobs */}
+      <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
+      <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
+
+      <div className="text-center w-full max-w-2xl relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <div className="text-9xl font-bold text-blue-600 mb-4">404</div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            Page Not Found
+          <h1 className="text-8xl md:text-9xl font-bold text-brand-gradient mb-4">
+            404
           </h1>
-          <p className="text-gray-600 mb-8 max-w-md mx-auto">
-            The page you&apos;re looking for doesn&apos;t exist or has been moved to a new
-            location.
+          <GradientUnderline underlineWidth={50} spacing={4}>
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-2">
+              Page Not Found
+            </h2>
+          </GradientUnderline>
+          <p className="text-muted-foreground text-lg mt-6 max-w-md mx-auto">
+            The page you&apos;re looking for doesn&apos;t exist or has been
+            moved.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="space-x-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12"
         >
-          <ShinyButton onClick={() => window.history.back()}>
+          <ShimmerButton
+            onClick={goBack}
+            className="w-full sm:w-auto"
+            background="linear-gradient(135deg, #4A5568 0%, #2D3748 50%, #1A202C 100%)"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Go Back
-          </ShinyButton>
-
-          <ShinyButton onClick={() => (window.location.href = "/")}>
-            <Home className="w-4 h-4 mr-2" />
-            Go Home
-          </ShinyButton>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-12"
-        >
-          <div className="bg-white rounded-2xl p-6 shadow-lg max-w-md mx-auto">
-            <Search className="w-8 h-8 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">
-              Looking for something specific?
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Try searching our site or contact us for assistance finding what
-              you need.
-            </p>
-          </div>
+          </ShimmerButton>
+          <Link href="/" className="w-full sm:w-auto">
+            <ShimmerButton
+              className="w-full"
+              background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+            >
+              <Home className="w-4 h-4 mr-2" />
+              Go Home
+            </ShimmerButton>
+          </Link>
         </motion.div>
       </div>
     </div>

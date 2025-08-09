@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Logo from "@/components/logo"; // Import your Logo component
 
 export function PageLoader() {
   const [progress, setProgress] = useState(0);
 
+  // Simulates loading progress
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
@@ -13,37 +15,41 @@ export function PageLoader() {
           clearInterval(timer);
           return 100;
         }
-        return prev + 2;
+        // Adjust increment for a smoother/faster load animation
+        return prev + 1;
       });
-    }, 50);
+    }, 40); // Interval for progress update
 
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background">
       <div className="text-center">
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
+          initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-8"
         >
-          <div className="text-4xl font-bold text-blue-600 mb-2">
-            Klimalogia
-          </div>
-          <div className="text-gray-600">Loading your climate solutions...</div>
+          {/* Use your brand Logo component */}
+          <Logo height={40} width={180} variant="gradient" />
+          <p className="text-muted-foreground mt-4">
+            Loading your climate solutions...
+          </p>
         </motion.div>
 
-        <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
+        {/* Styled Progress Bar */}
+        <div className="w-80 h-2 bg-gray-200/80 rounded-full overflow-hidden">
           <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full"
+            className="h-full bg-brand-gradient rounded-full"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.1 }}
+            transition={{ duration: 0.1, ease: "linear" }}
           />
         </div>
 
-        <div className="mt-4 text-sm text-gray-500">{progress}%</div>
+        <p className="mt-4 text-sm font-medium text-gray-500">{progress}%</p>
       </div>
     </div>
   );

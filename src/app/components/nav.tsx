@@ -22,7 +22,7 @@ const navigation = [
   { name: "About Us", href: "/about-us" },
   { name: "Our Solutions", href: "/services" },
   { name: "Partner with us", href: "/partner-with-us" },
-  { name: "Media", href: "/media" },
+  // { name: "Media", href: "/media" },
   { name: "Careers", href: "/careers" },
   { name: "Contact Us", href: "/contact-us" },
 ] as const;
@@ -60,7 +60,7 @@ export function Nav() {
   const underlineColor = isFrosted ? "bg-brand-gradient" : "bg-white";
 
   useEffect(() => {
-    const trigger = document.getElementById("nav-trigger");
+    const trigger = document.getElementById("nav-trigger");    
     if (!trigger) return;
 
     const observer = new IntersectionObserver(

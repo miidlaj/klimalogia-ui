@@ -30,6 +30,7 @@ import {
   FaLinkedinIn,
   FaWhatsapp,
 } from "react-icons/fa";
+import { GradientBlend } from "@/components/custom/gradient-blend";
 
 const countries = [
   { code: "AF", name: "Afghanistan" },
@@ -278,12 +279,6 @@ const hearAboutOptions = [
   "LinkedIn",
 ];
 
-function GradientBlend() {
-  return (
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
-  );
-}
-
 export default function ContactUs({
   gradientOnTop,
 }: {
@@ -309,7 +304,7 @@ export default function ContactUs({
   }
 
   return (
-    <div className="relative z-50">
+    <div className="relative z-40">
       {gradientOnTop && (
         <div className="z-90 absolute top-0 left-0 right-0 h-10 bg-gradient-to-t from-transparent from-[1%] to-brand-teal/75 pointer-events-none" />
       )}

@@ -1,293 +1,359 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import HeroBg from "@/components/hero-bg";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { 
-  Users, 
-  Globe, 
-  TrendingUp, 
-  Award, 
-  Heart, 
-  Lightbulb,
-  Target,
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import {
+  ChevronDown,
+  MapPin,
   Briefcase,
-  GraduationCap,
-  Coffee,
-  Zap,
-  Shield
+  Mail,
+  Quote,
+  Check,
 } from "lucide-react";
+import { GradientUnderline } from "@/components/custom/gradient-underline";
+import { ShimmerButton } from "../components/shimmer-button";
 
-const benefits = [
+// --- Data (interfaces and arrays) ---
+interface JobPosition {
+  id: string;
+  title: string;
+  location: string;
+  category: string;
+  type: string;
+  description: string;
+  qualifications: string[];
+  responsibilities: string[];
+}
+
+interface TeamMember {
+  name: string;
+  position: string;
+  image: string;
+  quote: string;
+}
+
+const jobPositions: JobPosition[] = [
   {
-    title: "Meaningful Impact",
-    description: "Work on projects that directly contribute to climate action and sustainable transformation globally.",
-    icon: Target
+    id: "1",
+    title: "Accounting Manager",
+    location: "Remote, East Coast TZ",
+    category: "Accounting",
+    type: "Full-time",
+    description:
+      "Oversee daily accounting operations, ensure compliance, and support strategic financial planning.",
+    qualifications: [
+      "Bachelor's degree in Accounting/Finance",
+      "CPA certification preferred",
+      "5+ years of accounting experience",
+      "Proficient with ERP systems",
+    ],
+    responsibilities: [
+      "Manage financial close processes",
+      "Oversee accounts payable/receivable",
+      "Prepare financial statements",
+      "Ensure compliance with GAAP",
+    ],
   },
   {
-    title: "Global Opportunities",
-    description: "Join a team with international presence and work with clients across diverse industries and regions.",
-    icon: Globe
+    id: "2",
+    title: "Senior Environmental Analyst",
+    location: "New York, NY / Hybrid",
+    category: "Environmental",
+    type: "Full-time",
+    description:
+      "Support carbon credit project development and environmental impact assessments.",
+    qualifications: [
+      "Master's in Environmental Science",
+      "3+ years in environmental consulting",
+      "Knowledge of carbon markets",
+      "Experience with GIS software",
+    ],
+    responsibilities: [
+      "Conduct environmental impact assessments",
+      "Develop carbon offset methodologies",
+      "Analyze environmental data",
+      "Support client engagements",
+    ],
   },
   {
-    title: "Professional Growth",
-    description: "Continuous learning opportunities, skill development, and career advancement in the growing sustainability sector.",
-    icon: TrendingUp
+    id: "3",
+    title: "Business Development Manager",
+    location: "Chicago, IL",
+    category: "Sales",
+    type: "Full-time",
+    description:
+      "Drive growth by identifying new opportunities and building strategic partnerships.",
+    qualifications: [
+      "Bachelor's in Business/Marketing",
+      "5+ years of B2B sales experience",
+      "Experience in environmental markets",
+      "Proven track record of meeting targets",
+    ],
+    responsibilities: [
+      "Identify and pursue new business",
+      "Build and maintain client relationships",
+      "Develop strategic partnerships",
+      "Prepare proposals and presentations",
+    ],
   },
-  {
-    title: "Expert Team",
-    description: "Collaborate with multidisciplinary professionals and industry experts in climate change and sustainability.",
-    icon: Users
-  },
-  {
-    title: "Innovation Culture",
-    description: "Be part of cutting-edge solutions and innovative approaches to complex sustainability challenges.",
-    icon: Lightbulb
-  },
-  {
-    title: "Work-Life Balance",
-    description: "Flexible working arrangements and supportive environment that values personal well-being.",
-    icon: Heart
-  }
 ];
 
-const positions = [
+const teamMembers: TeamMember[] = [
   {
-    title: "Sustainability Consultant",
-    department: "Strategy & Advisory",
-    location: "Dubai / Kochi",
-    type: "Full-time",
-    icon: Briefcase
+    name: "Wilson Fong",
+    position: "Senior Associate, Sustainability, Policy & Advisory",
+    image: "/api/placeholder/150/150", // Replace with actual image path
+    quote:
+      "ClimeCo's culture, anchored in trust, innovation, diversity, and recognition, are the defining factors that genuinely set the company apart for me. Each day presents new and exciting challenges, making my journey with ClimeCo dynamic and incredibly rewarding.",
   },
-  {
-    title: "ESG Analyst",
-    department: "Strategy & Advisory", 
-    location: "Remote / Hybrid",
-    type: "Full-time",
-    icon: TrendingUp
-  },
-  {
-    title: "Climate Risk Specialist",
-    department: "Strategy & Advisory",
-    location: "Dubai",
-    type: "Full-time",
-    icon: Shield
-  },
-  {
-    title: "Green Building Consultant",
-    department: "Assurance & Compliance",
-    location: "Kochi / Mumbai",
-    type: "Full-time",
-    icon: Award
-  },
-  {
-    title: "Energy Auditor",
-    department: "Action & Transformation",
-    location: "Dubai / Kochi",
-    type: "Full-time",
-    icon: Zap
-  },
-  {
-    title: "Digital Solutions Developer",
-    department: "Digital Solutions",
-    location: "Remote",
-    type: "Full-time",
-    icon: Lightbulb
-  }
 ];
 
-const values = [
+const coreValues = [
+  { title: "Authenticity", description: "Building trust in our relationships" },
+  { title: "Entrepreneurial Spirit", description: "Empowering our teams" },
+  { title: "Pragmatism", description: "Doing the hard work to make an impact" },
   {
-    title: "Respect",
-    description: "We champion inclusivity, collaboration, and care for people and the planet.",
-    icon: Users
+    title: "Stewardship",
+    description: "Promoting diversity and protecting our planet",
   },
-  {
-    title: "Integrity", 
-    description: "We uphold the highest ethical standards with transparency and accountability.",
-    icon: Shield
-  },
-  {
-    title: "Sustainability",
-    description: "We embed long-term thinking into every action and decision we make.",
-    icon: Target
-  },
-  {
-    title: "Excellence",
-    description: "We strive for the highest quality in everything we do.",
-    icon: Award
-  }
 ];
+
+// --- Reusable Components ---
+const ValueCard = ({
+  title,
+  description,
+  delay,
+}: {
+  title: string;
+  description: string;
+  delay: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.5 }}
+    transition={{ duration: 0.6, delay }}
+    className="relative p-8 rounded-2xl bg-white/60 backdrop-blur-md border border-gray-200/50 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+  >
+    <div className="absolute top-0 left-0 h-1.5 w-full bg-brand-gradient" />
+    <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </motion.div>
+);
 
 export default function CareersPage() {
+  const [expandedJob, setExpandedJob] = useState<string | null>(null);
+
   return (
-    <main className="min-h-screen">
-      <HeroBg video="/about.mp4" image="/about.png">
-        <div className="text-center space-y-6 pt-20">
-          <h1 className="text-white text-5xl md:text-7xl font-bold">
-            Careers<span className="text-primary">.</span>
-          </h1>
-          <p className="text-gray-200 text-xl md:text-2xl max-w-4xl mx-auto">
-            Join our mission to drive climate action and sustainable transformation worldwide
+    <div className="min-h-screen ">
+      {/* Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/careers.jpg" // Add your real background image here
+            alt="A modern office environment"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-slate-900/60" />
+        </div>
+        <div className="relative z-10 text-center text-white px-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
+          >
+            Careers
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto"
+          >
+            Join our mission to drive positive environmental change and shape a
+            sustainable future.
+          </motion.p>
+        </div>
+      </section>
+
+      <div id="nav-trigger" />
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 md:py-24 px-6 max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <GradientUnderline underlineWidth={50} spacing={4} className="mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+              Why Join Klimalogia?
+            </h2>
+          </GradientUnderline>
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed mt-6">
+            We are a leading advisor and developer in the environmental
+            commodities market, seeking new hires who share our core values and
+            passion for making a tangible impact.
           </p>
-        </div>
-      </HeroBg>
+        </motion.div>
 
-      {/* Why Choose Klimalogia Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Why Choose Klimalogia?</h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
-              Be part of a globally trusted team that&apos;s making a real difference in climate action and sustainability. We offer more than just a job – we offer the opportunity to shape the future.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow h-full">
-                <CardContent className="pt-6 h-full flex flex-col">
-                  <benefit.icon className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
-                  <p className="text-gray-600 flex-grow">{benefit.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {coreValues.map((value, index) => (
+            <ValueCard key={index} {...value} delay={0.1 * (index + 1)} />
+          ))}
         </div>
       </section>
 
-      {/* Our Values Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Our Values (RISE)</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our core values guide everything we do and shape the culture we&apos;ve built at Klimalogia.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <value.icon className="h-12 w-12 text-primary mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-                  <p className="text-gray-600">{value.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Team Member Testimonial */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          {teamMembers.map((member, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.7 }}
+              className="text-center"
+            >
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-brand-gradient rounded-full mb-8 shadow-lg">
+                <Quote className="w-10 h-10 text-white" />
+              </div>
+              <blockquote className="text-xl text-gray-700 leading-relaxed mb-8 italic">
+                &quot;{member.quote}&quot;
+              </blockquote>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="w-16 h-16 bg-gray-300 rounded-full overflow-hidden">
+                  <div className="w-full h-full bg-gradient-to-br from-brand-blue to-brand-primary"></div>
+                </div>
+                <div className="text-left">
+                  <h4 className="font-bold text-gray-900">{member.name}</h4>
+                  <p className="text-gray-600 text-sm">{member.position}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Open Positions Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Open Positions</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore current opportunities to join our team and make a meaningful impact in the sustainability sector.
-            </p>
-          </div>
+      {/* Positions Available */}
+      <section className="py-20 md:py-24 px-6 max-w-6xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.7 }}
+          className="mb-12 text-center"
+        >
+          <GradientUnderline underlineWidth={50} spacing={4} className="mb-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
+              Open Positions
+            </h2>
+          </GradientUnderline>
+        </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {positions.map((position, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex items-center mb-4">
-                    <position.icon className="h-8 w-8 text-primary mr-3" />
-                    <div>
-                      <h3 className="text-lg font-semibold">{position.title}</h3>
-                      <p className="text-sm text-gray-500">{position.department}</p>
+        <div className="space-y-6">
+          {jobPositions.map((job, index) => (
+            <motion.div
+              key={job.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-white rounded-2xl shadow-lg border border-gray-200/80 overflow-hidden transition-shadow duration-300 hover:shadow-xl"
+            >
+              <div
+                className="p-8 cursor-pointer"
+                onClick={() =>
+                  setExpandedJob(expandedJob === job.id ? null : job.id)
+                }
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {job.title}
+                  </h3>
+                  <motion.div
+                    animate={{ rotate: expandedJob === job.id ? 180 : 0 }}
+                  >
+                    <ChevronDown className="w-6 h-6 text-gray-500" />
+                  </motion.div>
+                </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-600">
+                  <div className="flex items-center space-x-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>{job.location}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Briefcase className="w-4 h-4" />
+                    <span>{job.category}</span>
+                  </div>
+                </div>
+              </div>
+
+              <AnimatePresence>
+                {expandedJob === job.id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-8 pb-8 border-t border-gray-100">
+                      <div className="grid md:grid-cols-2 gap-8 mt-8">
+                        <div>
+                          <h4 className="font-semibold text-gray-800 mb-3">
+                            Qualifications
+                          </h4>
+                          <ul className="space-y-2">
+                            {job.qualifications.map((qual, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-3 text-gray-600 text-sm"
+                              >
+                                <Check className="w-4 h-4 text-[var(--brand-green)] mt-0.5 flex-shrink-0" />
+                                <span>{qual}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-800 mb-3">
+                            Responsibilities
+                          </h4>
+                          <ul className="space-y-2">
+                            {job.responsibilities.map((resp, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-3 text-gray-600 text-sm"
+                              >
+                                <Check className="w-4 h-4 text-[var(--brand-green)] mt-0.5 flex-shrink-0" />
+                                <span>{resp}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                      <div className="mt-8 pt-6 border-t border-gray-100">
+                        <ShimmerButton background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)">
+                          <span className="flex items-center gap-2">
+                            <Mail className="w-4 h-4" />
+                            <span>Apply Now</span>
+                          </span>
+                        </ShimmerButton>
+                      </div>
                     </div>
-                  </div>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p><strong>Location:</strong> {position.location}</p>
-                    <p><strong>Type:</strong> {position.type}</p>
-                  </div>
-                  <Button className="w-full mt-4" variant="outline">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <p className="text-gray-600 mb-6">
-              Don&apos;t see a position that fits? We&apos;re always looking for talented individuals to join our team.
-            </p>
-            <Button asChild size="lg">
-              <Link href="/contact-us">Send Us Your Resume</Link>
-            </Button>
-          </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
         </div>
       </section>
-
-      {/* What We Offer Section */}
-      <section className="py-20 bg-primary/5">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">What We Offer</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <GraduationCap className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Learning & Development</h3>
-                <p className="text-gray-600 text-sm">Continuous training, certifications, and skill development opportunities</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Coffee className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Flexible Work</h3>
-                <p className="text-gray-600 text-sm">Remote and hybrid work options with flexible schedules</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Heart className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Health & Wellness</h3>
-                <p className="text-gray-600 text-sm">Comprehensive health benefits and wellness programs</p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Globe className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Global Exposure</h3>
-                <p className="text-gray-600 text-sm">Work with international clients and diverse project teams</p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-6">Ready to Make an Impact?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Join Klimalogia and be part of the solution to climate change. Together, we can create a sustainable future for generations to come.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg">
-                <Link href="/contact-us">Apply Now</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link href="/about-us">Learn More About Us</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+    </div>
   );
 }
