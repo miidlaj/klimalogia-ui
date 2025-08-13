@@ -60,15 +60,13 @@ export function Nav() {
   const underlineColor = isFrosted ? "bg-brand-gradient" : "bg-white";
 
   useEffect(() => {
-    const trigger = document.getElementById("nav-trigger");    
+    const trigger = document.getElementById("nav-trigger");
     if (!trigger) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         const shouldFrost = entry.boundingClientRect.y < 0;
-        if (shouldFrost !== isFrosted) {
-          setIsFrosted(shouldFrost);
-        }
+        setIsFrosted((prev) => (shouldFrost === prev ? prev : shouldFrost));
       },
       {
         threshold: 0,
@@ -78,7 +76,7 @@ export function Nav() {
 
     observer.observe(trigger);
     return () => observer.disconnect();
-  }, [isFrosted]);
+  }, [pathname]);
 
   const NavigationItems = useMemo(
     () =>

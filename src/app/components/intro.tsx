@@ -8,13 +8,13 @@ import { ShimmerButton } from "./shimmer-button";
 
 export function Intro() {
   return (
-    <section className="relative flex overflow-hidden min-h-screen">
+    <section className="relative flex flex-col lg:flex-row overflow-hidden min-h-screen">
       <motion.div
         initial={{ opacity: 0, x: -50 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-2/5 flex-shrink-0"
+        className="w-full lg:w-2/5 lg:flex-shrink-0 h-[60vh] lg:h-auto"
       >
         <motion.div
           initial={{ scale: 0.95 }}
@@ -25,14 +25,14 @@ export function Intro() {
         >
           <img
             src="/masked-about.png"
-            alt="About Us"
+            alt="Team working on sustainability projects"
             className="w-full h-full object-cover object-center"
           />
         </motion.div>
       </motion.div>
 
-      <div className="w-3/5 flex items-center justify-start py-16">
-        <div className="max-w-full px-8 lg:px-16">
+      <div className="w-full lg:w-3/5 flex items-center justify-center lg:justify-start p-8 md:p-12 lg:p-16">
+        <div className="max-w-xl w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ export function Intro() {
                 spacing={0}
                 className="mb-4"
               >
-                <h2 className="text-4xl md:text-5xl font-bold mb-2">
+                <h2 className="text-4xl md:text-5xl font-bold mb-2 text-gray-900">
                   About Us
                 </h2>
               </GradientUnderline>
@@ -54,7 +54,7 @@ export function Intro() {
             <p className="text-lg text-gray-600 leading-relaxed mb-10">
               Klimalogia is an international climate change and sustainability
               firm, dedicated to helping organizations navigate the transition
-              to a low-carbon, climateresilient future. Inspired by the Greek
+              to a low-carbon, climate-resilient future. Inspired by the Greek
               term klimatologia, the study of climate, our name reflects our
               mission to translate climate science into practical, actionable
               solutions for organizations worldwide.
@@ -74,7 +74,7 @@ export function Intro() {
               </p>
             </div>
 
-            <div className="flex justify-end">
+            <div className="flex justify-center lg:justify-end">
               <Link href={"/mission-vision"}>
                 <ShimmerButton
                   background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"

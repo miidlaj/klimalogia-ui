@@ -31,6 +31,7 @@ import {
   FaWhatsapp,
 } from "react-icons/fa";
 import { GradientBlend } from "@/components/custom/gradient-blend";
+import { cn } from "@/lib/utils";
 
 const countries = [
   { code: "AF", name: "Afghanistan" },
@@ -281,8 +282,10 @@ const hearAboutOptions = [
 
 export default function ContactUs({
   gradientOnTop,
+  page,
 }: {
   gradientOnTop?: boolean;
+  page?: boolean;
 }) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -309,7 +312,10 @@ export default function ContactUs({
         <div className="z-90 absolute top-0 left-0 right-0 h-10 bg-gradient-to-t from-transparent from-[1%] to-brand-teal/75 pointer-events-none" />
       )}
       <div
-        className="min-h-screen bg-cover bg-center bg-no-repeat relative"
+        className={cn(
+          "min-h-screen bg-cover bg-center bg-no-repeat relative",
+          page && "pt-20"
+        )}
         style={{
           backgroundImage: "url('/footer.jpg')",
         }}

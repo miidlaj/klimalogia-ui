@@ -4,7 +4,14 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState, ElementType } from "react";
-import { Globe, Users, Target, Award } from "lucide-react";
+import {
+  HeartHandshake,
+  ShieldCheck,
+  Leaf,
+  Trophy,
+  Rocket,
+  Eye,
+} from "lucide-react";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "../components/shimmer-button";
@@ -42,43 +49,43 @@ const colorConfig = {
   },
 };
 
-// --- THIS IS THE FIX ---
-// 1. Define a type for the keys of colorConfig
 type ColorTheme = keyof typeof colorConfig;
 
-// 2. Define the shape of a single value card object
 type ValueCardData = {
   icon: ElementType;
   title: string;
   description: string;
-  color: ColorTheme; // Use the specific type here
+  color: ColorTheme;
 };
 
-// 3. Apply the new type to the valueCards array
-const valueCards: ValueCardData[] = [
+// This array is now used for the "Core Values" section
+const coreValues: ValueCardData[] = [
   {
-    icon: Globe,
-    title: "Global Reach",
-    description: "International presence with local expertise",
+    icon: HeartHandshake,
+    title: "Respect",
+    description:
+      "Championing inclusivity, collaboration, and care for people and the planet. Valuing diverse perspectives and honoring all stakeholders in the sustainability journey.",
     color: "blue",
   },
   {
-    icon: Users,
-    title: "Expert Team",
+    icon: ShieldCheck,
+    title: "Integrity",
     description:
-      "Multidisciplinary professionals with deep technical expertise",
+      "Upholding the highest ethical standards with transparency, honesty, and accountability at the heart of every solution and relationship.",
     color: "green",
   },
   {
-    icon: Target,
-    title: "Results-Driven",
-    description: "Measurable outcomes and tangible impact for every client",
+    icon: Leaf,
+    title: "Sustainability",
+    description:
+      "Embedding long-term thinking into every action, balancing environmental, social, and economic priorities to create resilient systems and future-ready businesses.",
     color: "teal",
   },
   {
-    icon: Award,
-    title: "Trusted Partner",
-    description: "Quality, integrity, and long-term partnerships",
+    icon: Trophy,
+    title: "Excellence",
+    description:
+      "Striving for the highest quality in everything we do, delivering impactful, data-driven solutions with precision, innovation, and professionalism.",
     color: "primary",
   },
 ];
@@ -94,7 +101,7 @@ const ValueCard = ({
   title: string;
   description: string;
   delay: number;
-  color: ColorTheme; // Use the specific type here as well
+  color: ColorTheme;
 }) => {
   const theme = colorConfig[color];
   return (
@@ -135,6 +142,58 @@ const ValueCard = ({
   );
 };
 
+// A new component for Mission & Vision boxes for a cleaner look
+const MissionVisionBox = ({
+  icon: Icon,
+  title,
+  children,
+  color,
+}: {
+  icon: ElementType;
+  title: string;
+  children: React.ReactNode;
+  color: ColorTheme;
+}) => {
+  const theme = colorConfig[color];
+  return (
+    <div
+      className={cn(
+        "bg-white/60 backdrop-blur-md p-8 rounded-3xl border h-full",
+        theme.border
+      )}
+    >
+      <div className="flex items-center gap-4 mb-4">
+        <div
+          className={cn(
+            "w-12 h-12 rounded-xl bg-gradient-to-br flex items-center justify-center text-white shadow-md",
+            theme.iconGradient
+          )}
+        >
+          <Icon className="w-6 h-6" />
+        </div>
+        <h3 className={cn("text-3xl font-bold", theme.text)}>{title}</h3>
+      </div>
+      <p className="text-gray-700 leading-relaxed">{children}</p>
+    </div>
+  );
+};
+
+const SectionHeader = ({ children }: { children: React.ReactNode }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.5 }}
+    transition={{ duration: 0.7, ease: "easeOut" }}
+    className="text-center mb-12 md:mb-16"
+  >
+    <GradientUnderline underlineWidth={40} spacing={4}>
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+        {children}
+      </h2>
+    </GradientUnderline>
+  </motion.div>
+);
+
 export default function AboutPage() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -149,7 +208,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen bg-gray-50 relative pb-32">
-      <section className="relative h-[60vh] flex items-center justify-center">
+      <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center">
         {!isVideoLoaded && (
           <Image
             src="/about.png"
@@ -196,68 +255,117 @@ export default function AboutPage() {
           </motion.p>
         </div>
       </section>
-        <div id="nav-trigger" />
+      <div id="nav-trigger" />
 
       <section className="py-20 md:py-24 relative overflow-hidden">
         <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
         <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse [animation-delay:1200ms]"></div>
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 relative z-10 space-y-20 md:space-y-24">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-8 text-justify"
           >
-            <p>
-              Klimalogia is an international climate change and sustainability
-              firm, dedicated to helping organizations navigate the transition
-              to a low-carbon, climate-resilient future. Inspired by the Greek
-              term klimatologia, the study of climate, our name reflects our
-              mission to translate climate science into practical, actionable
-              solutions for organizations worldwide.
-            </p>
-            <p>
-              We are a multidisciplinary team with global insight, delivering
-              end-to-end sustainability and climate change solutions. Through
-              technical depth and strategic insight, we help you integrate
-              climate action into business decisions and future-proof
-              operations. Trusted by corporations, governments, and
-              institutions, we are known for quality, impact, and partnerships
-              that drive sustainable solutions and credible ESG leadership.
-            </p>
+            <SectionHeader>About Klimalogia</SectionHeader>
+            <div className="max-w-4xl mx-auto text-lg text-gray-700 leading-relaxed space-y-6 text-justify">
+              <p>
+                Klimalogia is an international climate change and sustainability
+                firm, dedicated to helping organizations navigate the transition
+                to a low-carbon, climate-resilient future. Inspired by the Greek
+                term klimatologia – the study of climate, our name reflects our
+                mission to translate climate science into practical, actionable
+                solutions for organizations worldwide.
+              </p>
+              <p>
+                We are a multidisciplinary team with global insight, delivering
+                end-to-end sustainability and climate change solutions, through
+                technical depth and strategic insight to help you integrate
+                climate action into business decisions and future-proof their
+                operations. Trusted by corporations, governments, and
+                institutions, we are known for quality, impact, and partnerships
+                that drive sustainable solutions, climate-smart strategies, and
+                credible ESG leadership.
+              </p>
+              <p>
+                We bring deep expertise across sectors and regions to help
+                businesses integrate sustainability into their core strategy,
+                operations, and investment decisions. Whether you aim to
+                accelerate decarbonization, meet regulatory requirements,
+                enhance ESG performance, or access sustainable finance, we
+                deliver custom, data-driven solutions that transform ambition
+                into measurable results.
+              </p>
+              <p>
+                At Klimalogia, we view sustainability as a driver of innovation,
+                resilience, and long-term value, far beyond compliance. Our
+                approach is built on strategic alignment with global frameworks,
+                meaningful stakeholder engagement, and data-driven decision
+                making, helping organizations lead with purpose and impact in a
+                rapidly evolving landscape.
+              </p>
+            </div>
           </motion.div>
 
-          <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {valueCards.map((card, index) => (
-              <ValueCard key={card.title} {...card} delay={0.1 * (index + 1)} />
-            ))}
+          {/* --- NEW MISSION & VISION SECTION --- */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+          >
+            <SectionHeader>Our Mission & Vision</SectionHeader>
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <MissionVisionBox icon={Rocket} title="Mission" color="blue">
+                To help organizations take meaningful climate action by
+                delivering practical, impactful, and result-oriented
+                sustainability solutions that enhance competitiveness, reduce
+                risk, and create long-term value for people, business, and the
+                planet.
+              </MissionVisionBox>
+              <MissionVisionBox icon={Eye} title="Vision" color="green">
+                To create an inclusive, resilient and regenerative future by
+                enabling businesses, communities, and institutions to drive
+                positive change, integrate sustainability into core strategy,
+                respond effectively to climate challenges, and generate
+                long-term environmental, social, and economic value.
+              </MissionVisionBox>
+            </div>
+          </motion.div>
+
+          {/* --- NEW CORE VALUES (RISE) SECTION --- */}
+          <div>
+            <SectionHeader>Our Core Values (RISE)</SectionHeader>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {coreValues.map((card, index) => (
+                <ValueCard
+                  key={card.title}
+                  {...card}
+                  delay={0.1 * (index + 1)}
+                />
+              ))}
+            </div>
           </div>
 
+          {/* --- FINAL CTA & ETYMOLOGY SECTION --- */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mt-20 text-center"
+            className="space-y-16"
           >
-            <div className="bg-white/50 backdrop-blur-md border border-gray-200/50 rounded-2xl p-8 max-w-3xl mx-auto mb-12 shadow-lg">
-              <GradientUnderline
-                underlineWidth={30}
-                spacing={4}
-                className="mb-4"
-              >
-                <h3 className="text-2xl font-bold text-gray-900">Etymology</h3>
-              </GradientUnderline>
-              <p className="text-lg text-gray-700 mt-4">
+            <div className="bg-white/50 backdrop-blur-md border border-gray-200/50 rounded-2xl p-8 max-w-3xl mx-auto shadow-lg text-center">
+              <p className="text-lg text-gray-700">
                 <span className="font-semibold text-gray-800">Klimalogia</span>{" "}
-                derives from the Greek word for climatology (<em>κλίμα</em>,
-                klima, &quot;slope&quot;; and <em>-λογία</em>, -logia)
+                derives from <strong>Climatology</strong> (from Greek{" "}
+                <em>κλίμα</em>, klima, &quot;slope&quot;; and <em>-λογία</em>,
+                -logia).
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="text-center space-y-6">
               <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-navy to-brand-teal">
                 Ready to lead with purpose and drive real climate impact?
               </p>

@@ -8,7 +8,6 @@ import {
   HandshakeIcon,
   LineChart,
   Shield,
-  Users2,
   ArrowRight,
 } from "lucide-react";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
@@ -54,45 +53,42 @@ type Benefit = {
   color: ColorTheme;
 };
 
+// Updated benefits content
 const benefits: Benefit[] = [
   {
-    title: "Expertise You Can Trust",
+    title: "Proven Expertise",
     description:
-      "Deep industry knowledge and innovative sustainability solutions.",
+      "With nearly a decade of experience, we bring deep technical knowledge and industry insight to every partnership. Our team is trusted by leading organizations to deliver high-impact climate and sustainability solutions tailored to evolving business needs.",
     icon: Shield,
     color: "blue",
   },
   {
-    title: "Amplified Impact",
+    title: "Scalable Impact",
     description:
-      "Maximize collective impact by leveraging shared expertise and resources.",
+      "Our partnerships are designed to maximize collective impact. By combining capabilities, networks, and resources, we help our partners achieve greater scale, accelerate climate action, and unlock shared value that lasts.",
     icon: LineChart,
     color: "green",
   },
   {
-    title: "Global Reach, Local Insights",
+    title: "Global Reach",
     description:
-      "International best practices combined with localized approaches.",
+      "Operating across regions, we combine global best practices with localized execution to ensure relevance, responsiveness, and lasting outcomes.",
     icon: Globe2,
     color: "teal",
   },
   {
-    title: "Customized Collaboration",
-    description: "Partnership frameworks aligned with your strategic goals.",
+    title: "Flexible Collaboration",
+    description:
+      "From strategic alliances to joint ventures, we offer customized collaboration models that are built around your goals, values, and vision for impact.",
     icon: HandshakeIcon,
     color: "primary",
   },
   {
-    title: "Enhanced Credentials",
-    description: "Position your organization as a leader in climate action.",
+    title: "Reputation and Credibility",
+    description:
+      "Partnering with Klimalogia enhances your visibility, strengthens your sustainability credentials, and positions your organization as a purpose-driven leader committed to delivering real climate impact.",
     icon: Building2,
     color: "blue",
-  },
-  {
-    title: "Collective Innovation",
-    description: "Join a network driving sustainable transformation.",
-    icon: Users2,
-    color: "green",
   },
 ];
 
@@ -150,8 +146,8 @@ const BenefitCard = ({
 
 export default function PartnerPage() {
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800">
-      <HeroBg video="/partner.mp4" image="/partner.png">
+    <div className="min-h-screen  text-gray-800">
+      <HeroBg video="/partner.mp4" image="/partnership.png">
         <div className="relative z-10 container mx-auto px-4 text-center flex flex-col items-center justify-center min-h-[80vh]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -168,10 +164,16 @@ export default function PartnerPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-lg md:text-xl max-w-3xl mx-auto my-8 text-white"
+            className="text-lg md:text-xl max-w-4xl mx-auto my-8 text-white/90"
           >
-            Partner with a globally trusted name in sustainability and climate
-            change solutions. Together, we can create transformative impact.
+            Klimalogia is a globally trusted provider of climate and
+            sustainability solutions, working with organizations across
+            industries and markets to accelerate progress toward a resilient and
+            value-driven future. Through strategic collaboration, we engage with
+            businesses, governments, non-profits, and innovators to unlock
+            opportunities, scale impact, and deliver measurable results. Our
+            partnerships are built on a shared commitment to measurable impact,
+            long-term value, and climate leadership.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -203,13 +205,26 @@ export default function PartnerPage() {
           >
             <GradientUnderline underlineWidth={50} spacing={4} className="mb-4">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
-                Why Partner With Us?
+                Why Partner With Klimalogia?
               </h2>
             </GradientUnderline>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/* IMPROVED RESPONSIVE GRID for 5 items */}
+          {/* This grid creates a 3-over-2 layout on large screens */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
             {benefits.map((benefit, index) => (
-              <BenefitCard key={index} {...benefit} delay={0.1 * (index + 1)} />
+              <div
+                key={index}
+                className={cn(
+                  // First 3 items span 2 columns on lg screens
+                  index < 3 ? "lg:col-span-2" : "",
+                  // Last 2 items span 3 columns on lg screens, creating a centered 2-card row
+                  index >= 3 ? "lg:col-span-3" : ""
+                )}
+              >
+                <BenefitCard {...benefit} delay={0.1 * (index + 1)} />
+              </div>
             ))}
           </div>
         </div>
@@ -227,12 +242,18 @@ export default function PartnerPage() {
             className="max-w-3xl mx-auto text-center"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
-              Let&apos;s Build Together
+              Let’s Build Together
             </h2>
-            <p className="text-gray-600 text-lg mb-8">
-              At Klimalogia, we believe that partnerships are key to solving the
-              world&apos;s most pressing climate challenges. Join us in creating
-              innovative, impactful solutions for a more sustainable future.
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed text-justify">
+              At Klimalogia, we believe strong partnerships are essential to
+              driving meaningful climate action and long-term value. By joining
+              forces, we can co-create innovative, scalable solutions that
+              tackle today’s environmental and business challenges head-on.
+              Whether you&apos;re looking to advance your sustainability goals,
+              strengthen your ESG leadership, or create shared impact, we’re
+              ready to collaborate. Let’s start a conversation and explore how
+              we can work together to shape a more resilient, future-ready
+              world.
             </p>
 
             <div className="flex justify-center items-center">
