@@ -58,7 +58,6 @@ type ValueCardData = {
   color: ColorTheme;
 };
 
-// This array is now used for the "Core Values" section
 const coreValues: ValueCardData[] = [
   {
     icon: HeartHandshake,
@@ -142,7 +141,6 @@ const ValueCard = ({
   );
 };
 
-// A new component for Mission & Vision boxes for a cleaner look
 const MissionVisionBox = ({
   icon: Icon,
   title,
@@ -308,7 +306,23 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* --- NEW MISSION & VISION SECTION --- */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="space-y-16"
+          >
+            <div className="bg-white/50 backdrop-blur-md border border-gray-200/50 rounded-2xl p-8 max-w-3xl mx-auto shadow-lg text-center">
+              <p className="text-lg text-gray-700">
+                <span className="font-semibold text-gray-800">Klimalogia</span>{" "}
+                derives from <strong>Climatology</strong> (from Greek{" "}
+                <em>κλίμα</em>, klima, &quot;slope&quot;; and <em>-λογία</em>,
+                -logia).
+              </p>
+            </div>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -334,7 +348,6 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* --- NEW CORE VALUES (RISE) SECTION --- */}
           <div>
             <SectionHeader>Our Core Values (RISE)</SectionHeader>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -348,7 +361,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* --- FINAL CTA & ETYMOLOGY SECTION --- */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -356,15 +368,6 @@ export default function AboutPage() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="space-y-16"
           >
-            <div className="bg-white/50 backdrop-blur-md border border-gray-200/50 rounded-2xl p-8 max-w-3xl mx-auto shadow-lg text-center">
-              <p className="text-lg text-gray-700">
-                <span className="font-semibold text-gray-800">Klimalogia</span>{" "}
-                derives from <strong>Climatology</strong> (from Greek{" "}
-                <em>κλίμα</em>, klima, &quot;slope&quot;; and <em>-λογία</em>,
-                -logia).
-              </p>
-            </div>
-
             <div className="text-center space-y-6">
               <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-navy to-brand-teal">
                 Ready to lead with purpose and drive real climate impact?
