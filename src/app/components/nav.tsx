@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About Us", href: "/about-us" },
-  { name: "Our Solutions", href: "/services" },
+  { name: "Our Solutions", href: "/solutions" },
   { name: "Partner with us", href: "/partner-with-us" },
   // { name: "Media", href: "/media" },
   { name: "Careers", href: "/careers" },
@@ -61,7 +61,10 @@ export function Nav() {
 
   useEffect(() => {
     const trigger = document.getElementById("nav-trigger");
-    if (!trigger) return;
+    if (!trigger) {
+      setIsFrosted(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {

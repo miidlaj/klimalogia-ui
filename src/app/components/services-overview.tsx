@@ -62,7 +62,7 @@ const features = [
     Icon: Lightbulb,
     name: "Strategy & Advisory",
     description: "Shaping your sustainable future from strategy to finance.",
-    href: "/services/strategy-advisory",
+    href: "/solutions/strategy-advisory",
     cta: "Explore Strategy",
     className: "col-span-3 lg:col-span-2",
     color: "blue",
@@ -73,7 +73,7 @@ const features = [
     Icon: Shield,
     name: "Assurance & Compliance",
     description: "Third-party verification and certification you can trust.",
-    href: "/services/assurance-compliance",
+    href: "/solutions/assurance-compliance",
     cta: "Verify with Us",
     className: "col-span-3 lg:col-span-1",
     color: "green",
@@ -84,7 +84,7 @@ const features = [
     Icon: Zap,
     name: "Action & Transformation",
     description: "Implementing tangible changes for real-world impact.",
-    href: "/services/action-transformation",
+    href: "/solutions/action-transformation",
     cta: "Take Action",
     className: "col-span-3 lg:col-span-1",
     color: "teal",
@@ -95,7 +95,7 @@ const features = [
     Icon: Monitor,
     name: "Digital Solutions",
     description: "Data-driven insights and advanced modeling tools.",
-    href: "/services/digital-solutions",
+    href: "/solutions/digital-solutions",
     cta: "Discover Digital",
     className: "col-span-3 lg:col-span-2",
     color: "primary",
@@ -204,7 +204,7 @@ export function ServicesOverview() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center flex justify-center items-center mt-20"
         >
-          <Link href={"/services"}>
+          <Link href={"/solutions"}>
             <ShimmerButton
               background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
               className="group shadow-2xl px-8 py-3"

@@ -85,7 +85,7 @@ const solutionCategories: SolutionCategory[] = [
     id: "strategy-advisory",
     name: "Strategy & Advisory",
     description: "Shaping your sustainable future from strategy to finance.",
-    href: "/services/strategy-advisory",
+    href: "/solutions/strategy-advisory",
     cta: "Learn More",
     icon: Lightbulb,
     color: "blue",
@@ -107,7 +107,7 @@ const solutionCategories: SolutionCategory[] = [
     id: "assurance-compliance",
     name: "Assurance & Compliance",
     description: "Third-party verification and certification you can trust.",
-    href: "/services/assurance-compliance",
+    href: "/solutions/assurance-compliance",
     cta: "Learn More",
     icon: Shield,
     color: "green",
@@ -127,7 +127,7 @@ const solutionCategories: SolutionCategory[] = [
     id: "action-trasformation",
     name: "Action & Transformation",
     description: "Implementing tangible changes for real-world impact.",
-    href: "/services/action-transformation",
+    href: "/solutions/action-transformation",
     cta: "Learn More",
     icon: Zap,
     color: "teal",
@@ -145,7 +145,7 @@ const solutionCategories: SolutionCategory[] = [
     id: "digital-solutions",
     name: "Digital Solutions",
     description: "Data-driven insights and advanced modeling tools.",
-    href: "/services/digital-solutions",
+    href: "/solutions/digital-solutions",
     cta: "Learn More",
     icon: Monitor,
     color: "primary",
@@ -186,7 +186,6 @@ function SolutionCard({
       layoutId={`card-${index}`}
       layout
       transition={layoutTransition}
-      onClick={onClick}
       className={cn(
         "cursor-pointer will-change-transform",
         isExpanded ? "col-span-full" : "col-span-1"
@@ -225,6 +224,7 @@ function SolutionCard({
             layout
             transition={layoutTransition}
             className="flex justify-between items-start mb-6"
+            onClick={onClick}
           >
             <motion.div
               layout
@@ -271,6 +271,7 @@ function SolutionCard({
                 "font-bold text-gray-900 mb-4",
                 isExpanded ? "text-3xl" : "text-xl"
               )}
+              onClick={onClick}
             >
               {card.name}
             </motion.h3>
@@ -278,6 +279,7 @@ function SolutionCard({
           <AnimatePresence mode="wait">
             {isOpen && (
               <motion.div
+                onClick={onClick}
                 initial={{ opacity: 0, height: 0 }}
                 animate={{
                   opacity: 1,
@@ -343,7 +345,7 @@ function SolutionCard({
   );
 }
 
-export function SolutionsOverview() {
+export function SolutionsOverview({ page }: { page?: boolean }) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   const handleCardClick = (index: number) => {
@@ -363,23 +365,25 @@ export function SolutionsOverview() {
       <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <GradientUnderline underlineWidth={80} spacing={0} className="mb-4">
-            <h2 className="text-4xl md:text-5xl font-bold mb-2">
-              Our Solutions
-            </h2>
-          </GradientUnderline>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We provide a comprehensive suite of solutions to guide your
-            organization through every stage of its sustainability journey.
-          </p>
-        </motion.div>
+        {!page && (
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <GradientUnderline underlineWidth={80} spacing={0} className="mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold mb-2">
+                Our Solutions
+              </h2>
+            </GradientUnderline>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              We provide a comprehensive suite of solutions to guide your
+              organization through every stage of its sustainability journey.
+            </p>
+          </motion.div>
+        )}
 
         <div className="space-y-6">
           <motion.div

@@ -237,7 +237,7 @@ export default function ProjectsPage() {
                 <Link href="/contact-us">Discuss Your Project</Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/services">Explore Our Services</Link>
+                <Link href="/solutions">Explore Our Services</Link>
               </Button>
             </div>
           </div>

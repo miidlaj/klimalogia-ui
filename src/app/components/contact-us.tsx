@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ExternalLink, MailIcon } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { ShimmerButton } from "./shimmer-button";
 import { FiMail } from "react-icons/fi";
 import {
