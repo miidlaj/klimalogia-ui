@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     description:
       "Your global partner in climate action and sustainable transformation. Driving meaningful impact through innovative solutions.",
     images: ["/og-image.jpg"],
-    creator: "@klimalogia",
+    creator: "@miidlaj",
   },
   robots: {
     index: true,
@@ -83,8 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Providers
-    >
+    <Providers>
       <ClientLayout>{children}</ClientLayout>
     </Providers>
   );

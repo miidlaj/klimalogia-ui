@@ -172,13 +172,13 @@ export function ClientCarousel({
                 scrollSnapStop: "always",
               }}
             >
-              <div className="relative w-full h-full p-6 flex items-center justify-center">
+              <div className="relative w-full h-full p-4 flex items-center justify-center">
                 <Image
                   src={logo.src || "/placeholder.svg"}
                   alt={logo.name}
-                  width={220}
-                  height={80}
-                  className="max-h-16 w-auto object-contain opacity-90"
+                  layout="fill"
+                  objectFit="contain"
+                  className="max-h-24 w-auto object-contain opacity-90"
                 />
               </div>
             </Card>

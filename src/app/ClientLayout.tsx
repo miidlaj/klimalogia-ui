@@ -71,7 +71,6 @@ export default function ClientLayout({
                 "https://linkedin.com/company/klimalogia",
                 "https://twitter.com/klimalogia",
                 "https://instagram.com/klimalogia",
-                "https://youtube.com/@klimalogia",
                 "https://facebook.com/klimalogia",
               ],
               address: {

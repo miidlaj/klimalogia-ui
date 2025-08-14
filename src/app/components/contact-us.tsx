@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MailIcon } from "lucide-react";
 import { ShimmerButton } from "./shimmer-button";
 import { FiMail } from "react-icons/fi";
 import {
@@ -348,17 +348,17 @@ export default function ContactUs({
                 </div>
 
                 {/* Contact Information Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
                   {/* Email Us Directly */}
                   <div>
                     <h3 className="text-lg font-semibold mb-2 text-white">
                       Email Us Directly:
                     </h3>
                     <a
-                      href="mailto:info@klimalogia.com"
-                      className="text-primary hover:underline flex items-center gap-2"
+                      href="mailto:contactus@klimalogia.com"
+                      className="text-primary hover:underline text-sm flex items-center gap-2"
                     >
-                      info@klimalogia.com
+                      contactus@klimalogia.com
                     </a>
                   </div>
 
@@ -368,7 +368,7 @@ export default function ContactUs({
                     </h3>
                     <a
                       href="tel:+971501234567"
-                      className="text-primary hover:underline flex items-center gap-2"
+                      className="text-primary hover:underline text-sm flex items-center gap-2"
                     >
                       +971 50 123 4567
                     </a>
@@ -378,11 +378,11 @@ export default function ContactUs({
                     <h3 className="text-lg font-semibold mb-2 text-white">
                       Our Headquarters:
                     </h3>
-                    <div className="text-primary flex items-start gap-2">
+                    <div className="text-primary text-sm flex items-start gap-2">
                       <div>
-                        <p>Office G-14, Onyx Building</p>
-                        <p>Salah Al Din St, Al Khabeesi</p>
-                        <p>Deira, Dubai, UAE</p>
+                        <p>SHR-01-22, Al, Mehairi</p>
+                        <p>Ras Al khor Industrial 3-rd</p>
+                        <p>Dubai, UAE</p>
                       </div>
                     </div>
                   </div>
@@ -393,11 +393,11 @@ export default function ContactUs({
                     For Media Inquiries:
                   </h3>
                   <a
-                    href="mailto:media@klimalogia.com"
+                    href="mailto:contactus@klimalogia.com"
                     className="text-primary hover:underline flex items-center gap-2"
                   >
                     <FiMail className="w-4 h-4" />
-                    media@klimalogia.com
+                    contactus@klimalogia.com
                   </a>
                 </div>
 
@@ -406,10 +406,38 @@ export default function ContactUs({
                     Follow Us:
                   </h3>
                   <div className="flex gap-4">
-                    <FaFacebook className="size-6 text-white" />
-                    <FaInstagram className="size-6 text-white" />
-                    <FaLinkedinIn className="size-6 text-white" />
-                    <FaWhatsapp className="size-6 text-white" />
+                    <a
+                      href="https://facebook.com/klimalogia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-pointer"
+                    >
+                      <FaFacebook className="size-6 text-primary" />
+                    </a>
+                    <a
+                      href="https://instagram.com/klimalogia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-pointer"
+                    >
+                      <FaInstagram className="size-6 text-primary" />
+                    </a>
+                    <a
+                      href="https://linkedin.com/company/klimalogia"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-pointer"
+                    >
+                      <FaLinkedinIn className="size-6 text-primary" />
+                    </a>
+                    <a
+                      href="https://wa.me/+971501234567"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-pointer"
+                    >
+                      <FaWhatsapp className="size-6 text-primary" />
+                    </a>
                   </div>
                 </div>
               </div>

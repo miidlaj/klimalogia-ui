@@ -15,7 +15,7 @@ const footerSections = [
     title: "COMPANY",
     links: [
       { href: "/about-us", label: "About Us" },
-      { href: "/services", label: "Services" },
+      { href: "/solutions", label: "Solutions" },
       { href: "/careers", label: "Careers" },
     ],
   },
@@ -26,17 +26,13 @@ const footerSections = [
       { href: "/partner-with-us", label: "Partner with Us" },
     ],
   },
-  {
-    title: "MEDIA",
-    links: [{ href: "/media", label: "News & Updates" }],
-  },
 ];
 
 const socialLinks = [
   {
-    href: "https://linkedin.com/company/klimalogia",
-    icon: FaLinkedinIn,
-    label: "LinkedIn",
+    href: "https://facebook.com/klimalogia",
+    icon: FaFacebookF,
+    label: "Facebook",
   },
   {
     href: "https://instagram.com/klimalogia",
@@ -44,11 +40,11 @@ const socialLinks = [
     label: "Instagram",
   },
   {
-    href: "https://facebook.com/klimalogia",
-    icon: FaFacebookF,
-    label: "Facebook",
+    href: "https://linkedin.com/company/klimalogia",
+    icon: FaLinkedinIn,
+    label: "LinkedIn",
   },
-  { href: "https://wa.me/your-number", icon: FaWhatsapp, label: "WhatsApp" },
+  { href: "https://wa.me/+971501234567", icon: FaWhatsapp, label: "WhatsApp" },
 ];
 
 export function Footer() {

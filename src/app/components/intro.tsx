@@ -14,7 +14,7 @@ export function Intro() {
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="w-full lg:w-2/5 lg:flex-shrink-0 h-[60vh] lg:h-auto"
+        className="w-full hidden md:block lg:w-1/2 xl:w-2/5 lg:flex-shrink-0 h-[60vh] lg:h-auto"
       >
         <motion.div
           initial={{ scale: 0.95 }}
@@ -31,7 +31,7 @@ export function Intro() {
         </motion.div>
       </motion.div>
 
-      <div className="w-full lg:w-3/5 flex items-center justify-center lg:justify-start p-8 md:p-12 lg:p-16">
+      <div className="w-full lg:w-1/2 xl:w-3/5 flex items-center justify-center lg:justify-start p-8 md:p-12 lg:p-16">
         <div className="max-w-xl w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
