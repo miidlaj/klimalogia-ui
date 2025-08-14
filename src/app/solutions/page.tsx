@@ -9,7 +9,7 @@ export default function SolutionsPage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/solution.png"
+            src="/solution.jpg"
             alt="A modern office environment"
             className="w-full h-full object-cover"
           />
