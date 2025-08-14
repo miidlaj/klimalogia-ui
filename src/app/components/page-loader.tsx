@@ -15,10 +15,9 @@ export function PageLoader() {
           clearInterval(timer);
           return 100;
         }
-        // Adjust increment for a smoother/faster load animation
         return prev + 1;
       });
-    }, 40); // Interval for progress update
+    }, 40);
 
     return () => clearInterval(timer);
   }, []);
@@ -30,9 +29,9 @@ export function PageLoader() {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-8"
+          className="mb-8 flex flex-col justify-center items-center"
+
         >
-          {/* Use your brand Logo component */}
           <Logo height={40} width={180} variant="gradient" />
           <p className="text-muted-foreground mt-4">
             Loading your climate solutions...
