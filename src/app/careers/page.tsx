@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
 import { ShimmerButton } from "../components/shimmer-button";
+import HeroBg from "@/components/hero-bg";
 
 // --- Data (interfaces and arrays) ---
 interface JobPosition {
@@ -147,40 +148,32 @@ export default function CareersPage() {
 
   return (
     <div className="min-h-screen ">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/careers.jpg" // Add your real background image here
-            alt="A modern office environment"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/60" />
-        </div>
-        <div className="relative z-10 text-center text-white px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
-          >
-            Careers
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto"
-          >
-            Join our mission to drive positive environmental change and shape a
-            sustainable future.
-          </motion.p>
-        </div>
-      </section>
+      <HeroBg image="/careers.jpg" video="/careers.mp4">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+          <div className="relative z-10 text-center text-white px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-6xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
+            >
+              Careers
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto"
+            >
+              Join our mission to drive positive environmental change and shape
+              a sustainable future.
+            </motion.p>
+          </div>
+        </section>
+      </HeroBg>
 
       <div id="nav-trigger" />
 
-      {/* Why Choose Us Section */}
       <section className="py-20 md:py-24 px-6 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -208,7 +201,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Team Member Testimonial */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           {teamMembers.map((member, index) => (
@@ -240,7 +232,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Positions Available */}
       <section className="py-20 md:py-24 px-6 max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
