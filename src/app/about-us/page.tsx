@@ -1,9 +1,11 @@
 "use client";
 
+import type React from "react";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState, ElementType } from "react";
+import { useEffect, useRef, useState, type ElementType } from "react";
 import {
   HeartHandshake,
   ShieldCheck,
@@ -14,9 +16,9 @@ import {
 } from "lucide-react";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
 import { cn } from "@/lib/utils";
-import { ShimmerButton } from "../components/shimmer-button";
 import { TypingAnimation } from "@/components/magic-ui/typing-animation";
 import Logo from "@/components/logo";
+import { ShimmerButton } from "../components/shimmer-button";
 
 const colorConfig = {
   blue: {
@@ -51,90 +53,108 @@ const colorConfig = {
 
 type ColorTheme = keyof typeof colorConfig;
 
-type ValueCardData = {
-  icon: ElementType;
-  title: string;
-  description: string;
-  color: ColorTheme;
-};
-
-const coreValues: ValueCardData[] = [
+const coreValues = [
   {
+    letter: "R",
     icon: HeartHandshake,
     title: "Respect",
     description:
       "Championing inclusivity, collaboration, and care for people and the planet. Valuing diverse perspectives and honoring all stakeholders in the sustainability journey.",
-    color: "blue",
+    color: "blue" as keyof typeof colorConfig,
   },
   {
+    letter: "I",
     icon: ShieldCheck,
     title: "Integrity",
     description:
       "Upholding the highest ethical standards with transparency, honesty, and accountability at the heart of every solution and relationship.",
-    color: "green",
+    color: "green" as keyof typeof colorConfig,
   },
   {
+    letter: "S",
     icon: Leaf,
     title: "Sustainability",
     description:
       "Embedding long-term thinking into every action, balancing environmental, social, and economic priorities to create resilient systems and future-ready businesses.",
-    color: "teal",
+    color: "teal" as keyof typeof colorConfig,
   },
   {
+    letter: "E",
     icon: Trophy,
     title: "Excellence",
     description:
       "Striving for the highest quality in everything we do, delivering impactful, data-driven solutions with precision, innovation, and professionalism.",
-    color: "primary",
+    color: "primary" as keyof typeof colorConfig,
   },
 ];
 
-const ValueCard = ({
+const RiseCard = ({
+  letter,
   icon: Icon,
   title,
   description,
-  delay,
   color,
+  delay,
 }: {
+  letter: string;
   icon: React.ElementType;
   title: string;
   description: string;
+  color: keyof typeof colorConfig;
   delay: number;
-  color: ColorTheme;
 }) => {
   const theme = colorConfig[color];
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
-      className="group h-full"
+      className="group relative h-96 cursor-pointer"
+      style={{ perspective: "1000px" }}
     >
-      <div
-        className={cn(
-          "relative h-full text-center overflow-hidden p-8 rounded-3xl bg-white/60 backdrop-blur-md border shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-1",
-          theme.border,
-          `hover:${theme.glow}`
-        )}
-      >
+      <div className="relative h-full w-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
         <div
-          className={cn(
-            "absolute inset-0 bg-gradient-to-br opacity-60 group-hover:opacity-80 transition-opacity duration-500",
-            theme.gradient
-          )}
-        />
-        <div className="relative z-10 flex flex-col items-center h-full">
+          className={`absolute inset-0 w-full h-full rounded-2xl border-2 ${theme.border} bg-gradient-to-br ${theme.gradient} overflow-hidden backface-hidden flex flex-col items-center justify-center shadow-lg hover:shadow-2xl ${theme.glow} transition-shadow duration-300`}
+        >
           <div
-            className={cn(
-              "w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br flex items-center justify-center text-white shadow-md transition-transform duration-500 group-hover:scale-110",
-              theme.iconGradient
-            )}
+            className={`w-16 h-16 rounded-xl bg-gradient-to-br ${theme.iconGradient} flex items-center justify-center mb-4 shadow-lg transform transition-transform duration-500 group-hover:scale-110`}
           >
-            <Icon className="h-8 w-8" />
+            <Icon className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-          <p className="text-gray-600 leading-relaxed">{description}</p>
+          <div
+            className={`text-8xl font-black ${theme.text} mb-2 transform transition-transform duration-500`}
+          >
+            {letter}
+          </div>
+          <div className={`text-xl font-semibold ${theme.text} opacity-80`}>
+            {title}
+          </div>
+          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
+            <div className="text-sm text-gray-500 opacity-60 animate-pulse">
+              Hover to flip
+            </div>
+          </div>
+        </div>
+
+        <div
+          className={`absolute inset-0 w-full h-full rounded-2xl bg-gradient-to-br ${theme.iconGradient} p-6 text-white flex flex-col justify-center backface-hidden rotate-y-180 shadow-2xl opacity-95`}
+        >
+          <div className="text-center mb-6">
+            <div className="w-12 h-12 mx-auto rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4">
+              <Icon className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-2xl font-bold mb-2">{title}</h3>
+          </div>
+          <p className="text-white/90 leading-relaxed text-center text-sm">
+            {description}
+          </p>
+          <div className="mt-6 text-center">
+            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm text-white font-bold text-lg">
+              {letter}
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -350,13 +370,9 @@ export default function AboutPage() {
 
           <div>
             <SectionHeader>Our Core Values (RISE)</SectionHeader>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {coreValues.map((card, index) => (
-                <ValueCard
-                  key={card.title}
-                  {...card}
-                  delay={0.1 * (index + 1)}
-                />
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+              {coreValues.map((value, index) => (
+                <RiseCard key={value.letter} {...value} delay={0.2 * index} />
               ))}
             </div>
           </div>

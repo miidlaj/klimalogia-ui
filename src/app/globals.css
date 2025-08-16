@@ -274,6 +274,10 @@
 
 /* Custom gradient utilities using your brand colors */
 @layer utilities {
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+
   .underline-brand-gradient::after {
     content: "";
     position: absolute;
