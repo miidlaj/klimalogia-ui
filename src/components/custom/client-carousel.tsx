@@ -12,12 +12,16 @@ type Props = {
   logos?: Logo[];
   itemMinWidth?: number;
   gap?: number;
+  autoScrollInterval?: number; // Auto-scroll interval in milliseconds
+  pauseOnHover?: boolean; // Whether to pause auto-scroll on hover
 };
 
 export function ClientCarousel({
   logos = [],
   itemMinWidth = 220,
   gap = 24,
+  autoScrollInterval = 3000, // Default 3 seconds
+  pauseOnHover = true,
 }: Props) {
   const railRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -26,13 +30,18 @@ export function ClientCarousel({
   const [progress, setProgress] = useState(0);
   const [thumbW, setThumbW] = useState(0);
   const [snapSize, setSnapSize] = useState(itemMinWidth + gap);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [maxIndex, setMaxIndex] = useState(0);
   const lastSnapAtRef = useRef(0);
+  const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
   const throttleMs = 260;
 
   // compute snap size based on first item width at runtime
   const recomputeMeasures = useCallback(() => {
     const rail = railRef.current;
-    if (!rail) return;
+    const wrapper = wrapperRef.current;
+    if (!rail || !wrapper) return;
+
     const firstItem = rail.querySelector<HTMLElement>(
       "[data-item='client-card']"
     );
@@ -40,10 +49,17 @@ export function ClientCarousel({
       const rect = firstItem.getBoundingClientRect();
       const style = window.getComputedStyle(rail);
       const gapPx = Number.parseFloat(style.columnGap || style.gap || `${gap}`);
-      setSnapSize(Math.round(rect.width + (isNaN(gapPx) ? gap : gapPx)));
+      const newSnapSize = Math.round(rect.width + (isNaN(gapPx) ? gap : gapPx));
+      setSnapSize(newSnapSize);
+
+      // Calculate max index
+      const newMaxIndex = Math.round(
+        (wrapper.scrollWidth - wrapper.clientWidth) / newSnapSize
+      );
+      setMaxIndex(newMaxIndex);
     }
+
     // progress thumb width
-    const wrapper = wrapperRef.current;
     if (wrapper) {
       const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
       const ratio =
@@ -53,6 +69,29 @@ export function ClientCarousel({
     }
   }, [gap]);
 
+  // Auto-scroll function
+  const autoScroll = useCallback(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+
+    const nextIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+    setCurrentIndex(nextIndex);
+    wrapper.scrollTo({ left: nextIndex * snapSize, behavior: "smooth" });
+  }, [currentIndex, maxIndex, snapSize]);
+
+  // Start/stop auto-scroll timer
+  const startAutoScroll = useCallback(() => {
+    if (autoScrollTimerRef.current) clearInterval(autoScrollTimerRef.current);
+    autoScrollTimerRef.current = setInterval(autoScroll, autoScrollInterval);
+  }, [autoScroll, autoScrollInterval]);
+
+  const stopAutoScroll = useCallback(() => {
+    if (autoScrollTimerRef.current) {
+      clearInterval(autoScrollTimerRef.current);
+      autoScrollTimerRef.current = null;
+    }
+  }, []);
+
   // progress tracking - don't interfere with cursor
   const onScroll = useCallback(() => {
     const wrapper = wrapperRef.current;
@@ -60,8 +99,11 @@ export function ClientCarousel({
     const max = wrapper.scrollWidth - wrapper.clientWidth;
     const p = max > 0 ? wrapper.scrollLeft / max : 0;
     setProgress(p);
-    // Don't reset hover state during scroll
-  }, []);
+
+    // Update current index based on scroll position
+    const newIndex = Math.round(wrapper.scrollLeft / snapSize);
+    setCurrentIndex(newIndex);
+  }, [snapSize]);
 
   useEffect(() => {
     recomputeMeasures();
@@ -77,6 +119,26 @@ export function ClientCarousel({
     return () => wrapper.removeEventListener("scroll", onScroll);
   }, [onScroll]);
 
+  // Auto-scroll effect
+  useEffect(() => {
+    if (logos.length > 1 && maxIndex > 0) {
+      if (pauseOnHover && hovering) {
+        stopAutoScroll();
+      } else {
+        startAutoScroll();
+      }
+    }
+
+    return () => stopAutoScroll();
+  }, [
+    logos.length,
+    maxIndex,
+    hovering,
+    pauseOnHover,
+    startAutoScroll,
+    stopAutoScroll,
+  ]);
+
   // convert vertical wheel to horizontal step when hovering
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -87,19 +149,34 @@ export function ClientCarousel({
       e.preventDefault();
       const now = performance.now();
       if (now - lastSnapAtRef.current < throttleMs) return;
+
+      // Stop auto-scroll when manually scrolling
+      stopAutoScroll();
+
       const dir = e.deltaY > 0 ? 1 : -1;
-      const currentIndex = Math.round(wrapper.scrollLeft / snapSize);
-      const maxIndex = Math.round(
-        (wrapper.scrollWidth - wrapper.clientWidth) / snapSize
-      );
-      const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + dir));
+      const newCurrentIndex = Math.round(wrapper.scrollLeft / snapSize);
+      const nextIndex = Math.min(maxIndex, Math.max(0, newCurrentIndex + dir));
+      setCurrentIndex(nextIndex);
       wrapper.scrollTo({ left: nextIndex * snapSize, behavior: "smooth" });
       lastSnapAtRef.current = now;
-      // Keep cursor visible during scroll
+
+      // Restart auto-scroll after a delay
+      setTimeout(() => {
+        if (!hovering || !pauseOnHover) {
+          startAutoScroll();
+        }
+      }, 2000);
     };
     wrapper.addEventListener("wheel", handleWheel, { passive: false });
     return () => wrapper.removeEventListener("wheel", handleWheel);
-  }, [hovering, snapSize]);
+  }, [
+    hovering,
+    snapSize,
+    maxIndex,
+    stopAutoScroll,
+    startAutoScroll,
+    pauseOnHover,
+  ]);
 
   // keyboard accessibility
   const onKeyDown = useCallback(
@@ -108,16 +185,32 @@ export function ClientCarousel({
       if (!wrapper) return;
       if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
         e.preventDefault();
+
+        // Stop auto-scroll when manually navigating
+        stopAutoScroll();
+
         const dir = e.key === "ArrowRight" ? 1 : -1;
-        const currentIndex = Math.round(wrapper.scrollLeft / snapSize);
-        const maxIndex = Math.round(
-          (wrapper.scrollWidth - wrapper.clientWidth) / snapSize
-        );
         const nextIndex = Math.min(maxIndex, Math.max(0, currentIndex + dir));
+        setCurrentIndex(nextIndex);
         wrapper.scrollTo({ left: nextIndex * snapSize, behavior: "smooth" });
+
+        // Restart auto-scroll after a delay
+        setTimeout(() => {
+          if (!hovering || !pauseOnHover) {
+            startAutoScroll();
+          }
+        }, 2000);
       }
     },
-    [snapSize]
+    [
+      snapSize,
+      currentIndex,
+      maxIndex,
+      stopAutoScroll,
+      startAutoScroll,
+      hovering,
+      pauseOnHover,
+    ]
   );
 
   // Persistent mouse tracking - don't let scroll interfere
@@ -201,18 +294,17 @@ export function ClientCarousel({
               40,
           }}
         >
-          <div className="w-20 h-20 rounded-full border-2 border-white/60 shadow-2xl backdrop-blur-sm bg-gradient-to-r from-[var(--brand-teal)] to-[var(--brand-blue)] flex items-center justify-between text-white px-3">
+          <div className="w-10 h-10 rounded-full border-2 border-white/60 shadow-2xl backdrop-blur-sm bg-gradient-to-r from-[var(--brand-teal)] to-[var(--brand-blue)] flex items-center justify-between text-white px-1">
             <ChevronLeft className="size-6 opacity-90" />
             <ChevronRight className="size-6 opacity-90" />
           </div>
         </div>
       )}
 
-      {/* Simple scrollbar: navy background line with teal thumb */}
       <div className="mt-6 px-8">
         <div className="relative h-1 rounded-full bg-[var(--brand-navy)] overflow-hidden">
           <div
-            className="absolute inset-y-0 left-0 h-2 -top-0.5 rounded-full bg-[var(--brand-teal)]"
+            className="absolute inset-y-0 left-0 h-3 -top-0.5 bg-[var(--brand-teal)]"
             style={{
               width: `${thumbW}px`,
               ...trackStyle,
