@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Menu } from "lucide-react";
@@ -29,7 +29,8 @@ const navigation = [
 
 export function Nav() {
   const pathname = usePathname();
-  const [isFrosted, setIsFrosted] = useState(false);
+  const [isFrosted, setIsFrosted] = useState(true); // Default to frosted (white theme)
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const navStyles = useMemo(
     () => ({
@@ -48,91 +49,178 @@ export function Nav() {
   const navClasses = useMemo(
     () =>
       clsx(
-        "fixed top-0 z-50 w-full transition-all duration-500 ease-out isolate",
+        "fixed top-0 z-50 w-full isolate",
+        // Only apply transition after initialization to prevent flash
+        isInitialized && "transition-all duration-500 ease-out",
         isFrosted
           ? "backdrop-blur-xl bg-white/[0.15] shadow-xl shadow-black/[0.08] after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-brand-navy/60 after:via-brand-blue/80 after:to-brand-teal/60"
           : "backdrop-blur-lg bg-white/[0.08] border-b border-white/20"
       ),
+    [isFrosted, isInitialized]
+  );
+
+  const textColor = useMemo(
+    () => (isFrosted ? "text-brand-navy" : "text-white"),
+    [isFrosted]
+  );
+  const underlineColor = useMemo(
+    () => (isFrosted ? "bg-brand-gradient" : "bg-white"),
     [isFrosted]
   );
 
-  const textColor = isFrosted ? "text-brand-navy" : "text-white";
-  const underlineColor = isFrosted ? "bg-brand-gradient" : "bg-white";
-
-  useEffect(() => {
-    const trigger = document.getElementById("nav-trigger");
-    if (!trigger) {
-      setIsFrosted(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const shouldFrost = entry.boundingClientRect.y < 0;
-        setIsFrosted((prev) => (shouldFrost === prev ? prev : shouldFrost));
-      },
-      {
-        threshold: 0,
-        rootMargin: "0px 0px -1px 0px",
+  // Handle frosted state changes
+  const handleFrostedChange = useCallback((shouldFrost: boolean) => {
+    setIsFrosted((prevState) => {
+      if (prevState !== shouldFrost) {
+        return shouldFrost;
       }
-    );
+      return prevState;
+    });
+  }, []);
 
-    observer.observe(trigger);
-    return () => observer.disconnect();
+  // Initialize intersection observer
+  useEffect(() => {
+    let observer: IntersectionObserver | null = null;
+
+    const initializeObserver = () => {
+      const trigger = document.getElementById("nav-trigger");
+
+      if (!trigger) {
+        // If nav-trigger not found, keep frosted state (white theme)
+        handleFrostedChange(true);
+        setIsInitialized(true);
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          // Check if trigger is above viewport (scrolled past it)
+          const shouldFrost = entry.boundingClientRect.top < 0;
+          handleFrostedChange(shouldFrost);
+        },
+        {
+          threshold: 0,
+          rootMargin: "0px 0px -1px 0px",
+        }
+      );
+
+      observer.observe(trigger);
+      setIsInitialized(true);
+    };
+
+    // Small delay to ensure DOM is ready
+    const timer = setTimeout(initializeObserver, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [pathname, handleFrostedChange]); // Re-run on pathname change
+
+  // Force frosted state on route change initially
+  useEffect(() => {
+    setIsFrosted(true);
+    setIsInitialized(false);
   }, [pathname]);
 
   const NavigationItems = useMemo(
     () =>
-      navigation.map((item) => (
-        <Link
-          key={item.name}
-          href={item.href}
-          className={clsx(
-            "relative text-sm font-medium transition-all duration-300 group",
-            textColor,
-            "hover:scale-105 hover:text-opacity-90"
-          )}
-        >
-          {item.name}
-          <span
+      navigation.map((item) => {
+        const isActive = pathname === item.href;
+
+        return (
+          <Link
+            key={item.name}
+            href={item.href}
             className={clsx(
-              "absolute -bottom-1 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full",
-              underlineColor
+              "relative text-sm font-medium transition-all duration-300 group",
+              textColor,
+              "hover:scale-105 hover:text-opacity-90",
+              isActive && "font-semibold"
             )}
-          />
-          {pathname === item.href && (
+          >
+            {item.name}
             <span
               className={clsx(
-                "absolute -bottom-1 left-0 h-0.5 w-full",
+                "absolute -bottom-1 left-0 h-0.5 transition-all duration-300",
+                "w-0 group-hover:w-full",
                 underlineColor
               )}
             />
-          )}
-        </Link>
-      )),
+            {isActive && (
+              <span
+                className={clsx(
+                  "absolute -bottom-1 left-0 h-0.5 w-full",
+                  underlineColor
+                )}
+              />
+            )}
+          </Link>
+        );
+      }),
     [textColor, underlineColor, pathname]
   );
 
   const MobileNavigationItems = useMemo(
     () =>
-      navigation.map((item) => (
-        <Link
-          key={item.name}
-          href={item.href}
-          className={clsx(
-            "relative text-lg font-medium transition-all duration-300 group",
-            "text-white hover:text-white/90 hover:translate-x-2",
-            pathname === item.href && "text-white font-semibold"
-          )}
-        >
-          {item.name}
-          <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full" />
-          {pathname === item.href && (
-            <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-white" />
-          )}
-        </Link>
-      )),
+      navigation.map((item) => {
+        const isActive = pathname === item.href;
+
+        return (
+          <Link
+            key={item.name}
+            href={item.href}
+            className={clsx(
+              "relative text-lg font-medium transition-all duration-300 group",
+              "text-white hover:text-white/90 hover:translate-x-2",
+              isActive && "text-white font-semibold"
+            )}
+          >
+            {item.name}
+            <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-white transition-all duration-300 group-hover:w-full" />
+            {isActive && (
+              <span className="absolute -bottom-1 left-0 h-0.5 w-full bg-white" />
+            )}
+          </Link>
+        );
+      }),
     [pathname]
+  );
+
+  const SearchButton = useMemo(
+    () => (
+      <button
+        aria-label="Search"
+        className={clsx(
+          "p-2 rounded-full transition-all duration-300",
+          "hover:bg-black/10 hover:scale-110 active:scale-95",
+          textColor
+        )}
+      >
+        <CiSearch className="h-5 w-5" />
+      </button>
+    ),
+    [textColor]
+  );
+
+  const MobileMenuButton = useMemo(
+    () => (
+      <Button
+        variant="ghost"
+        size="icon"
+        className={clsx(
+          "lg:hidden transition-all duration-300",
+          "hover:bg-black/10 hover:scale-110 active:scale-95",
+          textColor
+        )}
+        aria-label="Toggle navigation menu"
+      >
+        <Menu className="h-6 w-6" />
+      </Button>
+    ),
+    [textColor]
   );
 
   return (
@@ -150,42 +238,19 @@ export function Nav() {
           <Logo
             height={35}
             width={150}
-            variant={!isFrosted ? "white" : "gradient"}
+            variant={isFrosted ? "gradient" : "white"}
           />
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center lg:flex lg:gap-x-8">
           {NavigationItems}
-
-          <button
-            aria-label="Search"
-            className={clsx(
-              "p-2 rounded-full transition-all duration-300",
-              "hover:bg-black/10 hover:scale-110 active:scale-95",
-              textColor
-            )}
-          >
-            <CiSearch className="h-5 w-5" />
-          </button>
+          {SearchButton}
         </div>
 
         {/* Mobile Menu */}
         <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className={clsx(
-                "lg:hidden transition-all duration-300",
-                "hover:bg-black/10 hover:scale-110 active:scale-95",
-                textColor
-              )}
-              aria-label="Toggle navigation menu"
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-          </SheetTrigger>
+          <SheetTrigger asChild>{MobileMenuButton}</SheetTrigger>
 
           <SheetContent
             side="right"
