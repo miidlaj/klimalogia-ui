@@ -25,8 +25,8 @@ function HeroBg({
   }, []);
 
   return (
-    <main className="min-h-screen">
-      <section className="relative min-h-[100vh] flex items-center justify-center">
+    <main className="h-screen">
+      <section className="relative h-screen flex items-center justify-center">
         {!isVideoLoaded && (
           <Image
             src={image}
