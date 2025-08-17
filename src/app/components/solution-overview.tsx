@@ -248,7 +248,7 @@ function SolutionCard({
               className="w-10 h-10 rounded-full flex items-center justify-center bg-white/50 backdrop-blur-sm"
             >
               <motion.div
-                animate={{ rotate: isOpen ? 45 : 0 }}
+                animate={{ rotate: isOpen ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
               >
                 {isOpen ? (
