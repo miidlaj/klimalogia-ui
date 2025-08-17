@@ -88,7 +88,7 @@ const coreValues = [
   },
 ];
 
-const RiseCard = ({
+const ScaleFadeCard = ({
   letter,
   icon: Icon,
   title,
@@ -112,51 +112,57 @@ const RiseCard = ({
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay }}
       className="group relative h-96 cursor-pointer"
-      style={{ perspective: "1000px" }}
     >
-      <div className="relative h-full w-full transition-transform duration-700 transform-style-preserve-3d group-hover:rotate-y-180">
-        <div
-          className={`absolute inset-0 w-full h-full rounded-2xl border-2 ${theme.border} bg-gradient-to-br ${theme.gradient} overflow-hidden backface-hidden flex flex-col items-center justify-center shadow-lg hover:shadow-2xl ${theme.glow} transition-shadow duration-300`}
+      <motion.div
+        className={`relative h-full w-full rounded-2xl border-2 ${theme.border} bg-gradient-to-br ${theme.gradient} overflow-hidden shadow-lg transition-all duration-500`}
+        whileHover={{
+          scale: 1.03,
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        {/* Main Content - fades out on hover */}
+        <motion.div
+          className="absolute inset-0 flex flex-col items-center justify-center p-6"
+          whileHover={{ opacity: 0, scale: 0.9 }}
+          transition={{ duration: 0.3 }}
         >
           <div
-            className={`w-16 h-16 rounded-xl bg-gradient-to-br ${theme.iconGradient} flex items-center justify-center mb-4 shadow-lg transform transition-transform duration-500 group-hover:scale-110`}
+            className={`w-16 h-16 rounded-xl bg-gradient-to-br ${theme.iconGradient} flex items-center justify-center mb-4 shadow-lg`}
           >
             <Icon className="w-8 h-8 text-white" />
           </div>
-          <div
-            className={`text-8xl font-black ${theme.text} mb-2 transform transition-transform duration-500`}
-          >
+          <div className={`text-8xl font-black ${theme.text} mb-2`}>
             {letter}
           </div>
           <div className={`text-xl font-semibold ${theme.text} opacity-80`}>
             {title}
           </div>
-          <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2">
-            <div className="text-sm text-gray-500 opacity-60 animate-pulse">
-              Hover to flip
-            </div>
-          </div>
-        </div>
+        </motion.div>
 
-        <div
-          className={`absolute inset-0 w-full h-full rounded-2xl bg-gradient-to-br ${theme.iconGradient} p-6 text-white flex flex-col justify-center backface-hidden rotate-y-180 shadow-2xl opacity-95`}
+        {/* Description Content - scales in on hover */}
+        <motion.div
+          className={`absolute inset-0 flex items-center justify-center p-6 bg-gradient-to-br ${theme.iconGradient} text-white`}
+          initial={{ opacity: 0, scale: 1.1 }}
+          whileHover={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
         >
-          <div className="text-center mb-6">
+          <div className="text-center">
             <div className="w-12 h-12 mx-auto rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4">
               <Icon className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-2xl font-bold mb-2">{title}</h3>
-          </div>
-          <p className="text-white/90 leading-relaxed text-center text-sm">
-            {description}
-          </p>
-          <div className="mt-6 text-center">
-            <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm text-white font-bold text-lg">
-              {letter}
+            <h3 className="text-2xl font-bold mb-4">{title}</h3>
+            <p className="text-white/90 text-sm leading-relaxed text-center">
+              {description}
+            </p>
+            <div className="mt-6">
+              <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm text-white font-bold text-lg">
+                {letter}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -338,7 +344,11 @@ export default function AboutPage() {
             <SectionHeader>Our Core Values</SectionHeader>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
               {coreValues.map((value, index) => (
-                <RiseCard key={value.letter} {...value} delay={0.2 * index} />
+                <ScaleFadeCard
+                  key={value.letter}
+                  {...value}
+                  delay={0.2 * index}
+                />
               ))}
             </div>
           </div>
