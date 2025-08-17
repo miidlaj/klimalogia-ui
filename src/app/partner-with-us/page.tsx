@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { ShimmerButton } from "../components/shimmer-button";
 import HeroBg from "@/components/hero-bg";
+import { GradientBlend } from "@/components/custom/gradient-blend";
 
 // Color configuration for card accents
 const colorConfig = {
@@ -261,7 +262,7 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      <section className="relative z-50 min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img
             src="/partnership-end.jpg"
@@ -318,6 +319,7 @@ export default function PartnerPage() {
             </motion.div>
           </div>
         </div>
+        <GradientBlend />
       </section>
     </div>
   );
