@@ -335,7 +335,7 @@ export default function AboutPage() {
           </motion.div>
 
           <div>
-            <SectionHeader>Our Core Values (RISE)</SectionHeader>
+            <SectionHeader>Our Core Values</SectionHeader>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
               {coreValues.map((value, index) => (
                 <RiseCard key={value.letter} {...value} delay={0.2 * index} />
