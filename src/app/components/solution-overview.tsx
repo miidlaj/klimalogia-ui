@@ -346,7 +346,7 @@ function SolutionCard({
 }
 
 export function SolutionsOverview({ page }: { page?: boolean }) {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const handleCardClick = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
