@@ -64,6 +64,7 @@ export function Hero() {
           </Link>
         </div>
       </div>
+      <div id="nav-trigger" />
     </div>
   );
 }

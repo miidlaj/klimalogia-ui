@@ -506,3 +506,8 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+.layout-main-scroll {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}

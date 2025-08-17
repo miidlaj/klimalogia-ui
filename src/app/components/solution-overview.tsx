@@ -360,7 +360,7 @@ export function SolutionsOverview({ page }: { page?: boolean }) {
     expandedIndex !== null ? solutionCategories[expandedIndex] : null;
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden ">
+    <section className="py-16 md:py-24 relative overflow-hidden flex justify-center items-center">
       <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-pulse animation-delay-2000"></div>
 

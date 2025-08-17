@@ -9,7 +9,7 @@ import { GradientUnderline } from "@/components/custom/gradient-underline";
 
 export function PartnershipSection() {
   return (
-    <section className="relative z-50 min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
           src="/partner.png"
@@ -63,9 +63,3 @@ export function PartnershipSection() {
     </section>
   );
 }
-
-// function GradientBlend() {
-//   return (
-//     <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
-//   );
-// }

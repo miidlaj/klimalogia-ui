@@ -39,7 +39,7 @@ const infiniteLogos = [
 
 export default function ClientsSection() {
   return (
-    <section className="py-20 md:py-24 relative overflow-hidden">
+    <section className="py-20 md:py-24 relative overflow-hidden h-screen flex justify-center items-center">
       {/* brand blobs */}
       <div className="absolute top-0 -left-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-blue)]/10 to-[var(--brand-teal)]/10 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-pulse"></div>
       <div className="absolute bottom-0 -right-10 w-96 h-96 bg-gradient-to-r from-[var(--brand-green)]/10 to-[var(--brand-primary)]/10 rounded-full mix-blend-multiply blur-3xl opacity-50 animate-pulse [animation-delay:1200ms]"></div>
