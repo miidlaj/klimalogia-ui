@@ -1,11 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import type React from "react";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState, type ElementType } from "react";
+import { type ElementType } from "react";
 import {
   HeartHandshake,
   ShieldCheck,
@@ -13,12 +13,12 @@ import {
   Trophy,
   Rocket,
   Eye,
+  ArrowRight,
 } from "lucide-react";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
 import { cn } from "@/lib/utils";
-import { TypingAnimation } from "@/components/magic-ui/typing-animation";
-import Logo from "@/components/logo";
 import { ShimmerButton } from "../components/shimmer-button";
+import HeroBg from "@/components/hero-bg";
 
 const colorConfig = {
   blue: {
@@ -213,66 +213,32 @@ const SectionHeader = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function AboutPage() {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.error("Video autoplay was prevented:", error);
-      });
-    }
-  }, []);
-
   return (
-    <main className="min-h-screen bg-gray-50 relative pb-32">
-      <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center">
-        {!isVideoLoaded && (
-          <Image
-            src="/about.png"
-            alt="Nature background"
-            fill
-            className="object-cover"
-            priority
-          />
-        )}
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          onLoadedData={() => setIsVideoLoaded(true)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-            isVideoLoaded ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <source src="/about.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 text-center space-y-6 max-w-4xl mx-auto px-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl md:text-7xl font-bold bg-clip-text text-white flex flex-col justify-center items-center"
-          >
-            <TypingAnimation className="text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
-              Welcome to
-            </TypingAnimation>
-            <Logo variant="white" height={85} width={280} />
-          </motion.h1>
+    <main className="min-h-screen bg-gray-50 relative">
+      <HeroBg image="/about.png" video="/about.mp4">
+        <section className="relative h-screen flex items-center justify-center overflow-hidden">
+          <div className="relative z-10 text-center text-white px-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-5xl md:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300"
+            >
+              About Us
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto"
+            >
+              Klimalogia is a globally trusted provider of climate and
+              sustainability solutions.
+            </motion.p>
+          </div>
+        </section>
+      </HeroBg>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-gray-200 text-xl md:text-2xl"
-          >
-            Your Global Partner in Climate Action and Sustainable Transformation
-          </motion.p>
-        </div>
-      </section>
       <div id="nav-trigger" />
 
       <section className="py-20 md:py-24 relative overflow-hidden">
@@ -376,33 +342,58 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="space-y-16"
-          >
-            <div className="text-center space-y-6">
-              <p className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-navy to-brand-teal">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img
+            src="/about-end.jpg"
+            alt="Partnership background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+
+        <div className="container mx-auto px-4 max-w-7xl relative">
+          <div className="max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <GradientUnderline
+                underlineWidth={80}
+                underlineHeight={7}
+                spacing={10}
+              >
+                <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+                  Ready?
+                </h1>
+              </GradientUnderline>
+
+              <p className="text-xl text-gray-200 text-justify">
                 Ready to lead with purpose and drive real climate impact?
-              </p>
-              <p className="text-lg text-gray-700">
                 Let&apos;s shape a sustainable future, together.
               </p>
-              <div className="flex justify-center">
+
+              <div>
                 <Link href="/contact-us">
                   <ShimmerButton
                     background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
-                    className="cursor-pointer"
+                    className="px-8 py-3 group"
                   >
-                    Get Started
+                    <span className="flex items-center gap-2">
+                      Get Started
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                    </span>
                   </ShimmerButton>
                 </Link>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
     </main>
