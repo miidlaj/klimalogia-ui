@@ -19,6 +19,7 @@ import { GradientUnderline } from "@/components/custom/gradient-underline";
 import { cn } from "@/lib/utils";
 import { ShimmerButton } from "../components/shimmer-button";
 import HeroBg from "@/components/hero-bg";
+import { GradientBlend } from "@/components/custom/gradient-blend";
 
 const colorConfig = {
   blue: {
@@ -406,6 +407,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <GradientBlend />
     </main>
   );
 }
