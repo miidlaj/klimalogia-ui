@@ -457,6 +457,7 @@ export function SolutionsCards({ page }: { page?: boolean }) {
           ))}
         </div>
       </div>
+      <div id="nav-trigger" />
     </section>
   );
 }

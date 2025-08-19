@@ -29,8 +29,6 @@ function SolutionsHero() {
           </div>
         </section>
       </HeroBg>
-
-      <div id="nav-trigger" />
     </div>
   );
 }
