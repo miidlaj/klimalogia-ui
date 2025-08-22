@@ -1,5 +1,4 @@
 "use client";
-
 import { Suspense } from "react";
 import {
   Target,
@@ -10,7 +9,6 @@ import {
   Zap,
   AlertTriangle,
   TrendingUp,
-  DollarSign,
   Users,
   Star,
   Award,
@@ -24,6 +22,7 @@ import { WhatWeOfferSection } from "../components/what-we-offer-section";
 import { HowItMattersSection } from "../components/how-it-matters-section";
 import { WhyChooseUsSection } from "../components/why-choose-us-section";
 import { StepScrollContainer } from "@/components/custom/step-scroll";
+import { PageLoader } from "@/app/components/page-loader";
 
 const whatWeOfferServices = [
   {
@@ -32,7 +31,8 @@ const whatWeOfferServices = [
       "Design customized sustainability strategies, policies, and roadmaps that integrate environmental, social, and governance (ESG) principles into core business operations across the value chain.",
     icon: Target,
     color: "from-emerald-500 to-teal-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "ESG Reporting",
@@ -40,7 +40,8 @@ const whatWeOfferServices = [
       "Develop ESG and sustainability reports in accordance with leading frameworks including GRI, SASB, TCFD, and EU Taxonomy to meet regulatory requirements and enhance transparency.",
     icon: FileText,
     color: "from-blue-500 to-cyan-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "ESG Advisory",
@@ -48,7 +49,8 @@ const whatWeOfferServices = [
       "Identify and implement strategic initiatives to enhance ESG performance metrics across environmental, social, and governance dimensions, benchmarks, and value chains.",
     icon: Shield,
     color: "from-purple-500 to-indigo-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "GHG Accounting",
@@ -56,7 +58,8 @@ const whatWeOfferServices = [
       "Quantify and report Scope 1, Scope 2, and Scope 3 greenhouse gas (GHG) emissions using GHG Protocol standards to establish credible emissions baseline and inform climate strategy and goal-setting initiatives.",
     icon: Calculator,
     color: "from-green-500 to-emerald-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Decarbonisation Pathways",
@@ -64,7 +67,8 @@ const whatWeOfferServices = [
       "Develop decarbonisation pathways by identifying key drivers and levers for performance standards and sustainable solutions, resulting in a lower corporate carbon footprint.",
     icon: Route,
     color: "from-orange-500 to-red-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Net-Zero Target Setting",
@@ -72,7 +76,8 @@ const whatWeOfferServices = [
       "Define science-based targets, establishing both near-term and long-term climate commitments that drive decarbonisation in line with the Science-Based Targets initiative (SBTi).",
     icon: Zap,
     color: "from-yellow-500 to-orange-500",
-    thumbnail: "",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 
@@ -106,12 +111,6 @@ const howItMattersPoints = [
     description:
       "Benchmark sustainability efforts, close performance gaps, and align industry practices with market opportunities.",
     icon: Award,
-  },
-  {
-    title: "Unlock sustainable finance and investment",
-    description:
-      "Access ESG-linked financing, sustainability bonds, and green capital by demonstrating responsible investment strategies.",
-    icon: DollarSign,
   },
 ];
 
@@ -159,8 +158,8 @@ const sections = [
     id: "hero",
     component: (
       <HeroSection
-        backgroundImage="/service/stratergy.jpg"
-        backgroundVideo=""
+        backgroundImage="/service/strategy.png"
+        backgroundVideo="/service/strategy.mp4"
         title="Strategy & Advisory"
         subtitle="Solution"
         description="Transform your organization with our expert strategy and advisory services. From ESG reporting to net-zero planning, we provide the expertise you need to thrive in a sustainable future."
@@ -199,7 +198,6 @@ const sections = [
         title="Why Choose Us"
         description="Our services extend beyond traditional consulting, with Klimalogia as your dedicated partner in accelerating progress along your sustainability journey."
         points={whyChooseUsPoints}
-        image="/service/consulting.jpg"
         imageDescription="With Klimalogia, you gain more than strategy – you gain a partner committed to delivering real results across your sustainability and ESG journey. Let us help you lead with purpose, perform with integrity, and grow with resilience."
         backgroundImage="/service/why-choose-us.jpg"
       />
@@ -210,8 +208,8 @@ const sections = [
 
 export default function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <main className="relative min-h-screen bg-white">
+    <Suspense fallback={<PageLoader />}>
+      <main className="relative min-h-screen ">
         <StepScrollContainer sections={sections} />
       </main>
     </Suspense>

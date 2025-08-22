@@ -7,5 +7,10 @@ export default function SolutionsPage() {
     { id: "hero", component: <SolutionsHero />, name: "Hero" },
     { id: "solutions", component: <SolutionsCards />, name: "Solutions" },
   ];
-  return <StepScrollContainer sections={sections}></StepScrollContainer>;
+  return (
+    <div>
+      <StepScrollContainer sections={sections}></StepScrollContainer>
+      <div id="nav-trigger" />
+    </div>
+  );
 }

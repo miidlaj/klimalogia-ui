@@ -8,7 +8,12 @@ const nextConfig: NextConfig = {
         hostname: "img.icons8.com",
         port: "",
         pathname: "/**",
-        search: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
