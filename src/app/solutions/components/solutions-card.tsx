@@ -1,10 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import type React from "react";
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Lightbulb, Shield, Zap, Monitor, ChevronRight, X } from "lucide-react";
+import {
+  Lightbulb,
+  Shield,
+  Zap,
+  Monitor,
+  ChevronRight,
+  X,
+  ChevronLeft,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { GradientUnderline } from "@/components/custom/gradient-underline";
@@ -275,121 +284,236 @@ function SolutionCard({ card, index, onHover, isHovered }: SolutionCardProps) {
 
       <AnimatePresence>
         {isHovered && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            onMouseEnter={() => onHover(index)}
-          >
-            <motion.div
-              className="absolute inset-0 bg-black/70 backdrop-blur-md"
-              onClick={() => onHover(null)}
-            />
-
-            <motion.div
-              className={cn(
-                "relative w-full max-w-4xl max-h-[90vh] overflow-y-auto",
-                "backdrop-blur-3xl rounded-3xl border bg-white/10 shadow-2xl",
-                "dark:bg-white/5 dark:[border:1px_solid_rgba(255,255,255,.2)]",
-                theme.border,
-                theme.glow
-              )}
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-            >
-              <div
-                className={cn(
-                  "absolute inset-0 bg-gradient-to-br opacity-20 rounded-3xl",
-                  theme.gradient
-                )}
-              />
-
-              <div className="relative z-10 p-8">
-                <div className="flex justify-between items-start mb-8">
-                  <div className="flex items-center gap-6">
-                    <div
-                      className={cn(
-                        "w-20 h-20 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg",
-                        theme.iconGradient
-                      )}
-                    >
-                      <card.icon className="w-10 h-10 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="text-3xl font-bold text-white mb-2">
-                        {card.name}
-                      </h3>
-                      <p className="text-lg text-white/80">
-                        {card.description}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => onHover(null)}
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20"
-                  >
-                    <X className="w-5 h-5 text-white cursor-pointer" />
-                  </button>
-                </div>
-
-                <div className="mb-8">
-                  <h4 className="text-xl font-semibold text-white mb-6">
-                    Our Solutions
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {card.solutions.map((solution, idx) => (
-                      <motion.div
-                        key={solution}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{
-                          opacity: 1,
-                          y: 0,
-                          transition: { delay: 0.1 + idx * 0.05 },
-                        }}
-                        className={cn(
-                          "text-sm text-white flex items-center gap-3 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-sm",
-                          "transform-gpu transition-all duration-300 hover:bg-white/20 hover:shadow-md hover:scale-105"
-                        )}
-                      >
-                        <ChevronRight
-                          className={cn("w-4 h-4 flex-shrink-0", theme.text)}
-                        />
-                        <span className="font-medium">{solution}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <Link href={card.href}>
-                    <Button
-                      size="lg"
-                      className={cn(
-                        "px-8 py-3 text-white font-medium transform-gpu transition-all duration-300 cursor-pointer",
-                        "hover:scale-105 hover:shadow-lg"
-                      )}
-                      style={{
-                        background: theme.button,
-                      }}
-                    >
-                      <span className="flex items-center gap-2">
-                        {card.cta}
-                        <ChevronRight className="w-5 h-5" />
-                      </span>
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+          <SolutionModal
+            card={card}
+            currentIndex={index}
+            onClose={() => onHover(null)}
+            onNavigate={onHover}
+          />
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+// Separate Modal Component for better organization
+function SolutionModal({
+  card,
+  currentIndex,
+  onClose,
+  onNavigate,
+}: {
+  card: SolutionCategory;
+  currentIndex: number;
+  onClose: () => void;
+  onNavigate: (index: number) => void;
+}) {
+  const theme = colorConfig[card.color];
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      switch (event.key) {
+        case "ArrowLeft":
+          event.preventDefault();
+          navigatePrevious();
+          break;
+        case "ArrowRight":
+          event.preventDefault();
+          navigateNext();
+          break;
+        case "Escape":
+          event.preventDefault();
+          onClose();
+          break;
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [currentIndex, onClose, onNavigate]);
+
+  const navigatePrevious = () => {
+    const prevIndex =
+      currentIndex === 0 ? solutionCategories.length - 1 : currentIndex - 1;
+    onNavigate(prevIndex);
+  };
+
+  const navigateNext = () => {
+    const nextIndex =
+      currentIndex === solutionCategories.length - 1 ? 0 : currentIndex + 1;
+    onNavigate(nextIndex);
+  };
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      variants={overlayVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      onMouseEnter={() => onNavigate(currentIndex)}
+    >
+      <motion.div
+        className="absolute inset-0 bg-black/70 backdrop-blur-md"
+        onClick={onClose}
+      />
+
+      {/* Navigation Arrows */}
+      <motion.button
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20 group"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigatePrevious();
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <ChevronLeft className="w-6 h-6 text-white group-hover:text-white/90" />
+      </motion.button>
+
+      <motion.button
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20 group"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigateNext();
+        }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <ChevronRight className="w-6 h-6 text-white group-hover:text-white/90" />
+      </motion.button>
+
+      <motion.div
+        className={cn(
+          "relative w-full max-w-4xl max-h-[90vh] overflow-y-auto",
+          "backdrop-blur-3xl rounded-3xl border bg-white/10 shadow-2xl",
+          "dark:bg-white/5 dark:[border:1px_solid_rgba(255,255,255,.2)]",
+          theme.border,
+          theme.glow
+        )}
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        key={card.id} // Force re-render on card change
+      >
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-br opacity-20 rounded-3xl",
+            theme.gradient
+          )}
+        />
+
+        <div className="relative z-10 p-8">
+          <div className="flex justify-between items-start mb-8">
+            <div className="flex items-center gap-6">
+              <div
+                className={cn(
+                  "w-20 h-20 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg",
+                  theme.iconGradient
+                )}
+              >
+                <card.icon className="w-10 h-10 text-white" />
+              </div>
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-2">
+                  {card.name}
+                </h3>
+                <p className="text-lg text-white/80">{card.description}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Card indicator */}
+              <div className="flex gap-1">
+                {solutionCategories.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => onNavigate(idx)}
+                    className={cn(
+                      "w-2 h-2 rounded-full transition-colors",
+                      idx === currentIndex
+                        ? "bg-white"
+                        : "bg-white/30 hover:bg-white/50"
+                    )}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={onClose}
+                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors border border-white/20 ml-4"
+              >
+                <X className="w-5 h-5 text-white cursor-pointer" />
+              </button>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h4 className="text-xl font-semibold text-white mb-6">
+              Our Solutions
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {card.solutions.map((solution, idx) => (
+                <motion.div
+                  key={`${card.id}-${solution}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                    transition: { delay: 0.1 + idx * 0.05 },
+                  }}
+                  className={cn(
+                    "text-sm text-white flex items-center gap-3 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 shadow-sm",
+                    "transform-gpu transition-all duration-300 hover:bg-white/20 hover:shadow-md hover:scale-105"
+                  )}
+                >
+                  <ChevronRight
+                    className={cn("w-4 h-4 flex-shrink-0", theme.text)}
+                  />
+                  <span className="font-medium">{solution}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <Link href={card.href}>
+              <Button
+                size="lg"
+                className={cn(
+                  "px-8 py-3 text-white font-medium transform-gpu transition-all duration-300 cursor-pointer",
+                  "hover:scale-105 hover:shadow-lg"
+                )}
+                style={{
+                  background: theme.button,
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  {card.cta}
+                  <ChevronRight className="w-5 h-5" />
+                </span>
+              </Button>
+            </Link>
+          </div>
+
+          {/* Help text */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-white/50">
+              Use ← → arrow keys or click the arrows to navigate • Press ESC to
+              close
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
