@@ -1,80 +1,203 @@
-import { Changelog } from "@/components/21first/solutions-component";
+"use client";
+import { Suspense } from "react";
+import {
+  Target,
+  Shield,
+  Calculator,
+  Route,
+  Zap,
+  TrendingUp,
+  Users,
+  Star,
+  Lightbulb,
+  Globe,
+  RefreshCw,
+  Droplets,
+  Bike,
+} from "lucide-react";
+import { HeroSection } from "../components/hero-section";
+import { WhatWeOfferSection } from "../components/what-we-offer-section";
+import { HowItMattersSection } from "../components/how-it-matters-section";
+import { WhyChooseUsSection } from "../components/why-choose-us-section";
+import { StepScrollContainer } from "@/components/custom/step-scroll";
+import { PageLoader } from "@/app/components/page-loader";
 
-const actionTransformationEntries = [
+const whatWeOfferServices = [
   {
-    version: "What We Offer",
-    date: "Action & Transformation",
-    title: "From Sustainability Ambition to Measurable Results",
+    title: "Renewable Energy Sourcing",
     description:
-      "Our Action & Transformation services help organizations move from sustainability ambition to measurable results. We facilitate the implementation of sustainability initiatives that reduce emissions, conserve resources, improve operations, and drive operational value backed by globally recognized frameworks and proven methodologies.",
-    items: [
-      "Energy and Utility Audits – Perform ASHRAE Level I, II, and III Energy Audits to identify inefficiencies, benchmark consumption, and quantify savings potential across energy, water, and gas utilities. Develop targeted action plans featuring Energy Conservation Measures (ECMs) and Cost-Benefit Analysis to achieve measurable operational improvements and regulatory compliance.",
-      "Waste Audits and Circular Economy – Drive the transition to circular resource models through comprehensive waste audits across operational facilities. Identify opportunities for waste streams and recovery opportunities to enable resource efficiency and reduce environmental impact. Utilize Tools to monitor waste performance and incorporate circularity principles into daily operations, and supply chains, minimizing waste, cutting costs, and closing the loop.",
-      "Environmental Impact Assessment (EIA) – Undertake comprehensive EIAs in compliance with local and international standards to assess the environmental risks, identify mitigation strategies, and enhance project sustainability. Manage the full EIA lifecycle from screening, scoping, baseline studies, impact analysis, mitigation planning, stakeholder engagement, and final reporting, ensuring regulatory compliance, accountability, and approvals.",
-      "Nature and Biodiversity – Support organizations in assessing and managing nature-related impacts, dependencies, risks, and opportunities using the LEAP approach as per TNFD guidelines. Deliver comprehensive biodiversity impact assessments, ecosystem services valuation, biodiversity action plan design, Nature-based target setting aligned with SBTiN, internal capacity building, and development of strategic nature-based implementation plans aligned with the Global Biodiversity Framework (GBF) that protect and restore ecosystems.",
-      "Renewable Energy – Facilitate the design, modelling, feasibility assessment, installation, and performance monitoring of renewable energy systems, with a focus on Solar PV. Optimize system integration and operational requirements to support the transition to clean energy, enhance energy resilience, lower energy costs, and future-proof the energy strategy.",
-      "Environmental Testing – Conduct specialized testing and real-time monitoring of environmental parameters including indoor and outdoor air quality, water quality, acoustics, thermal imaging, lighting, air leakage tests and more. Enable compliance with environmental performance standards, identify health and safety risks, and support data-driven operational improvements.",
-      "Sustainability Workshops – Deliver organization-wide engagement through targeted sustainability workshops, executive training, and cultural transformation programs that align leadership, engage employees, and integrate cross-functional collaboration. Build internal capacity and empower teams to embed sustainability culture and waste elimination, while enhancing sustainability into decision-making.",
-    ],
-    image: "/service/stratergy.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Get in touch",
-    },
+      "Develop and implement renewable energy strategies, including on-site generation (solar, wind), off-site power purchase agreements (PPAs), and energy attribute certificates (EACs) to transition your operations to clean energy.",
+    icon: Zap,
+    color: "from-yellow-500 to-orange-500",
+    thumbnail: "/service/action.jpg",
   },
   {
-    version: "How It Matters",
-    date: "Business Impact",
-    title: "Turning Ambition into Measurable Action",
+    title: "Energy Efficiency & Retrofits",
     description:
-      "With climate urgency rising, organizations must turn sustainability ambition into measurable action to meet stakeholder expectations, strengthen operational resilience, and maintain competitive edge. Organizations who lead will ultimately gain first-mover advantage and utility to:",
-    items: [
-      "Translate strategy into impact – Sustainability roadmaps and climate targets hold value only when backed by action. Implementation services help organizations move from planning to measurable progress, turning ESG commitments into operational outcomes that reduce emissions, conserve resources, and drive ecosystems.",
-      "Maximize resource efficiency and cost savings – Through targeted audits and retrofits, businesses can optimize energy, water, and waste inefficiencies, reduce utility costs, and boost operational performance. Data-backed Environmental Conservation Measures (ECMs) offer financial returns while moving toward environmental goals.",
-      "Advance nature-positive business models – With biodiversity loss rising up the regulatory and investor priority agendas and finance tools that manage nature-related risks and opportunities. These efforts help businesses identify ecological impacts, support ecosystem restoration, enhance resilience, and align with globally recognized biodiversity targets.",
-      "Accelerate clean energy transition – Deploying renewable energy solutions reduces reliance on fossil fuels, lowers energy costs, enhances energy security, implementation timelines, and supports conservation measures and clean energy strategies positions businesses as leaders in the low-carbon economy.",
-      "Drive circularity and resource efficiency – Circular economy models and enhanced waste strategies reduce landfill dependency, create new business opportunities, and build resilient operations. These actions support sustainable procurement, operational excellence, and economic benefits.",
-      "Empower internal transformation – Engaging employees through training, workshops, and cross-functional programs builds sustainability awareness, accelerates adoption, and seeds sustainable change across all areas of the organization. Internal alignment, leadership, and engagement creates resilience and drives adoption of sustainability practices.",
-      "Enhance stakeholder confidence through action – Visible implementation of sustainability initiatives builds trust with investors, customers, and regulators. Demonstrating progress through action and not just commitments reinforces a brand's credibility and leadership.",
-    ],
-    image: "/service/business.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Learn more",
-    },
+      "Conduct energy audits and identify opportunities for efficiency gains through building retrofits, industrial process optimization, HVAC upgrades, and smart building technologies to reduce consumption and operational costs.",
+    icon: Lightbulb,
+    color: "from-emerald-500 to-teal-500",
+    thumbnail: "/service/action.jpg",
   },
   {
-    version: "Why Choose Us",
-    date: "Our Approach",
-    title: "Implementation Partner for Real-World Results",
+    title: "Supply Chain Decarbonisation",
     description:
-      "By bridging the gap between strategy and execution, Klimalogia helps our clients bring their sustainability ambitions to life. We help incorporate sustainability into systems, operations, and culture, and help organizations that lead value creation and build long-term value.",
-    items: [
-      "From Strategy to Impact – We provide full-cycle implementation support, managing every stage from technical assessments to action planning and in-ground execution. From technical audits to biodiversity programs, we ensure that projects are delivered with precision and aligned with your sustainability targets.",
-      "Cross-Functional Delivery Model – We take a systems-level approach, and our multidisciplinary teams work across energy, waste, water, environment, nature and biodiversity, to deliver cohesive, organizationwide transformation. This ensures efficient scalable transformation across your entire organization.",
-      "Performance Driven Approach – Our solutions are backed by rigorous technical analysis, feasibility studies, and cost-benefit analysis. Every project is designed to achieve performance outcomes, optimize resource use, and generate cost savings with clear payback timelines.",
-      "Responsive and Adaptive – We tailor delivery to your organization's size, maturity, and complexity. Whether rolling out solutions at a single facility or across a global portfolio, we act quickly and flexibly, adapting to evolving regulations, technologies, or operational needs.",
-      "Proven Track Record – We deliver measurable results and put clients first us to implement solutions that generate lasting Environmental, Social, and Governance (ESG) performance. Because waste becomes, biodiversity goals.",
-      "Technology-Enabled Implementation – Engaging smart digital tools to track energy performance waste diversion rate, water metrics and treatment outcomes. We enable intelligent reporting systems with sustainability transformation.",
-      "Empowering Long-Term Transformation – We partner with you to build systems, processes, and culture that deliver sustained impact long-term, ensuring your sustainability journey is resilient, future-ready, and aligned with long-term business goals.",
-      "Built for Complex Environments – Our implementation model is built for transforming sustainability and ESG performance across sectors, providing nature-based solutions for industrial operations. We bring deep technical expertise to energy, water, biodiversity, operational readiness and help ensure your business operations are aligned with global frameworks.",
-    ],
-    image: "/service/choose.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Partner with us",
-    },
+      "Engage with suppliers to measure and reduce Scope 3 emissions. We help implement sustainable procurement policies, improve logistics, and foster collaboration across your value chain to create a resilient, low-carbon supply network.",
+    icon: Route,
+    color: "from-blue-500 to-cyan-500",
+    thumbnail: "/service/action.jpg",
+  },
+  {
+    title: "Green Mobility",
+    description:
+      "Transition your corporate fleet to electric vehicles (EVs), optimize transportation routes, and promote sustainable commuting options for employees. We design and implement strategies to reduce emissions from mobile sources.",
+    icon: Bike,
+    color: "from-green-500 to-lime-500",
+    thumbnail: "/service/action.jpg",
+  },
+  {
+    title: "Circular Economy Solutions",
+    description:
+      "Implement circular business models by designing waste out of your processes, promoting product life extension, and creating closed-loop systems. We help you turn waste streams into value streams, reducing environmental impact.",
+    icon: RefreshCw,
+    color: "from-purple-500 to-indigo-500",
+    thumbnail: "/service/action.jpg",
+  },
+  {
+    title: "Water Stewardship",
+    description:
+      "Develop strategies for responsible water management, including water footprint analysis, efficiency improvements, and wastewater treatment solutions. We help you mitigate water-related risks and ensure sustainable water use.",
+    icon: Droplets,
+    color: "from-sky-500 to-blue-500",
+    thumbnail: "/service/action.jpg",
   },
 ];
 
-export default function ActionTransformationPage() {
-  return (
-    <main className="">
-      <Changelog
+const howItMattersPoints = [
+  {
+    title: "Unlock cost savings and operational efficiency",
+    description:
+      "Decarbonisation initiatives like energy efficiency and renewable sourcing directly reduce utility expenses and operational costs, delivering a strong return on investment and protecting against energy price volatility.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Drive innovation and competitive advantage",
+    description:
+      "Adopting clean technologies and circular models fosters a culture of innovation. It allows you to develop new products, services, and business models that meet growing market demand for sustainable solutions.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Build supply chain resilience",
+    description:
+      "Decarbonising your supply chain reduces exposure to carbon taxes, resource scarcity, and regulatory risks. A sustainable supply chain is more agile, transparent, and better equipped to handle future disruptions.",
+    icon: Shield,
+  },
+  {
+    title: "Meet net-zero targets and climate goals",
+    description:
+      "Transforming strategy into action is essential for achieving ambitious climate commitments. Our implementation services provide the practical steps needed to make measurable progress on your decarbonisation pathway.",
+    icon: Target,
+  },
+  {
+    title: "Enhance brand reputation and stakeholder loyalty",
+    description:
+      "Demonstrating tangible action on climate change builds trust with customers, investors, and employees. Proactive decarbonisation strengthens your brand identity as a responsible and forward-thinking leader.",
+    icon: Star,
+  },
+];
+
+const whyChooseUsPoints = [
+  {
+    title: "End-to-End Implementation Partner",
+    description:
+      "We go beyond strategy to serve as your hands-on implementation partner. From initial assessment and business case development to project management and performance tracking, we manage the entire transformation journey.",
+    icon: Users,
+  },
+  {
+    title: "Integrated Decarbonisation Expertise",
+    description:
+      "Our team combines deep expertise in renewable energy, energy efficiency, supply chain management, and circular economy principles. This integrated approach ensures we deliver holistic and effective decarbonisation solutions.",
+    icon: Zap,
+  },
+  {
+    title: "Technology-Agnostic, Solution-Focused",
+    description:
+      "We are not tied to any single technology or vendor. Our approach is to identify and implement the best-fit solutions for your specific operational context, budget, and decarbonisation goals, ensuring optimal outcomes.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Data-Driven, ROI-Focused",
+    description:
+      "Every recommendation is backed by robust data analysis and a clear financial business case. We focus on implementing projects that not only reduce emissions but also deliver measurable financial returns and operational benefits.",
+    icon: Calculator,
+  },
+  {
+    title: "Scalable Solutions for Global Impact",
+    description:
+      "Whether you're looking to decarbonise a single facility or your entire global operations, we design solutions that are scalable and replicable. We help you build internal capacity and create a framework for continuous improvement.",
+    icon: Globe,
+  },
+];
+
+const sections = [
+  {
+    id: "hero",
+    component: (
+      <HeroSection
+        backgroundImage="/service/action.png"
+        backgroundVideo="/service/action.mp4"
         title="Action & Transformation"
-        description="Move from sustainability ambition to measurable results through implementation of initiatives that reduce emissions, conserve resources, and drive operational value."
-        entries={actionTransformationEntries}
+        subtitle="Solution"
+        description="From renewable energy and supply chain decarbonisation to circular economy solutions, we turn your climate strategy into measurable action. Our services are designed to drive operational efficiency, foster innovation, and accelerate your journey to net-zero."
       />
-    </main>
+    ),
+    name: "Home",
+  },
+  {
+    id: "what-we-offer",
+    component: (
+      <WhatWeOfferSection
+        title="What We Offer"
+        description="Our Action & Transformation services bridge the gap between strategy and execution. We provide hands-on support to implement practical, scalable, and financially viable decarbonisation solutions across your operations and value chain."
+        services={whatWeOfferServices}
+      />
+    ),
+    name: "What We Offer",
+  },
+  {
+    id: "how-it-matters",
+    component: (
+      <HowItMattersSection
+        title="How It Matters"
+        description="A robust climate strategy is only as valuable as its implementation. Taking decisive action to decarbonise is no longer optional—it is a fundamental driver of business resilience, competitive advantage, and long-term value creation."
+        points={howItMattersPoints}
+        image="/service/consulting.jpg"
+        imageDescription="By translating climate goals into tangible projects, organizations can unlock significant cost savings, mitigate risks, and strengthen their position as leaders in the transition to a low-carbon economy."
+      />
+    ),
+    name: "How It Matters",
+  },
+  {
+    id: "why-choose-us",
+    component: (
+      <WhyChooseUsSection
+        title="Why Choose Us"
+        description="Choosing the right implementation partner is critical to turning your climate ambition into reality. We provide the technical expertise, project management rigour, and strategic oversight needed to ensure your decarbonisation projects are successful."
+        points={whyChooseUsPoints}
+        imageDescription="With Klimalogia, you gain a partner dedicated to delivering tangible results. We work as an extension of your team to de-risk complex projects, maximize ROI, and ensure your transformation journey is both impactful and sustainable."
+        backgroundImage="/service/why-choose-us.jpg"
+      />
+    ),
+    name: "Why Choose Us",
+  },
+];
+
+export default function Page() {
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <main className="relative min-h-screen ">
+        <StepScrollContainer sections={sections} />
+      </main>
+    </Suspense>
   );
 }

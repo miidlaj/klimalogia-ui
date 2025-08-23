@@ -1,83 +1,270 @@
-import { Changelog } from "@/components/21first/solutions-component";
+"use client";
+import { Suspense } from "react";
+import {
+  Target,
+  FileText,
+  Shield,
+  Calculator,
+  Route,
+  Zap,
+  AlertTriangle,
+  TrendingUp,
+  Users,
+  Star,
+  Award,
+  Lightbulb,
+  Building,
+  Globe,
+  Leaf,
+  Mail,
+} from "lucide-react";
+import { HeroSection } from "../components/hero-section";
+import { WhatWeOfferSection } from "../components/what-we-offer-section";
+import { HowItMattersSection } from "../components/how-it-matters-section";
+import { WhyChooseUsSection } from "../components/why-choose-us-section";
+import { StepScrollContainer } from "@/components/custom/step-scroll";
+import { PageLoader } from "@/app/components/page-loader";
+import { Button } from "@/components/ui/button";
 
-const assuranceComplianceEntries = [
+const whatWeOfferServices = [
   {
-    version: "What We Offer",
-    date: "Assurance & Compliance",
-    title: "Credible Verification & Third-Party Assurance",
+    title: "Green Building Certifications",
     description:
-      "Our Assurance & Compliance services help organizations validate sustainability claims, meet regulatory requirements, and build stakeholder trust through credible third-party verification and certification. We provide independent assurance across ESG, climate, and sustainability domains, ensuring transparency, accountability, and alignment with global standards.",
-    items: [
-      "Green Building Certifications – Facilitate the green building certification for the built environment across leading rating systems such as LEED, BREEAM, WELL, TRUE, ILF), ESGBC/MAC, EHS THAILAND, DM AF, LOTUS, DIFA EK. MasGreEn. Due to being high-performing, high efficiency and resource efficient buildings. Support across design phase green building assessments, construction phase, and operations for assets.",
-      "Climate Certification – Help organizations demonstrate their commitment to LEED Zero, ILFl Zero Carbon, ONEXI, Climate Neutral Certified, and PAS 2060, and ISO 14068-1 Certifications. Climate certifications through Carbon Trust or net zero emissions in their buildings with measured and verified performance.",
-      "Carbon Registry – Support the development, registration, and verification of carbon offset projects in accordance with recognized standards like Gold Standard and Verra. Facilitate the tracking, monitoring, and issuance of carbon credits and assist clients by ensure integrity of credits in both voluntary and compliance markets.",
-      "ISO Certifications – Assist in achieving and maintaining ISO certifications including ISO 9001 (Quality Management), ISO 14001 (Environmental Management), ISO 50001 (Energy Management), ISO 14064 (GHG Emissions), ISO 14067 (Product Carbon Footprint) and ISO 26121 (Sustainable Events). Strengthen organizational efficiency, environmental performance, and compliance with internationally recognized standards to build stakeholder trust and ensure global accountability.",
-      "Sector-specific Sustainability Certifications – Deliver certification support for industry-specific standards including RIA Environmental Accreditation Programme (motorsports), IATA IEnvA (international Airlines), Green Globe (travel and tourism), and others). Work closely with global certification bodies to support client accreditation and credibility with sector-specific initiatives.",
-      "Environmental Product Declaration (EPD) – Develop and verify EPDs in accordance with international standards such as ISO 14025 and EN 15804. Provide transparent, third-party verified data on the environmental impacts of products over their life cycle to support green procurement and eco-labeling initiatives.",
-      "ESG Assurance – Perform independent limited and reasonable assurance of sustainability and ESG reports using global standards such as ISAE 3000, ISAE 3400, and AA1000. Enhance credibility, improve transparency, and build investor confidence in ESG disclosures and non-financial reporting.",
-      "GHG Assurance – Provide third-party verification of greenhouse gas (GHG) inventories in accordance with ISO 14064-3 and ISO 50001. Validate Scope 1, 2, and 3 emissions data with global standards such as the GHG Protocol, IPCC Guidelines, and PCAF to support regulatory compliance, climate disclosures, and emissions reduction targets.",
-      "Regulatory Compliance – Navigate complex regional and global ESG and climate regulations such as UAE Climate Law (Federal Decree-Law No. 11 of 2024), CBAM, EU ETS, MiCA, EPR, and more. Ensure full compliance in reporting, disclosures, supply chain due diligence, carbon reporting and decarbonization mandates.",
-    ],
-    image: "/service/stratergy.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Get in touch",
-    },
+      "Facilitate green building certification for the built-environment based on globally recognised standards like LEED, BREEAM, WELL, and others. We help embed sustainability into new and existing real estate and infrastructure assets.",
+    icon: Building,
+    color: "from-emerald-500 to-teal-500",
+    thumbnail: "/service/building.jpg",
   },
   {
-    version: "How It Matters",
-    date: "Business Impact",
-    title: "Building Trust Through Verified Performance",
+    title: "Net-Zero and Carbon-Neutrality",
     description:
-      "As climate ambition rises and regulatory frameworks tighten, credible assurance and verified compliance have become essential for business resilience and long-term success. Organizations that invest in third-party validation of their operations, performance, and transparency benefit from enhanced stakeholder trust and competitive advantage.",
-    items: [
-      "Demonstrate leadership and transparency – Independent verification of ESG performance, carbon neutrality, Net Zero Sustainable Smart Buildings, certifications and certifications Brand compliance validates corporate responsibility efforts.",
-      "Stay ahead of evolving regulations – From net-zero mandates and GHG reporting requirements to green taxonomy and ESG disclosure laws, verified compliance ensures alignment with regional and global regulatory expectations to mitigate business and legal risks.",
-      "Avoid greenwashing and reputational risk – Verified claims safeguards your brand against scrutiny, litigation, and accusations of greenwashing. Assurance provides the credibility needed to stand behind your sustainability communications with confidence.",
-      "Improve ratings and competitive positioning – Assured sustainability data improves standing on ESG indices, ESG platforms and third-party evaluators. Enhanced ratings improve access to capital, increase investor confidence.",
-      "Drive operational integrity and performance – Compliance with sustainability standards and frameworks promotes standardized systems, continuous improvement, and resource efficiency, driving operational excellence and long-term value creation.",
-      "Enable credible climate action – Assured GHG inventories, carbon credits, and net-zero certifications provide a credible foundation for climate disclosures, informed decision making, and measurable progress toward decarbonization goals.",
-      "Enhance market access and credibility – Building green building certifications, ISO compliance, industry-specific labels for third-parties assurance enhances product credibility and improves accessibility and appeal to sustainability and sustainability-focused markets.",
-      "Build transparency and stakeholder trust – With verified data and traceable compliance, digital solutions back sustainability claims with credibility, which reinforces trust among investors, regulators, customers, and rating agencies.",
-    ],
-    image: "/service/business.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Learn more",
-    },
+      "Achieve recognition through leading certifications like ILFI Zero Carbon and PAS 2060. We help you demonstrate verified climate leadership and tangible progress towards global decarbonization goals.",
+    icon: Zap,
+    color: "from-blue-500 to-cyan-500",
+    thumbnail: "/service/building.jpg",
   },
   {
-    version: "Why Choose Us",
-    date: "Our Approach",
-    title: "Trusted Verification Partner",
+    title: "Carbon Registry",
     description:
-      "We partner with organizations to demonstrate verified sustainability performance, meet rising regulatory expectations, and protect their brand with credibility. Klimalogia empowers our clients by simplifying complex compliance requirements while building credible sustainability systems throughout every component of their operations. Be practical, responsive, and aligned with your business goals, helping you move from intent to verified impact.",
-    items: [
-      "Trusted Verification Partner – We deliver assurance with the highest standards of independence, technical rigor, and sectoral knowledge. Our team brings third-party certification experience across ESG, climate, and sustainability domains for high-impact and credible solutions aligned to build brand integrity.",
-      "End-to-End Certification Support – From gap analysis to project kick-off assessments, evidence gathering, stakeholder engagement, documentation and certification, we provide support through all stage of the certification journey.",
-      "Compliance with Business Value – We help transform regulatory requirements into strategic opportunity. Verified sustainability performance enhances brand reputation, improves ESG ratings, and expands market access while ensuring compliance across multiple jurisdictions and global markets.",
-      "Execution With Precision – We do not just advise, we deliver: by embedding ourselves in your team, our hands-on approach ensures every milestone is met and that assurance and compliance efforts are delivered on time, with precision and purpose.",
-      "Deep Technical Knowledge – Our team combines deep expertise in ESG, climate, and regulatory frameworks with real-world delivery experience. Whether it's ISO certification, GHG assurance, or green building certifications, we bring proven technical capabilities to your projects.",
-      "Strategy-Aligned Assurance – Every assurance project is linked to your broader sustainability strategy. We ensure each report, certification, and disclosure reinforces your ESG narrative and supports long-term stakeholder confidence.",
-      "Proven Cross-Sector Experience – From global enterprises to regional leaders, we help clients across industries achieve third-party validation and meet compliance goals with precision and attention to trust. Our proven track record is built on trust, agility, and results.",
-      "Long-Term Partnership Mindset – We don't stop at validation, we stay with you through audits, reporting cycles, renewals, and strategy evolution. Our commitment to ongoing support ensures you're never navigating your compliance journey alone.",
-    ],
-    image: "/service/choose.jpg",
-    button: {
-      url: "/contact-us",
-      text: "Partner with us",
-    },
+      "Support the development, registration, and verification of carbon offset projects in accordance with international standards like Gold Standard and Verra, ensuring the integrity of credits in voluntary and compliance markets.",
+    icon: FileText,
+    color: "from-purple-500 to-indigo-500",
+    thumbnail: "/service/building.jpg",
+  },
+  {
+    title: "ESG Certifications",
+    description:
+      "Assist in achieving and maintaining key industry ESG certifications, including ISO 14001 (Environmental Management) and ISO 50001 (Energy Management), to strengthen market trust and demonstrate compliance.",
+    icon: Award,
+    color: "from-green-500 to-emerald-500",
+    thumbnail: "/service/building.jpg",
+  },
+  {
+    title: "Environmental Product Declaration (EPD)",
+    description:
+      "Develop and verify EPDs in accordance with international standards such as ISO 14025 and EN 15804, providing transparent, third-party verified data on the environmental impact of products across their life cycle.",
+    icon: Leaf,
+    color: "from-yellow-500 to-orange-500",
+    thumbnail: "/service/building.jpg",
+  },
+  {
+    title: "ESG & Sustainability Report Assurance",
+    description:
+      "Perform independent limited and reasonable assurance of sustainability and ESG reports based on standards like AA1000AS and ISAE 3000 to increase credibility and strengthen investor confidence.",
+    icon: Shield,
+    color: "from-red-500 to-rose-500",
+    thumbnail: "/service/building.jpg",
+  },
+  {
+    title: "GHG Emissions Assurance",
+    description:
+      "Provide third-party verification of greenhouse gas (GHG) inventories in accordance with SAE 3410 and ISO 14064. Validate Scope 1, 2, and 3 emissions data to support regulatory compliance and climate targets.",
+    icon: Calculator,
+    color: "from-sky-500 to-indigo-500",
+    thumbnail: "/service/building.jpg",
+  },
+  {
+    title: "Regulatory Compliance",
+    description:
+      "Navigate complex regional and global ESG regulations like CBAM, EU ETS, SFDR, and CSRD. We ensure full compliance in reporting, disclosures, supply chain due diligence, and decarbonisation roadmaps.",
+    icon: AlertTriangle,
+    color: "from-amber-500 to-orange-500",
+    thumbnail: "/service/building.jpg",
   },
 ];
 
-export default function AssuranceCompliancePage() {
-  return (
-    <main className="">
-      <Changelog
+const howItMattersPoints = [
+  {
+    title: "Enhance Brand Reputation & Stakeholder Trust",
+    description:
+      "Build confidence with investors, customers, and regulators. Independent verification strengthens your brand, avoids accusations of greenwashing, and substantiates your sustainability commitments.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Navigate Regulatory Complexity",
+    description:
+      "Stay ahead of evolving mandates, from carbon taxes to ESG disclosures. Verified compliance ensures alignment with international frameworks, minimizing legal and financial penalties.",
+    icon: Shield,
+  },
+  {
+    title: "Gain a Competitive Edge",
+    description:
+      "Improve your standing on ESG rating platforms and in procurement evaluations. Assured sustainability data enhances market access, investor appeal, and your overall competitive positioning.",
+    icon: Star,
+  },
+  {
+    title: "Drive Operational Excellence",
+    description:
+      "Promote standardized systems, continuous improvement, and resource efficiency. Complying with rigorous standards drives operational integrity and creates long-term business value.",
+    icon: Zap,
+  },
+  {
+    title: "Validate Climate & Project Credibility",
+    description:
+      "Provide a credible foundation for your climate strategy. Assured GHG inventories, carbon credits, and green building certifications build trust and signal integrity to all partners.",
+    icon: Leaf,
+  },
+];
+
+const whyChooseUsPoints = [
+  {
+    title: "Trusted Verification Partner",
+    description:
+      "We deliver assurance with the highest standards of independence, technical rigor, and sector knowledge. Our team brings third-party validation across ESG, climate, and decarbonisation to ensure robust, consistent, and audit-ready data.",
+    icon: Users,
+  },
+  {
+    title: "End-to-End Certification Support",
+    description:
+      "From gap analysis to project kick-off, assessments, evidence compilation, verification statement, and registration, we provide expert guidance and support through every stage of the certification journey.",
+    icon: Route,
+  },
+  {
+    title: "Compliance with Business Value",
+    description:
+      "We help transform regulatory requirements into strategic opportunity. Verified sustainability performance enhances brand reputation, improves ESG ratings, and expands access to capital, customers and global markets.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Execution with Precision",
+    description:
+      "We do not just advise, we deliver. By embedding ourselves in your team, we ensure consistency from the initial baseline to the final audit and that assurance and compliance efforts are delivered on time, with precision and purpose.",
+    icon: Target,
+  },
+  {
+    title: "Deep Technical Knowledge",
+    description:
+      "Our team combines deep expertise in ESG, climate, and regulatory frameworks with real-world delivery experience. Whether it's ISO certification, GHG assurance, or carbon registry submissions, we bring clarity to complexity and deliver with confidence.",
+    icon: Lightbulb,
+  },
+  {
+    title: "Strategy-Aligned Assurance",
+    description:
+      "Every assurance project is linked to your broader sustainability strategy. We ensure each report, certification, and disclosure reinforces your ESG narrative and supports long-term business goals.",
+    icon: Award,
+  },
+  {
+    title: "Proven Cross-Sector Experience",
+    description:
+      "From global enterprises to regional leaders, we help clients across industries turn their climate ambition and compliance goals with practical and proven solutions. Our track record is built on trust, agility, and results.",
+    icon: Globe,
+  },
+  {
+    title: "Long-Term Partnership Model",
+    description:
+      "We don’t stop at validation; we stay with you through audits, reporting cycles, renewals, and strategy evolution. Our commitment is ongoing support ensures you’re never navigating your compliance journey alone.",
+    icon: Star,
+  },
+];
+
+// A simple component for the new "Get in Touch" section
+const GetInTouchSection = () => (
+  <section className="relative flex min-h-screen w-full items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <div className="container mx-auto px-4 text-center">
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-6 flex justify-center">
+          <div className="rounded-full bg-primary/10 p-4 text-primary">
+            <Mail className="h-10 w-10" />
+          </div>
+        </div>
+        <h2 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
+          Get in Touch
+        </h2>
+        <p className="mb-8 text-lg text-muted-foreground">
+          Ready to validate your impact? Contact us today to learn how our
+          Assurance & Compliance services can help you build trust, ensure
+          compliance, and lead with confidence in the sustainable economy.
+        </p>
+        <Button size="lg">Contact Us</Button>
+      </div>
+    </div>
+  </section>
+);
+
+const sections = [
+  {
+    id: "hero",
+    component: (
+      <HeroSection
+        backgroundImage="/service/assurance.png"
+        backgroundVideo="/service/assurance.mp4"
         title="Assurance & Compliance"
-        description="Credible verification and third-party assurance to validate sustainability claims, meet regulatory requirements, and build stakeholder trust."
-        entries={assuranceComplianceEntries}
+        subtitle="Solution"
+        description="Navigate the complexities of climate regulations and stakeholder expectations with our trusted assurance and compliance services. We provide independent verification and certification to validate your sustainability claims and strengthen your market credibility."
       />
-    </main>
+    ),
+    name: "Home",
+  },
+  {
+    id: "what-we-offer",
+    component: (
+      <WhatWeOfferSection
+        title="What We Offer"
+        description="Our Assurance & Compliance services help organizations validate sustainability claims, meet regulatory requirements, and build stakeholder trust through credible third-party verification and certification. We provide independent assessments across multiple standards, programs, and domains, ensuring sustainability accountability, and alignment with global standards."
+        services={whatWeOfferServices}
+      />
+    ),
+    name: "What We Offer",
+  },
+  {
+    id: "how-it-matters",
+    component: (
+      <HowItMattersSection
+        title="How It Matters"
+        description="As climate ambition rises and regulatory frameworks tighten, credible assurance and verified compliance have become essential for business resilience and long-term success. Organizations that invest in third-party validation of their corporate sustainability efforts are better equipped to:"
+        points={howItMattersPoints}
+        image="/service/assurance.png"
+        imageDescription="With rising expectations from regulators, investors, and customers, credible assurance and compliance services are critical to future-proofing your business, validating impact, and leading with integrity in the transition to a sustainable economy."
+      />
+    ),
+    name: "How It Matters",
+  },
+  {
+    id: "why-choose-us",
+    component: (
+      <WhyChooseUsSection
+        title="Why Choose Us"
+        description="We partner with organizations to demonstrate verified sustainability performance, meet rising regulatory expectations, and protect their brand with credibility. Klimalogia empowers our clients by simplifying complex compliance requirements and building confidence with third-party verification. Here's how we help you unlock long-term business value:"
+        points={whyChooseUsPoints}
+        imageDescription="With Klimalogia, you gain a trusted partner committed to credibility, compliance, and client confidence. Let us help you accelerate your sustainability strategy, demonstrate verified impact, and lead with trust in the new era of accountability."
+        backgroundImage="/service/why-choose-us.jpg"
+      />
+    ),
+    name: "Why Choose Us",
+  },
+  {
+    id: "get-in-touch",
+    component: <GetInTouchSection />,
+    name: "Get in Touch",
+  },
+];
+
+export default function Page() {
+  return (
+    <Suspense fallback={<PageLoader />}>
+      <main className="relative min-h-screen ">
+        <StepScrollContainer sections={sections} />
+      </main>
+    </Suspense>
   );
 }
