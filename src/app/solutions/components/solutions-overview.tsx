@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiArrowUpRight } from "react-icons/fi";
@@ -12,8 +13,7 @@ interface Service {
 export const SolutionsOverview: React.FC = () => {
   const services: Service[] = [
     {
-      quote:
-        "The attention to detail and innovative features.",
+      quote: "The attention to detail and innovative features.",
       name: "Strategy & Advisory",
       designation: "",
       src: "/service/strategy.png",
