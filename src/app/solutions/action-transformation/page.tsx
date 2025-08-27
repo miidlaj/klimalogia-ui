@@ -1,19 +1,20 @@
 "use client";
 import { Suspense } from "react";
 import {
-  Target,
   Shield,
-  Calculator,
-  Route,
-  Zap,
-  TrendingUp,
+  FileCheck,
+  CheckCircle,
+  Search,
+  ClipboardCheck,
   Users,
-  Star,
-  Lightbulb,
+  Award,
+  AlertTriangle,
+  TrendingUp,
   Globe,
-  RefreshCw,
-  Droplets,
-  Bike,
+  BarChart3,
+  DollarSign,
+  Eye,
+  Lock,
 } from "lucide-react";
 import { HeroSection } from "../components/hero-section";
 import { WhatWeOfferSection } from "../components/what-we-offer-section";
@@ -21,121 +22,313 @@ import { HowItMattersSection } from "../components/how-it-matters-section";
 import { WhyChooseUsSection } from "../components/why-choose-us-section";
 import { StepScrollContainer } from "@/components/custom/step-scroll";
 import { PageLoader } from "@/app/components/page-loader";
+import ContactUs from "@/app/components/contact-us";
 
 const whatWeOfferServices = [
   {
-    title: "Renewable Energy Sourcing",
-    description:
-      "Develop and implement renewable energy strategies, including on-site generation (solar, wind), off-site power purchase agreements (PPAs), and energy attribute certificates (EACs) to transition your operations to clean energy.",
-    icon: Zap,
-    color: "from-yellow-500 to-orange-500",
-    thumbnail: "/service/action.jpg",
+    id: 1,
+    title: "ESG Data Verification",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">ESG Data Verification</h3>
+        <p className="text-gray-200 mb-4">
+          Independent verification of ESG data and metrics to ensure accuracy,
+          completeness, and reliability of sustainability reporting in
+          accordance with international assurance standards.
+        </p>
+        <div className="flex items-center gap-2">
+          <FileCheck className="w-6 h-6" />
+          <span>Data Accuracy & Integrity</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
   {
-    title: "Energy Efficiency & Retrofits",
-    description:
-      "Conduct energy audits and identify opportunities for efficiency gains through building retrofits, industrial process optimization, HVAC upgrades, and smart building technologies to reduce consumption and operational costs.",
-    icon: Lightbulb,
-    color: "from-emerald-500 to-teal-500",
-    thumbnail: "/service/action.jpg",
+    id: 2,
+    title: "GHG Emissions Verification",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">GHG Emissions Verification</h3>
+        <p className="text-gray-200 mb-4">
+          Third-party verification of greenhouse gas emissions inventories
+          including Scope 1, 2, and 3 emissions in compliance with ISO 14064 and
+          GHG Protocol standards.
+        </p>
+        <div className="flex items-center gap-2">
+          <CheckCircle className="w-6 h-6" />
+          <span>Emissions Validation</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
   {
-    title: "Supply Chain Decarbonisation",
-    description:
-      "Engage with suppliers to measure and reduce Scope 3 emissions. We help implement sustainable procurement policies, improve logistics, and foster collaboration across your value chain to create a resilient, low-carbon supply network.",
-    icon: Route,
-    color: "from-blue-500 to-cyan-500",
-    thumbnail: "/service/action.jpg",
+    id: 3,
+    title: "Sustainability Reporting Assurance",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">
+          Sustainability Reporting Assurance
+        </h3>
+        <p className="text-gray-200 mb-4">
+          Comprehensive assurance services for sustainability reports following
+          GRI, SASB, TCFD, TNFD, and CSRD frameworks to enhance credibility and
+          stakeholder confidence.
+        </p>
+        <div className="flex items-center gap-2">
+          <Shield className="w-6 h-6" />
+          <span>Report Credibility</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
   {
-    title: "Green Mobility",
-    description:
-      "Transition your corporate fleet to electric vehicles (EVs), optimize transportation routes, and promote sustainable commuting options for employees. We design and implement strategies to reduce emissions from mobile sources.",
-    icon: Bike,
-    color: "from-green-500 to-lime-500",
-    thumbnail: "/service/action.jpg",
+    id: 4,
+    title: "Regulatory Compliance Assessment",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">
+          Regulatory Compliance Assessment
+        </h3>
+        <p className="text-gray-200 mb-4">
+          Comprehensive assessment of compliance with evolving ESG regulations
+          including CSRD, EU Taxonomy, SFDR, and other jurisdictional
+          requirements across global markets.
+        </p>
+        <div className="flex items-center gap-2">
+          <ClipboardCheck className="w-6 h-6" />
+          <span>Regulatory Alignment</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
   {
-    title: "Circular Economy Solutions",
-    description:
-      "Implement circular business models by designing waste out of your processes, promoting product life extension, and creating closed-loop systems. We help you turn waste streams into value streams, reducing environmental impact.",
-    icon: RefreshCw,
-    color: "from-purple-500 to-indigo-500",
-    thumbnail: "/service/action.jpg",
+    id: 5,
+    title: "Internal Controls Review",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">Internal Controls Review</h3>
+        <p className="text-gray-200 mb-4">
+          Evaluation and enhancement of internal controls over sustainability
+          data collection, processing, and reporting to ensure robust governance
+          and risk management frameworks.
+        </p>
+        <div className="flex items-center gap-2">
+          <Lock className="w-6 h-6" />
+          <span>Control Systems</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
   {
-    title: "Water Stewardship",
-    description:
-      "Develop strategies for responsible water management, including water footprint analysis, efficiency improvements, and wastewater treatment solutions. We help you mitigate water-related risks and ensure sustainable water use.",
-    icon: Droplets,
-    color: "from-sky-500 to-blue-500",
-    thumbnail: "/service/action.jpg",
+    id: 6,
+    title: "Supply Chain Compliance",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">Supply Chain Compliance</h3>
+        <p className="text-gray-200 mb-4">
+          Assessment of supplier ESG performance and compliance with
+          sustainability standards, human rights, and environmental regulations
+          throughout the value chain.
+        </p>
+        <div className="flex items-center gap-2">
+          <Users className="w-6 h-6" />
+          <span>Value Chain Integrity</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
+  },
+  {
+    id: 7,
+    title: "Climate Disclosures Verification",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">
+          Climate Disclosures Verification
+        </h3>
+        <p className="text-gray-200 mb-4">
+          Independent verification of climate-related financial disclosures,
+          scenario analysis, and transition planning in accordance with TCFD and
+          ISSB standards.
+        </p>
+        <div className="flex items-center gap-2">
+          <Eye className="w-6 h-6" />
+          <span>Climate Transparency</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
+  },
+  {
+    id: 8,
+    title: "ESG Rating Optimization",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">ESG Rating Optimization</h3>
+        <p className="text-gray-200 mb-4">
+          Strategic support to improve ESG ratings and rankings across major
+          platforms including MSCI, Sustainalytics, CDP, and DJSI through data
+          quality enhancement and disclosure optimization.
+        </p>
+        <div className="flex items-center gap-2">
+          <TrendingUp className="w-6 h-6" />
+          <span>Rating Enhancement</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
+  },
+  {
+    id: 9,
+    title: "Due Diligence Services",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">Due Diligence Services</h3>
+        <p className="text-gray-200 mb-4">
+          Comprehensive ESG due diligence for mergers, acquisitions, and
+          investments, identifying sustainability risks and opportunities to
+          inform strategic decision-making.
+        </p>
+        <div className="flex items-center gap-2">
+          <Search className="w-6 h-6" />
+          <span>Risk Assessment</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
+  },
+  {
+    id: 10,
+    title: "Green Finance Verification",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">Green Finance Verification</h3>
+        <p className="text-gray-200 mb-4">
+          Independent verification of green, social, and sustainability bonds,
+          loans, and other sustainable finance instruments to ensure compliance
+          with relevant standards and frameworks.
+        </p>
+        <div className="flex items-center gap-2">
+          <DollarSign className="w-6 h-6" />
+          <span>Finance Integrity</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
+  },
+  {
+    id: 11,
+    title: "Certification Support",
+    content: (
+      <div className="text-white">
+        <h3 className="text-2xl font-bold mb-4">Certification Support</h3>
+        <p className="text-gray-200 mb-4">
+          Support for achieving and maintaining sustainability certifications
+          including ISO 14001, ISO 50001, B-Corp certification, and other
+          recognized sustainability standards.
+        </p>
+        <div className="flex items-center gap-2">
+          <Award className="w-6 h-6" />
+          <span>Standards Certification</span>
+        </div>
+      </div>
+    ),
+    className: "md:col-span-1 row-span-1",
   },
 ];
 
 const howItMattersPoints = [
   {
-    title: "Unlock cost savings and operational efficiency",
+    title: "Build stakeholder trust and credibility",
     description:
-      "Decarbonisation initiatives like energy efficiency and renewable sourcing directly reduce utility expenses and operational costs, delivering a strong return on investment and protecting against energy price volatility.",
-    icon: TrendingUp,
-  },
-  {
-    title: "Drive innovation and competitive advantage",
-    description:
-      "Adopting clean technologies and circular models fosters a culture of innovation. It allows you to develop new products, services, and business models that meet growing market demand for sustainable solutions.",
-    icon: Lightbulb,
-  },
-  {
-    title: "Build supply chain resilience",
-    description:
-      "Decarbonising your supply chain reduces exposure to carbon taxes, resource scarcity, and regulatory risks. A sustainable supply chain is more agile, transparent, and better equipped to handle future disruptions.",
+      "Independent third-party assurance enhances the credibility of your sustainability claims and builds confidence among investors, customers, and regulators.",
     icon: Shield,
   },
   {
-    title: "Meet net-zero targets and climate goals",
+    title: "Meet regulatory requirements",
     description:
-      "Transforming strategy into action is essential for achieving ambitious climate commitments. Our implementation services provide the practical steps needed to make measurable progress on your decarbonisation pathway.",
-    icon: Target,
+      "Ensure compliance with evolving ESG regulations including CSRD, EU Taxonomy, SFDR, and other jurisdictional mandates to avoid penalties and legal risks.",
+    icon: ClipboardCheck,
   },
   {
-    title: "Enhance brand reputation and stakeholder loyalty",
+    title: "Mitigate reputational and operational risks",
     description:
-      "Demonstrating tangible action on climate change builds trust with customers, investors, and employees. Proactive decarbonisation strengthens your brand identity as a responsible and forward-thinking leader.",
-    icon: Star,
+      "Proactive compliance monitoring and verification helps identify and address potential risks before they impact your business reputation and operations.",
+    icon: AlertTriangle,
+  },
+  {
+    title: "Enhance data quality and reliability",
+    description:
+      "Robust verification processes improve the accuracy and reliability of your ESG data, supporting better decision-making and strategic planning.",
+    icon: BarChart3,
+  },
+  {
+    title: "Improve ESG ratings and rankings",
+    description:
+      "Quality assured data and transparent reporting can positively impact your organization's ESG ratings across major assessment platforms.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Access sustainable finance opportunities",
+    description:
+      "Verified sustainability credentials open doors to green finance options, ESG-linked loans, and sustainable investment opportunities.",
+    icon: DollarSign,
+  },
+  {
+    title: "Strengthen internal governance",
+    description:
+      "Regular compliance assessments and control reviews help build robust internal governance frameworks for sustainability management.",
+    icon: Lock,
+  },
+  {
+    title: "Support strategic decision-making",
+    description:
+      "Reliable assurance and compliance insights provide a solid foundation for informed strategic decisions and risk management.",
+    icon: Eye,
   },
 ];
 
 const whyChooseUsPoints = [
   {
-    title: "End-to-End Implementation Partner",
+    title: "Independent and Objective Assessment",
     description:
-      "We go beyond strategy to serve as your hands-on implementation partner. From initial assessment and business case development to project management and performance tracking, we manage the entire transformation journey.",
-    icon: Users,
+      "Our independent third-party perspective ensures unbiased, objective assessments that enhance the credibility of your sustainability initiatives.",
+    icon: Eye,
   },
   {
-    title: "Integrated Decarbonisation Expertise",
+    title: "Technical Expertise Across Standards",
     description:
-      "Our team combines deep expertise in renewable energy, energy efficiency, supply chain management, and circular economy principles. This integrated approach ensures we deliver holistic and effective decarbonisation solutions.",
-    icon: Zap,
+      "Deep knowledge of international standards including GRI, SASB, TCFD, ISO 14064, and emerging regulations like CSRD and EU Taxonomy.",
+    icon: Award,
   },
   {
-    title: "Technology-Agnostic, Solution-Focused",
+    title: "Comprehensive Risk Management",
     description:
-      "We are not tied to any single technology or vendor. Our approach is to identify and implement the best-fit solutions for your specific operational context, budget, and decarbonisation goals, ensuring optimal outcomes.",
-    icon: Lightbulb,
+      "Holistic approach to identifying, assessing, and mitigating ESG-related risks across all aspects of your business operations.",
+    icon: AlertTriangle,
   },
   {
-    title: "Data-Driven, ROI-Focused",
+    title: "Global Regulatory Intelligence",
     description:
-      "Every recommendation is backed by robust data analysis and a clear financial business case. We focus on implementing projects that not only reduce emissions but also deliver measurable financial returns and operational benefits.",
-    icon: Calculator,
-  },
-  {
-    title: "Scalable Solutions for Global Impact",
-    description:
-      "Whether you're looking to decarbonise a single facility or your entire global operations, we design solutions that are scalable and replicable. We help you build internal capacity and create a framework for continuous improvement.",
+      "Stay ahead of evolving regulatory landscapes with our deep understanding of ESG compliance requirements across multiple jurisdictions.",
     icon: Globe,
+  },
+  {
+    title: "Technology-Enabled Solutions",
+    description:
+      "Leverage advanced technology and data analytics to streamline assurance processes and enhance the accuracy of our assessments.",
+    icon: BarChart3,
+  },
+  {
+    title: "Continuous Partnership Approach",
+    description:
+      "Beyond one-time assessments, we provide ongoing support to help you maintain compliance and continuously improve your ESG performance.",
+    icon: Users,
   },
 ];
 
@@ -146,9 +339,9 @@ const sections = [
       <HeroSection
         backgroundImage="/service/action.png"
         backgroundVideo="/service/action.mp4"
-        title="Action & Transformation"
+        title="Assurance & Compliance"
         subtitle="Solution"
-        description="From renewable energy and supply chain decarbonisation to circular economy solutions, we turn your climate strategy into measurable action. Our services are designed to drive operational efficiency, foster innovation, and accelerate your journey to net-zero."
+        description="Ensure the integrity and credibility of your sustainability initiatives with our comprehensive assurance and compliance services. Build stakeholder trust through independent verification and robust compliance frameworks."
       />
     ),
     name: "Home",
@@ -158,8 +351,11 @@ const sections = [
     component: (
       <WhatWeOfferSection
         title="What We Offer"
-        description="Our Action & Transformation services bridge the gap between strategy and execution. We provide hands-on support to implement practical, scalable, and financially viable decarbonisation solutions across your operations and value chain."
+        description="Our Assurance & Compliance services provide independent verification, regulatory compliance support, and robust governance frameworks to ensure the integrity of your sustainability initiatives. We help organizations build stakeholder trust, meet regulatory requirements, and maintain the highest standards of transparency and accountability."
         services={whatWeOfferServices}
+        masterImage="https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        columns={3}
+        rows={4}
       />
     ),
     name: "What We Offer",
@@ -169,10 +365,10 @@ const sections = [
     component: (
       <HowItMattersSection
         title="How It Matters"
-        description="A robust climate strategy is only as valuable as its implementation. Taking decisive action to decarbonise is no longer optional—it is a fundamental driver of business resilience, competitive advantage, and long-term value creation."
+        description="In today's business environment, stakeholders demand transparency, accuracy, and accountability in sustainability reporting. Independent assurance and robust compliance frameworks are essential for maintaining credibility and meeting evolving regulatory requirements. Organizations that prioritize assurance and compliance are better positioned to:"
         points={howItMattersPoints}
-        image="/service/consulting.jpg"
-        imageDescription="By translating climate goals into tangible projects, organizations can unlock significant cost savings, mitigate risks, and strengthen their position as leaders in the transition to a low-carbon economy."
+        image="/service/esg.png"
+        imageDescription="Whether ensuring data integrity, meeting regulatory mandates, or building stakeholder confidence, comprehensive assurance and compliance support is fundamental to sustainable business success and long-term value creation."
       />
     ),
     name: "How It Matters",
@@ -182,13 +378,19 @@ const sections = [
     component: (
       <WhyChooseUsSection
         title="Why Choose Us"
-        description="Choosing the right implementation partner is critical to turning your climate ambition into reality. We provide the technical expertise, project management rigour, and strategic oversight needed to ensure your decarbonisation projects are successful."
+        description="Our assurance and compliance services go beyond traditional audit approaches. As your trusted partner, we provide comprehensive, technology-enabled solutions that ensure the highest standards of integrity and transparency. With deep expertise across international frameworks and emerging regulations, we help organizations navigate complex compliance landscapes while building robust governance systems that support long-term sustainability success."
         points={whyChooseUsPoints}
-        imageDescription="With Klimalogia, you gain a partner dedicated to delivering tangible results. We work as an extension of your team to de-risk complex projects, maximize ROI, and ensure your transformation journey is both impactful and sustainable."
+        image="/service/consulting.jpg"
+        imageDescription="With Klimalogia, you gain a trusted assurance partner committed to maintaining the highest standards of integrity and compliance. Let us help you build stakeholder confidence through transparent, verified, and compliant sustainability practices."
         backgroundImage="/service/why-choose-us.jpg"
       />
     ),
     name: "Why Choose Us",
+  },
+  {
+    id: "get-in-touch",
+    component: <ContactUs page={false} />,
+    name: "Get In Touch",
   },
 ];
 

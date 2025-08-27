@@ -1,8 +1,18 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, Variants } from "framer-motion";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,16 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { ExternalLink } from "lucide-react";
-import { ShimmerButton } from "./shimmer-button";
 import { FiMail } from "react-icons/fi";
 import {
   FaFacebook,
@@ -30,8 +30,9 @@ import {
   FaLinkedinIn,
   FaWhatsapp,
 } from "react-icons/fa";
+import { ExternalLink } from "lucide-react";
+import { ShimmerButton } from "./shimmer-button";
 import { GradientBlend } from "@/components/custom/gradient-blend";
-import { cn } from "@/lib/utils";
 
 const countries = [
   { code: "AF", name: "Afghanistan" },
@@ -306,10 +307,82 @@ export default function ContactUs({
     console.log("Form submitted:", values);
   }
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      },
+    },
+  } as Variants;
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      },
+    },
+  } as Variants;
+
+  const formItemVariants = {
+    hidden: {
+      opacity: 0,
+      x: -20,
+      scale: 0.98,
+    },
+    visible: (index: number) => ({
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: "easeOut",
+      },
+    }),
+  } as Variants;
+
+  const socialIconVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0,
+      rotate: -180,
+    },
+    visible: (index: number) => ({
+      opacity: 1,
+      scale: 1,
+      rotate: 0,
+      transition: {
+        duration: 0.4,
+        delay: index * 0.1 + 0.5,
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+      },
+    }),
+  } as Variants;
+
   return (
     <div className="relative z-40">
       {gradientOnTop && (
-        <div className="z-90 absolute top-0 left-0 right-0 h-10 bg-gradient-to-t from-transparent from-[1%] to-brand-teal/75 pointer-events-none" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="z-90 absolute top-0 left-0 right-0 h-10 bg-gradient-to-t from-transparent from-[1%] to-brand-teal/75 pointer-events-none"
+        />
       )}
       <div
         className={cn(
@@ -321,74 +394,108 @@ export default function ContactUs({
         }}
       >
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60" />
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 bg-black/60"
+        />
 
         {/* Main Content */}
         <div className="relative z-10">
           <div className="container mx-auto px-4 py-16 lg:py-24">
-            {/* Centered Title */}
-            {/* <div className="text-center mb-16">
-              <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-                Get in touch with our team for inquiries, support, or
-                collaboration opportunities.
-              </p>
-            </div> */}
-
-            <div className="grid lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid lg:grid-cols-2 gap-12 items-start max-w-7xl mx-auto"
+            >
               {/* Left Side - Contact Information */}
-              <div className="text-white space-y-8">
-                <div>
-                  <h1 className="text-4xl md:text-5xl font-bold mb-4">
+              <motion.div
+                variants={itemVariants}
+                className="text-white space-y-8"
+              >
+                <motion.div variants={itemVariants}>
+                  <motion.h1
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="text-4xl md:text-5xl font-bold mb-4"
+                  >
                     Connect with Us
-                  </h1>
-                  <p className="text-lg text-gray-200 mb-8">
+                  </motion.h1>
+                  <motion.p
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    viewport={{ once: true }}
+                    className="text-lg text-gray-200 mb-8"
+                  >
                     Please fill out the form and one of our team members will be
                     in touch.
-                  </p>
-                </div>
+                  </motion.p>
+                </motion.div>
 
                 {/* Contact Information Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
-                  {/* Email Us Directly */}
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">
-                      Email Us Directly:
-                    </h3>
-                    <a
-                      href="mailto:contactus@klimalogia.com"
-                      className="text-primary hover:underline text-sm flex items-center gap-2"
+                <motion.div
+                  variants={itemVariants}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8"
+                >
+                  {[
+                    {
+                      title: "Email Us Directly:",
+                      content: (
+                        <a
+                          href="mailto:contactus@klimalogia.com"
+                          className="text-primary hover:underline text-sm flex items-center gap-2"
+                        >
+                          contactus@klimalogia.com
+                        </a>
+                      ),
+                    },
+                    {
+                      title: "Give Us A Call:",
+                      content: (
+                        <a
+                          href="tel:+971501234567"
+                          className="text-primary hover:underline text-sm flex items-center gap-2"
+                        >
+                          +971 50 123 4567
+                        </a>
+                      ),
+                    },
+                    {
+                      title: "Our Headquarters:",
+                      content: (
+                        <div className="text-primary text-sm flex items-start gap-2">
+                          <div>
+                            <p>SHR-01-22, Al, Mehairi</p>
+                            <p>Ras Al khor Industrial 3-rd</p>
+                            <p>Dubai, UAE</p>
+                          </div>
+                        </div>
+                      ),
+                    },
+                  ].map((item, index) => (
+                    <motion.div
+                      key={item.title}
+                      custom={index}
+                      variants={formItemVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
                     >
-                      contactus@klimalogia.com
-                    </a>
-                  </div>
+                      <h3 className="text-lg font-semibold mb-2 text-white">
+                        {item.title}
+                      </h3>
+                      {item.content}
+                    </motion.div>
+                  ))}
+                </motion.div>
 
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">
-                      Give Us A Call:
-                    </h3>
-                    <a
-                      href="tel:+971501234567"
-                      className="text-primary hover:underline text-sm flex items-center gap-2"
-                    >
-                      +971 50 123 4567
-                    </a>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-white">
-                      Our Headquarters:
-                    </h3>
-                    <div className="text-primary text-sm flex items-start gap-2">
-                      <div>
-                        <p>SHR-01-22, Al, Mehairi</p>
-                        <p>Ras Al khor Industrial 3-rd</p>
-                        <p>Dubai, UAE</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mb-8">
+                <motion.div variants={itemVariants} className="mb-8">
                   <h3 className="text-lg font-semibold mb-2 text-white">
                     For Media Inquiries:
                   </h3>
@@ -399,320 +506,418 @@ export default function ContactUs({
                     <FiMail className="w-4 h-4" />
                     contactus@klimalogia.com
                   </a>
-                </div>
+                </motion.div>
 
-                <div>
+                <motion.div variants={itemVariants}>
                   <h3 className="text-lg font-semibold mb-4 text-white">
                     Follow Us:
                   </h3>
                   <div className="flex gap-4">
-                    <a
-                      href="https://facebook.com/klimalogia"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-pointer"
-                    >
-                      <FaFacebook className="size-6 text-primary" />
-                    </a>
-                    <a
-                      href="https://instagram.com/klimalogia"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-pointer"
-                    >
-                      <FaInstagram className="size-6 text-primary" />
-                    </a>
-                    <a
-                      href="https://linkedin.com/company/klimalogia"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-pointer"
-                    >
-                      <FaLinkedinIn className="size-6 text-primary" />
-                    </a>
-                    <a
-                      href="https://wa.me/+971501234567"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cursor-pointer"
-                    >
-                      <FaWhatsapp className="size-6 text-primary" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <Card className="p-8 bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
-                <div className="mb-8">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                    How Can We Help You?
-                  </h2>
-                  <p className="text-xs text-red-600">
-                    <span className="text-red-500">*</span> indicates required
-                    fields
-                  </p>
-                </div>
-
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-6"
-                  >
-                    {/* Name Fields */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="firstName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              First Name <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter your first name"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="lastName"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Last Name <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter your last name"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Email <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="Enter your email"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="phone"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Phone</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="tel"
-                                placeholder="Enter your phone number"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <FormField
-                        control={form.control}
-                        name="company"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Company <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Enter your company name"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="country"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Country <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger className="w-full">
-                                  <SelectValue placeholder="Select your country" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent className="max-h-60">
-                                {countries.map((country) => (
-                                  <SelectItem
-                                    key={country.code}
-                                    value={country.code}
-                                  >
-                                    {country.name}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="description"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            Description <span className="text-red-500">*</span>
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              rows={4}
-                              placeholder="Tell us about your project or inquiry..."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="hearAbout"
-                      render={() => (
-                        <FormItem>
-                          <div className="mb-4">
-                            <FormLabel className="text-base">
-                              How did you hear about us?
-                            </FormLabel>
-                            <p className="text-sm text-primary mt-1">
-                              Pick all those that apply.
-                            </p>
-                          </div>
-                          <div className="grid grid-cols-2 gap-3 max-h-40 overflow-y-auto border rounded-md p-4">
-                            {hearAboutOptions.map((item) => (
-                              <FormField
-                                key={item}
-                                control={form.control}
-                                name="hearAbout"
-                                render={({ field }) => {
-                                  return (
-                                    <FormItem
-                                      key={item}
-                                      className="flex flex-row items-start space-x-3 space-y-0"
-                                    >
-                                      <FormControl>
-                                        <Checkbox
-                                          className="border-primary"
-                                          checked={field.value?.includes(item)}
-                                          onCheckedChange={(checked) => {
-                                            return checked
-                                              ? field.onChange([
-                                                  ...(field.value || []),
-                                                  item,
-                                                ])
-                                              : field.onChange(
-                                                  field.value?.filter(
-                                                    (value) => value !== item
-                                                  )
-                                                );
-                                          }}
-                                        />
-                                      </FormControl>
-                                      <FormLabel className="text-sm font-normal">
-                                        {item}
-                                      </FormLabel>
-                                    </FormItem>
-                                  );
-                                }}
-                              />
-                            ))}
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="consent"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                          <FormControl>
-                            <Checkbox
-                              className="border-primary"
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                          <div className="space-y-1 leading-none">
-                            <FormLabel className="text-sm">
-                              I agree to the{" "}
-                              <a
-                                href="/privacy-policy"
-                                className="text-primary hover:underline inline-flex items-center gap-1"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                privacy policy
-                                <ExternalLink className="w-3 h-3" />
-                              </a>
-                              <span className="text-red-500">*</span>
-                            </FormLabel>
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-
-                    <div className="pt-4">
-                      <ShimmerButton
-                        type="submit"
-                        background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
-                        className="w-full cursor-pointer"
-                        disabled={!form.watch("consent")}
+                    {[
+                      {
+                        icon: FaFacebook,
+                        href: "https://facebook.com/klimalogia",
+                      },
+                      {
+                        icon: FaInstagram,
+                        href: "https://instagram.com/klimalogia",
+                      },
+                      {
+                        icon: FaLinkedinIn,
+                        href: "https://linkedin.com/company/klimalogia",
+                      },
+                      { icon: FaWhatsapp, href: "https://wa.me/+971501234567" },
+                    ].map((social, index) => (
+                      <motion.a
+                        key={social.href}
+                        custom={index}
+                        variants={socialIconVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        whileHover={{
+                          scale: 1.2,
+                          rotate: 5,
+                          transition: { duration: 0.2 },
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="cursor-pointer"
                       >
-                        Submit Message
-                      </ShimmerButton>
-                    </div>
-                  </form>
-                </Form>
-              </Card>
-            </div>
+                        <social.icon className="size-6 text-primary" />
+                      </motion.a>
+                    ))}
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Right Side - Form */}
+              <motion.div variants={itemVariants}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 50 }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    },
+                  }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="p-8 bg-white/95 backdrop-blur-sm border-0 shadow-2xl">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      viewport={{ once: true }}
+                      className="mb-8"
+                    >
+                      <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                        How Can We Help You?
+                      </h2>
+                      <p className="text-xs text-red-600">
+                        <span className="text-red-500">*</span> indicates
+                        required fields
+                      </p>
+                    </motion.div>
+
+                    <Form {...form}>
+                      <motion.form
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        viewport={{ once: true }}
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-6"
+                      >
+                        {/* Name Fields */}
+                        <motion.div
+                          custom={0}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        >
+                          <FormField
+                            control={form.control}
+                            name="firstName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  First Name{" "}
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter your first name"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="lastName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Last Name{" "}
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter your last name"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          custom={1}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        >
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Email <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Phone</FormLabel>
+                                <FormControl>
+                                  <Input
+                                    type="tel"
+                                    placeholder="Enter your phone number"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          custom={2}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                        >
+                          <FormField
+                            control={form.control}
+                            name="company"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Company{" "}
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Enter your company name"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="country"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Country{" "}
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <Select
+                                  onValueChange={field.onChange}
+                                  defaultValue={field.value}
+                                >
+                                  <FormControl>
+                                    <SelectTrigger className="w-full">
+                                      <SelectValue placeholder="Select your country" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent className="max-h-60">
+                                    {countries.map((country) => (
+                                      <SelectItem
+                                        key={country.code}
+                                        value={country.code}
+                                      >
+                                        {country.name}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          custom={3}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                        >
+                          <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Description{" "}
+                                  <span className="text-red-500">*</span>
+                                </FormLabel>
+                                <FormControl>
+                                  <Textarea
+                                    rows={4}
+                                    placeholder="Tell us about your project or inquiry..."
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          custom={4}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                        >
+                          <FormField
+                            control={form.control}
+                            name="hearAbout"
+                            render={() => (
+                              <FormItem>
+                                <div className="mb-4">
+                                  <FormLabel className="text-base">
+                                    How did you hear about us?
+                                  </FormLabel>
+                                  <p className="text-sm text-primary mt-1">
+                                    Pick all those that apply.
+                                  </p>
+                                </div>
+                                <div className="grid grid-cols-2 gap-3 max-h-40 overflow-y-auto border rounded-md p-4">
+                                  {hearAboutOptions.map((item) => (
+                                    <FormField
+                                      key={item}
+                                      control={form.control}
+                                      name="hearAbout"
+                                      render={({ field }) => {
+                                        return (
+                                          <FormItem
+                                            key={item}
+                                            className="flex flex-row items-start space-x-3 space-y-0"
+                                          >
+                                            <FormControl>
+                                              <Checkbox
+                                                className="border-primary"
+                                                checked={field.value?.includes(
+                                                  item
+                                                )}
+                                                onCheckedChange={(checked) => {
+                                                  return checked
+                                                    ? field.onChange([
+                                                        ...(field.value || []),
+                                                        item,
+                                                      ])
+                                                    : field.onChange(
+                                                        field.value?.filter(
+                                                          (value) =>
+                                                            value !== item
+                                                        )
+                                                      );
+                                                }}
+                                              />
+                                            </FormControl>
+                                            <FormLabel className="text-sm font-normal">
+                                              {item}
+                                            </FormLabel>
+                                          </FormItem>
+                                        );
+                                      }}
+                                    />
+                                  ))}
+                                </div>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          custom={5}
+                          variants={formItemVariants}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                        >
+                          <FormField
+                            control={form.control}
+                            name="consent"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                                <FormControl>
+                                  <Checkbox
+                                    className="border-primary"
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
+                                  />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="text-sm">
+                                    I agree to the{" "}
+                                    <a
+                                      href="/privacy-policy"
+                                      className="text-primary hover:underline inline-flex items-center gap-1"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      privacy policy
+                                      <ExternalLink className="w-3 h-3" />
+                                    </a>
+                                    <span className="text-red-500">*</span>
+                                  </FormLabel>
+                                  <FormMessage />
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </motion.div>
+
+                        <motion.div
+                          initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                          whileInView={{
+                            opacity: 1,
+                            y: 0,
+                            scale: 1,
+                            transition: {
+                              duration: 0.5,
+                              delay: 0.6,
+                              ease: "easeOut",
+                            },
+                          }}
+                          viewport={{ once: true }}
+                          className="pt-4"
+                        >
+                          <ShimmerButton
+                            type="submit"
+                            background="linear-gradient(135deg, var(--brand-navy) 0%, var(--brand-blue) 50%, var(--brand-teal) 100%)"
+                            className="w-full cursor-pointer"
+                            disabled={!form.watch("consent")}
+                          >
+                            Submit Message
+                          </ShimmerButton>
+                        </motion.div>
+                      </motion.form>
+                    </Form>
+                  </Card>
+                </motion.div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
 
